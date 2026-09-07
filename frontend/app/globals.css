@@ -1,0 +1,51 @@
+:root {
+  --bg: #0c0d10;
+  --panel: #14161b;
+  --panel-2: #1b1e26;
+  --border: #2a2e38;
+  --text: #e8eaef;
+  --muted: #8b93a7;
+  --accent: #6ea8ff;
+  --ok: #3dd68c;
+  --warn: #f5c14a;
+  --danger: #ff6b7a;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); font-family: "IBM Plex Sans", "Segoe UI", sans-serif; }
+a { color: inherit; text-decoration: none; }
+button, input, textarea, select {
+  font: inherit;
+  color: var(--text);
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+button { cursor: pointer; }
+button.primary { background: #2b4c86; border-color: #3d6cbc; }
+button.ok { background: #1d4b35; border-color: #2f7a54; }
+button.warn { background: #4a3b16; border-color: #8a6a20; }
+.shell { display: grid; grid-template-columns: 220px 1fr; min-height: 100vh; }
+nav.side { border-right: 1px solid var(--border); padding: 20px 16px; background: #0e1014; }
+nav.side h1 { font-size: 16px; margin: 0 0 18px; letter-spacing: 0.04em; }
+nav.side a { display: block; padding: 8px 10px; border-radius: 8px; color: var(--muted); margin-bottom: 4px; }
+nav.side a.active, nav.side a:hover { background: var(--panel-2); color: var(--text); }
+main { padding: 28px 32px 48px; }
+h2 { margin: 0 0 8px; font-size: 26px; }
+p.lead { color: var(--muted); margin: 0 0 22px; }
+.row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.grid { display: grid; gap: 12px; }
+.card { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
+.card h3 { margin: 0 0 8px; font-size: 16px; }
+.muted { color: var(--muted); font-size: 13px; }
+.status { display: inline-block; padding: 2px 8px; border-radius: 999px; background: var(--panel-2); font-size: 12px; letter-spacing: 0.02em; }
+.status.script_ready, .status.in_review { color: var(--warn); }
+.status.published, .status.approved, .status.avatar_ready { color: var(--ok); }
+.status.failed { color: var(--danger); }
+table { width: 100%; border-collapse: collapse; }
+th, td { text-align: left; padding: 10px 8px; border-bottom: 1px solid var(--border); font-size: 14px; }
+form.stack { display: grid; gap: 10px; max-width: 640px; }
+textarea { min-height: 180px; width: 100%; }
+.error { color: var(--danger); white-space: pre-wrap; }
+.boot { max-width: 480px; margin: 12vh auto; }
