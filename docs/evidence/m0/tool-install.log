@@ -1,0 +1,12 @@
+Collecting uv
+  Downloading uv-0.12.13-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (20.0 MB)
+Collecting pgserver
+  Downloading pgserver-0.1.4-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (11.3 MB)
+Collecting fasteners>=0.19
+  Downloading fasteners-0.20-py3-none-any.whl (18 kB)
+Collecting psutil>=5.9.0
+  Downloading psutil-7.2.2-cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl (155 kB)
+Collecting platformdirs>=4.0.0
+  Downloading platformdirs-4.4.0-py3-none-any.whl (18 kB)
+Installing collected packages: psutil, platformdirs, fasteners, uv, pgserver
+Successfully installed fasteners-0.20 pgserver-0.1.4 platformdirs-4.4.0 psutil-7.2.2 uv-0.12.13

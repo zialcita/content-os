@@ -1,27 +1,4 @@
-# Content OS — v6 engineering build
-
-**Master contract:** [CONTENT_OS_ASTRA_BUILD_SPEC_v6.md](docs/spec/CONTENT_OS_ASTRA_BUILD_SPEC_v6.md). The scope now includes isolated client workspaces, text and both video routes, review, downloads, calendar and five direct publishing destinations. The earlier YouTube-only exclusions below are historical, not current scope.
-
-**Status: M0 engineering artifacts delivered; full M0 acceptance is pending frontend dependency/build verification. M1–M6 are not implemented. This application is not production-ready.** No real provider or social acceptance is claimed.
-
-## Engineering entry points
-
-- [Current state and measured baseline](CURRENT_STATE.md)
-- [Database design](docs/DATABASE_DESIGN.md) and [preservation-first migration plan](docs/MIGRATION_PLAN.md)
-- [API/event contracts](docs/API_CONTRACTS.md): target schemas are design-only; runtime OpenAPI stays separate
-- [Architecture/defaults](docs/adr/0001-stack-and-provider-boundaries.md) and [data/workers ADR](docs/adr/0002-data-and-workers.md)
-- [Owner decisions and external gates](docs/DECISIONS_REQUIRED.md)
-- [Milestone backlog](docs/MILESTONE_BACKLOG.md) and [acceptance matrix](docs/ACCEPTANCE_MATRIX.md)
-- [Provider discovery: production](docs/PROVIDER_PRODUCTION.md) and [social](docs/PROVIDER_SOCIAL.md)
-- [Safe local setup](docs/LOCAL_SETUP.md), [deployment readiness](DEPLOYMENT.md), [build log](BUILD_LOG.md)
-
-Original documents are preserved verbatim in [docs/history](docs/history). Do not run the legacy tests against a configured application database: their fixture calls drop_all. Use the isolated runners in LOCAL_SETUP.md. Legacy provider adapters return simulated outputs even when keys are configured; legacy spending defaults are not live authorization.
-
----
-
-## Historical README — describes the pre-v6 simulation only
-
-The following quickstart and deployment claims are historical. They are not v6 operating instructions or deployment evidence.
+# Content OS
 
 YouTube-first content operating system. MVP is a **simulated** pillar pipeline:
 

@@ -1,0 +1,8 @@
+{
+  "python": "3.12.14 (main, Sep  1 2026, 14:16:52) [Clang 22.1.3 ]",
+  "commit": "d3e3f9934681dcb29e65194f9699566165ccd813",
+  "database": "fresh temporary SQLite, deleted after run",
+  "providers": "explicitly simulated with empty credentials",
+  "test_exit_code": 0,
+  "acceptance_class": "legacy fixture regression only"
+}
