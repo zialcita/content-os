@@ -1,5 +1,7 @@
 # Deployment and recovery readiness — not a deployment authorization
 
+M1 update: the legacy API now refuses production startup before database/router imports. Local PostgreSQL component migrations/tests pass but OIDC/API/private-upload wiring and production roles remain open. Docker dependency installation uses the tested lock; container image digest/support review and real deployment are still pending. See docs/M1_PROGRESS.md.
+
 M0 status: no production project, region, operational database, object store, OIDC client, TLS domain, backup or deployment has been inspected or created. Historical Dockerfile/compose are local scaffolding; a Render-ready sentence is not deployment evidence. Do not deploy the legacy runtime as a client pilot.
 
 ## Target topology

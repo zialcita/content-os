@@ -1,5 +1,7 @@
 # Content OS v6 — acceptance matrix and evidence contract
 
+Current status update (2026-09-11): the M0 local gate is satisfied; frontend install/build now pass and npm audit reports zero vulnerabilities after the verified PostCSS patch. M1 component evidence is available in M1_PROGRESS.md (44 PostgreSQL foundation,59 runtime safety,42 contract and5 isolation tests passed). These provide partial local coverage of named AT obligations, not full end-to-end scenario or release completion. Full AT verdicts below remain NOT RUN/OPEN. Original evidence descriptions and blocked-network notes below are preserved historical context.
+
 **M0 planning artifact. All AT-01–AT-30 status: NOT RUN.** This is a test specification, not execution evidence. Authority: [v6 master](spec/CONTENT_OS_ASTRA_BUILD_SPEC_v6.md), read fully, especially §§20–24. Companion implementation tickets: [MILESTONE_BACKLOG.md](MILESTONE_BACKLOG.md). Proposed persistence/API boundaries: [DATABASE_DESIGN.md](DATABASE_DESIGN.md), [API_CONTRACTS.md](API_CONTRACTS.md). Preserve the master's AT identifiers; supplemental gates below add coverage without replacing or renumbering them.
 
 ## 1. Verdict and evidence rules

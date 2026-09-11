@@ -48,3 +48,19 @@ Next: after registry permission, reproduce install/build without changing source
 Owner confirmed LinkedIn personal profiles AND company pages, no existing identity service, and reported npm network approval. Hosting was skipped; no project is selected or provisioned. Updated decision register accordingly.
 
 Retried npm ci against the unchanged package-lock and registry; exit1/HTTP403 persists. A direct diagnostic request to the exact tarball returned a network-policy denial, not a package/compiler failure. Evidence: docs/evidence/m0/npm-ci-retry-20260911.log, npm-registry-response-headers.txt and npm-registry-response-body.txt. A fresh domain access request was surfaced; no bypass, alternate registry or lockfile rewrite attempted. M0 frontend gate remains blocked; no M1/runtime implementation is claimed. Prior passing backend/contracts evidence is unchanged.
+
+
+## 2026-09-11 — Network gate resolved and M1 component implementation
+
+Platform explicitly granted registry access. The original frontend lock installed; Next15.5.25 compiled/type-checked/generated8 static pages. Original npm audit showed2 package findings through PostCSS. Applied targeted PostCSS8.5.28 override and pinned direct dependencies to tested lock versions (no Next major upgrade); clean install, npm audit zero reported vulnerabilities, build passed again with visible simulation banner. M0 local gate is now satisfied; external assembly/account proof remains explicitly blocked. Original failure/build/audit records retained.
+
+Implemented additive Alembic foundation (19 cos_v6 tables plus migration history), runtime reads/controlled writes under local session-user fixture identities, integer simulated workspace/job caps, durable fenced job/event primitives. Production/live paths deliberately absent. Independent review confirmed and repaired stale-isolation authorization, NULL outbox lease and future-function privilege-audit defects. Full foundation suite44 pass on actual disposable PostgreSQL16.2. Legacy safety suite59 pass: production/import fail closed, explicit simulation/empty credentials, zero hard cap, global scheduler/tick disabled, simulation labels. Contracts42 pass, synthetic isolation5 pass, Python dependency check pass. Final named logs under docs/evidence/m1. These are component proofs, not full M1/AT release acceptance.
+
+Updated env example to explicit demo mode and zero cap, locked backend/Alembic dependencies and Docker copy, added local-gates CI workflow (hosted execution not yet certified at this log entry). Historical PostgreSQL probe refuses altered fixtures, and helper output paths now preserve M0 evidence. Foundation and legacy suites run separately with cleared environment/disposable data. No production DSN, OIDC account, live provider, real user onboarding, paid call, post, merge or deployment.
+
+Changed-file groups: backend/foundation, backend/alembic, backend/tests_foundation, runtime config/main/policy/spend/health/tests, safe scripts, frontend dependency locks/simulation banner, environment/Docker/CI, progress/decision/acceptance docs and evidence. See M1_PROGRESS.md for exact scope and remaining M1 gate: identity/session/API bridge, full immutable registry/approval/multicap and job lifecycle, private uploads, production roles and integrated acceptance.
+
+
+## 2026-09-11 — Authorized CI deferral
+
+Owner instruction: Commit code; defer CI file. Rechecked PR2 remains open/draft on engineering/v6-m0-foundation at0534244dc751c2b802f516875519aa7ed2d0f505 and main is unchanged. Preserve .github/workflows/ci.yml locally; explicitly exclude workflow files from this delivery. CI installation/hosted evidence remains a pending M1 acceptance gate. The prepared backend/frontend/scripts bytes match the previously tested payload; only delivery/status documentation and metadata are updated for this retry. No tests are relabeled as hosted CI. No alternate credentials, repository, branch, merge or deployment.

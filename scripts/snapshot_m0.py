@@ -7,11 +7,11 @@ import subprocess
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-EVIDENCE = ROOT / 'docs/evidence/m0'
+EVIDENCE = ROOT / 'docs/evidence/m1/regression'
 for p in (ROOT / '.env', ROOT / 'backend/.env', ROOT.parent / '.env'):
     if p.exists(): raise SystemExit('Use a clean checkout without application .env files')
 os.environ.clear()
-os.environ.update({'DATABASE_URL':'sqlite:///:memory:', 'APP_ENV':'test'})
+os.environ.update({'DATABASE_URL':'sqlite:///:memory:', 'APP_ENV':'test', 'RUNTIME_MODE':'simulation'})
 sys.path.insert(0, str(ROOT / 'backend'))
 from config import Settings, get_settings
 Settings.model_config['env_file'] = None

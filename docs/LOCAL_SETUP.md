@@ -1,4 +1,10 @@
-# M0 reproducible local setup
+# Local setup — M1 components and historical M0 baseline
+
+Current setup: install backend/requirements.lock plus docs/evidence/m0/m0-tools.lock and pgserver==0.1.4 in a Python3.12 virtual environment. Run .venv/bin/python docs/evidence/m1/runtime-safety/run_safe_tests.py for59 local legacy/safety tests; .venv/bin/python scripts/test_foundation_postgres.py "$PWD/.venv/bin/python" for44 real disposable PostgreSQL tests; contract and isolation commands remain as below. Frontend npm ci/audit/build pass. Use docs/M1_PROGRESS.md for current status.
+
+Legacy API requires APP_ENV=development, RUNTIME_MODE=simulation, empty provider credentials and an isolated local database; default budget zero. Production intentionally refuses. No real login or new v6 API is connected. requirements.txt now delegates to the pinned requirements.lock, including Alembic; the Dockerfile copies both.
+
+The remaining text preserves original M0 setup history. To reproduce the original three-test PostgreSQL baseline, use commit5e565b7 in a separate clean checkout; the current historical probe refuses changed test fixtures. Current snapshot/regression helpers write under evidence/m1/regression so historical evidence is not overwritten.
 
 Status: backend and contract baseline verified; frontend installation/build blocked by npm registry HTTP403 in the current environment. Do not call this a working v6 application. These commands are for an isolated development checkout, never a production database.
 

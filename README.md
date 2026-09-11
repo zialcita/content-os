@@ -2,7 +2,7 @@
 
 **Master contract:** [CONTENT_OS_ASTRA_BUILD_SPEC_v6.md](docs/spec/CONTENT_OS_ASTRA_BUILD_SPEC_v6.md). The scope now includes isolated client workspaces, text and both video routes, review, downloads, calendar and five direct publishing destinations. The earlier YouTube-only exclusions below are historical, not current scope.
 
-**Status: M0 engineering artifacts delivered; full M0 acceptance is pending frontend dependency/build verification. M1–M6 are not implemented. This application is not production-ready.** No real provider or social acceptance is claimed.
+**Status: M0 local inventory/contracts/baseline gate passed. M1 foundation and legacy-safety subsets are implemented and tested; full M1 remains open. This application is not production-ready.** Provider account-level proofs remain external gates. See [M1 progress and evidence](docs/M1_PROGRESS.md).
 
 ## Engineering entry points
 
@@ -15,7 +15,7 @@
 - [Provider discovery: production](docs/PROVIDER_PRODUCTION.md) and [social](docs/PROVIDER_SOCIAL.md)
 - [Safe local setup](docs/LOCAL_SETUP.md), [deployment readiness](DEPLOYMENT.md), [build log](BUILD_LOG.md)
 
-Original documents are preserved verbatim in [docs/history](docs/history). Do not run the legacy tests against a configured application database: their fixture calls drop_all. Use the isolated runners in LOCAL_SETUP.md. Legacy provider adapters return simulated outputs even when keys are configured; legacy spending defaults are not live authorization.
+Original documents are preserved verbatim in [docs/history](docs/history). Do not run the legacy tests against a configured application database: their fixture calls drop_all. Use the isolated runners in LOCAL_SETUP.md. Production startup is now deliberately refused. Development/test requires explicit simulation with empty provider credentials; the frontend labels fixture states and usage. Neither fixture budgets nor historical defaults authorize live spending.
 
 ---
 

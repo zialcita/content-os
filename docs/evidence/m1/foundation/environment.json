@@ -1,0 +1,124 @@
+{
+  "server": "PostgreSQL 16.2 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 10.2.1 20210130 (Red Hat 10.2.1-11), 64-bit",
+  "schema_revision": "0001_m1_foundation",
+  "dsn_logged": false,
+  "environment": "new pgserver temp directory; no dotenv; environment whitelist",
+  "tables": [
+    "audit_logs",
+    "brand_grants",
+    "brands",
+    "budget_accounts",
+    "budget_reservations",
+    "database_principals",
+    "event_inbox",
+    "event_outbox",
+    "job_steps",
+    "job_transitions",
+    "production_jobs",
+    "provider_attempts",
+    "reservation_allocations",
+    "usage_allocations",
+    "usage_ledger",
+    "user_identities",
+    "users",
+    "workspace_memberships",
+    "workspaces"
+  ],
+  "row_security": [
+    {
+      "relname": "audit_logs",
+      "relrowsecurity": true,
+      "relforcerowsecurity": false
+    },
+    {
+      "relname": "brand_grants",
+      "relrowsecurity": true,
+      "relforcerowsecurity": false
+    },
+    {
+      "relname": "brands",
+      "relrowsecurity": true,
+      "relforcerowsecurity": false
+    },
+    {
+      "relname": "budget_accounts",
+      "relrowsecurity": true,
+      "relforcerowsecurity": false
+    },
+    {
+      "relname": "budget_reservations",
+      "relrowsecurity": true,
+      "relforcerowsecurity": false
+    },
+    {
+      "relname": "database_principals",
+      "relrowsecurity": false,
+      "relforcerowsecurity": false
+    },
+    {
+      "relname": "event_inbox",
+      "relrowsecurity": true,
+      "relforcerowsecurity": false
+    },
+    {
+      "relname": "event_outbox",
+      "relrowsecurity": true,
+      "relforcerowsecurity": false
+    },
+    {
+      "relname": "job_steps",
+      "relrowsecurity": true,
+      "relforcerowsecurity": false
+    },
+    {
+      "relname": "job_transitions",
+      "relrowsecurity": true,
+      "relforcerowsecurity": false
+    },
+    {
+      "relname": "production_jobs",
+      "relrowsecurity": true,
+      "relforcerowsecurity": false
+    },
+    {
+      "relname": "provider_attempts",
+      "relrowsecurity": true,
+      "relforcerowsecurity": false
+    },
+    {
+      "relname": "reservation_allocations",
+      "relrowsecurity": true,
+      "relforcerowsecurity": false
+    },
+    {
+      "relname": "usage_allocations",
+      "relrowsecurity": true,
+      "relforcerowsecurity": false
+    },
+    {
+      "relname": "usage_ledger",
+      "relrowsecurity": true,
+      "relforcerowsecurity": false
+    },
+    {
+      "relname": "user_identities",
+      "relrowsecurity": false,
+      "relforcerowsecurity": false
+    },
+    {
+      "relname": "users",
+      "relrowsecurity": false,
+      "relforcerowsecurity": false
+    },
+    {
+      "relname": "workspace_memberships",
+      "relrowsecurity": true,
+      "relforcerowsecurity": false
+    },
+    {
+      "relname": "workspaces",
+      "relrowsecurity": true,
+      "relforcerowsecurity": false
+    }
+  ]
+}

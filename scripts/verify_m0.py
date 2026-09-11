@@ -11,7 +11,7 @@ import sys
 import tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
-EVIDENCE = ROOT / 'docs/evidence/m0'
+EVIDENCE = ROOT / 'docs/evidence/m1/regression'
 
 
 def clean_environment(temp):
@@ -19,6 +19,7 @@ def clean_environment(temp):
         'PATH': os.defpath,
         'HOME': str(temp),
         'APP_ENV': 'test',
+        'RUNTIME_MODE': 'simulation',
         'DATABASE_URL': 'sqlite:///' + str(temp / 'baseline.db'),
         'SPEND_LIMIT_USD': '25',  # simulated legacy test fixture, never live authorization
         'AI_API_KEY': '', 'HEYGEN_API_KEY': '', 'SHOTSTACK_API_KEY': '',

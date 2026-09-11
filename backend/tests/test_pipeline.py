@@ -1,6 +1,7 @@
 import os
 import sys
 from pathlib import Path
+from tempfile import TemporaryDirectory
 
 import pytest
 from fastapi.testclient import TestClient
@@ -8,14 +9,23 @@ from fastapi.testclient import TestClient
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-DATA = ROOT.parent / "data"
-DATA.mkdir(parents=True, exist_ok=True)
-os.environ.setdefault("DATABASE_URL", f"sqlite:///{DATA / 'test.db'}")
-os.environ.setdefault("SPEND_LIMIT_USD", "25")
-os.environ.setdefault("SCHEDULER_INTERVAL_SECONDS", "60")
+# No inherited database, provider secrets or .env files, even under direct pytest.
+# USD25 remains an explicit simulation fixture, never live spending authority.
+_TEST_DATA = TemporaryDirectory(prefix="contentos-pipeline-")
+DATA = Path(_TEST_DATA.name)
+os.environ.clear()
+os.environ.update({
+    "APP_ENV": "test",
+    "RUNTIME_MODE": "simulation",
+    "DATABASE_URL": f"sqlite:///{DATA / 'test.db'}",
+    "LOCAL_STORAGE_DIR": str(DATA),
+    "SPEND_LIMIT_USD": "25",
+    "SCHEDULER_INTERVAL_SECONDS": "60",
+})
 
-from config import get_settings  # noqa: E402
+from config import Settings, get_settings  # noqa: E402
 
+Settings.model_config["env_file"] = None
 get_settings.cache_clear()
 
 from database import Base, engine, init_db  # noqa: E402

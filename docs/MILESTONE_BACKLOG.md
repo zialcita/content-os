@@ -1,5 +1,7 @@
 # Content OS v6 — dependency-ordered milestone backlog
 
+Current status update (2026-09-11): M0 local inventory/contracts/baseline gate is satisfied after successful frontend installation/build. Provider account proofs remain external. M1-01 through M1-04 have bounded local component implementations, not completed tickets; M1-05 upload integration remains unimplemented. See M1_PROGRESS.md for44 PostgreSQL tests,59 runtime safety tests,42 contracts and5 isolation checks. Earlier partial/blocked labels below are the original planning snapshot, not current network status. Full M1 and all integrated release ATs remain open.
+
 **Planning artifact / M0; not implementation or acceptance evidence.** Authority: [approved v6 master](spec/CONTENT_OS_ASTRA_BUILD_SPEC_v6.md), read in full, §§1–24. Engineering detail: [DATABASE_DESIGN.md](DATABASE_DESIGN.md), [API_CONTRACTS.md](API_CONTRACTS.md), and [ACCEPTANCE_MATRIX.md](ACCEPTANCE_MATRIX.md). The master is the product target; its original handoff-draft wording and proposed defaults do not authorize spending, publication, invitations, deployment, or recurring services.
 
 This document defines implementable work; it does not alter runtime, apply migrations, call providers, change GitHub, or claim a milestone passed. All implementation tickets below are **PLANNED / NOT VERIFIED**. M0 documentation and baseline evidence are **PARTIAL**. Every AT remains **NOT RUN** as a v6 acceptance test. A test appearing in multiple milestones has one eventual release verdict, with separately recorded stage results.

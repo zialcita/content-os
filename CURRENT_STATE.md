@@ -1,4 +1,10 @@
-# Current state — M0
+# Current state — M0 local gate passed; M1 partially implemented
+
+Latest status (2026-09-11): registry access is granted, unchanged baseline frontend install/build passed. PostCSS patched to8.5.28 with a targeted Next override; locked install/build pass and npm audit reports zero vulnerabilities. M1 now includes an additive 19-table PostgreSQL foundation (plus migration history), controlled local tenant/job/budget/event primitives, and a fail-closed legacy runtime. Final local suites:44 PostgreSQL foundation,59 legacy/runtime safety,42 contracts,5 isolation tests all passed. CI installation is explicitly deferred by owner direction after a GitHub403; the workflow is retained locally but excluded from this commit. Hosted CI remains pending. Full OIDC/API/upload/worker integration and full M1 acceptance remain OPEN. See [M1_PROGRESS](docs/M1_PROGRESS.md), [M1_FOUNDATION](docs/M1_FOUNDATION.md), [M1_RUNTIME_SAFETY](docs/M1_RUNTIME_SAFETY.md).
+
+The historical observations below refer to the original source commit, not the now-hardened runtime. In particular, old default25 budgets, automatic simulation, in-process scheduler and missing CI descriptions are baseline findings, not the current branch behavior. Earlier frontend403 results are preserved history and no longer an active gate.
+
+## Historical M0 baseline inventory
 
 Date: 2026-09-11 UTC. This is source inspection and disposable-local evidence, not a production audit.
 

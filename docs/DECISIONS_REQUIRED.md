@@ -4,7 +4,7 @@ Date: 2026-09-11. Routine implementation decisions are resolved in ADR0001/0002.
 
 | ID | Decision/input | Recommendation or safe default | Needed by / current status |
 |---|---|---|---|
-| G01 | Allow registry.npmjs.org dependency downloads | Owner reported approval; fresh retry still blocked by network policy. New access request surfaced; keep existing lock and registry | M0 frontend install/build; BLOCKED E403 |
+| G01 | Allow registry.npmjs.org dependency downloads | Confirmed platform permission received; original lock installed and frontend built, followed by separately verified PostCSS security patch | RESOLVED; no further network approval needed |
 | G02 | Production OIDC issuer/provider and owner-controlled account/project | Owner confirmed no existing identity service. Keep Authlib/configurable OIDC and local Keycloak candidate; production service choice and provisioning remain unapproved | M1 real identity integration; owner selection/account access pending |
 | G03 | Hosting project, region and operating cost ceiling | Retain container deployment; separate API/web/worker, managed PostgreSQL, private storage. Existing Render-compatible Dockerfile is not evidence of a deployment | Owner prefers reuse but skipped host/project details; pending before provisioning/deployment. Local backend tests do not wait for this |
 | G04 | Legacy data exists? Owner/brand mapping and historical timestamp provenance | Do not connect to a live database yet. Obtain an authorized sanitized inventory/backup; never infer owners by email or keys | M1 actual migration rehearsal/cutover; no live database supplied |
@@ -21,7 +21,7 @@ Date: 2026-09-11. Routine implementation decisions are resolved in ADR0001/0002.
 
 ## Immediate response requested
 
-1. Approve the fresh npm network-access card: a retry after reported approval still returned a network-policy block.
+1. Network access is resolved; no action needed. Frontend install/build now pass.
 2. Hosting/project was skipped and remains unknown. No existing identity service exists; a production identity recommendation still requires approval before provisioning. These do not prevent independent local backend work.
 3. LinkedIn type is resolved: both personal and company. Actual account IDs, TikTok eligibility, consent/budgets and evaluation fixtures remain later gates.
 

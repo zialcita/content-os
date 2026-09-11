@@ -30,3 +30,4 @@ data/
 *.log
 # Deliberately retained, reviewed M0 test evidence (no provider secrets).
 !docs/evidence/m0/*.log
+!docs/evidence/m1/**/*.log

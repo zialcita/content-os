@@ -145,7 +145,7 @@ class M0SafetyTests(unittest.TestCase):
             assert str(engine.url) == 'sqlite:///:memory:'
         ''', self.environment(DATABASE_URL='sqlite:///' + str(self.poison_databases[0]),
                              AI_API_KEY='synthetic-ambient-key', APP_ENV='synthetic-ambient'))
-        evidence = self.repo / 'docs/evidence/m0'
+        evidence = self.repo / 'docs/evidence/m1/regression'
         self.assertTrue(json.loads((evidence / 'legacy.openapi.json').read_text())['paths'])
         self.assertTrue(json.loads((evidence / 'legacy.schema.json').read_text()))
         self.assertIn('CREATE TABLE', (evidence / 'legacy.schema.sql').read_text())

@@ -13,6 +13,9 @@ from pgserver import get_server
 
 ROOT = Path(__file__).resolve().parents[1]
 EVIDENCE = ROOT / 'docs/evidence/m0'
+import hashlib
+if hashlib.sha256((ROOT / 'backend/tests/test_pipeline.py').read_bytes()).hexdigest() != 'bed214dfc3f9dc5ffc01061c98dddd46a8bccf500041ee2c65cd95a5e48373a2':
+    raise SystemExit('Historical M0 PostgreSQL probe requires the original test fixture. Use scripts/test_foundation_postgres.py for current PostgreSQL evidence; the hardened legacy tests now force SQLite.')
 python = sys.argv[1]
 with tempfile.TemporaryDirectory(prefix='contentos-m0-pg-') as tmp:
     server = get_server(Path(tmp) / 'pgdata', cleanup_mode='stop')
