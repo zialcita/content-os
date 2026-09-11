@@ -1,0 +1,1 @@
+Domain "registry.npmjs.org" is blocked by network policy. To access this domain, use the RequestNetworkAccess tool with domain: "registry.npmjs.org" and a reason explaining why access is needed.

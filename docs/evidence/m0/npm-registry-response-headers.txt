@@ -1,0 +1,8 @@
+HTTP/1.1 403 Forbidden
+Server: Hyperagent-Network-Filter
+Content-Type: text/plain
+Cache-Control: private, no-store
+Content-Length: 194
+Date: Fri, 11 Sep 2026 05:38:33 GMT
+Connection: close
+

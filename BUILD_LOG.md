@@ -41,3 +41,10 @@ This change addresses v6 §§1,3,4,7–9,13–16,19–23 at M0 design/inventory 
 M0 artifacts are delivered for review, but full M0 acceptance remains pending successful frontend dependency installation/build. Shotstack account-level capability proof is separately recorded externally blocked pending approved credentials, privacy settings and budget. The baseline is reproducible for backend/contracts; frontend is not yet verified.
 
 Next: after registry permission, reproduce install/build without changing source lock to conceal the access failure; record compiler issues and repair if found. Proceed to M1 additive migrations, identity/tenant checks, durable jobs/reservations and private upload shell using the reviewed contracts. No M1 gate is claimed passed. Critical early owner questions: OIDC/hosting reuse, exact LinkedIn account type and TikTok eligibility; see docs/DECISIONS_REQUIRED.md. M2+ also need approved provider budgets, identities/consent and representative brand fixtures. External gates do not reduce release requirements.
+
+
+## 2026-09-11 05:38 UTC — Confirmed decisions and registry retry
+
+Owner confirmed LinkedIn personal profiles AND company pages, no existing identity service, and reported npm network approval. Hosting was skipped; no project is selected or provisioned. Updated decision register accordingly.
+
+Retried npm ci against the unchanged package-lock and registry; exit1/HTTP403 persists. A direct diagnostic request to the exact tarball returned a network-policy denial, not a package/compiler failure. Evidence: docs/evidence/m0/npm-ci-retry-20260911.log, npm-registry-response-headers.txt and npm-registry-response-body.txt. A fresh domain access request was surfaced; no bypass, alternate registry or lockfile rewrite attempted. M0 frontend gate remains blocked; no M1/runtime implementation is claimed. Prior passing backend/contracts evidence is unchanged.
