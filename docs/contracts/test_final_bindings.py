@@ -15,6 +15,10 @@ class BindingTests(unittest.TestCase):
         self.assertIn('approved_plan_version_id', paid['required'])
         self.assertFalse(Draft202012Validator(paid['properties']['approved_plan_version_id']).is_valid(None))
 
+    def test_invitation_includes_revision_for_optimistic_revocation(self):
+        self.assertIn('revision', SCHEMAS['Invitation']['required'])
+        self.assertEqual(SCHEMAS['Invitation']['properties']['revision']['minimum'], 1)
+
     def test_clip_work_pins_exact_final_cut_file(self):
         for name in ('ClipCandidatesRequest', 'ClipCandidate', 'ClipSelectionWrite', 'ClipSelectionVersion'):
             self.assertIn('final_cut_rendition_id', SCHEMAS[name]['required'])

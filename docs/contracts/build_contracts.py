@@ -90,7 +90,7 @@ define('OnboardingChallenge', {'challenge_id': UUID, 'expires_at': DATE, 'next_a
 define('WorkspaceCreate', {'challenge_id': UUID, 'name': text(minLength=1, maxLength=200), 'timezone': STR}, description='Verified logged-in identity becomes owner; no arbitrary owner_email field.')
 define('Workspace', {'workspace_id': UUID, 'name': STR, 'owner_user_id': UUID, 'timezone': STR, 'state': enum('ACTIVE', 'DELETION_PENDING', 'DELETED'), 'revision': integer(1)})
 define('InviteCreate', {'email': text(format='email'), 'roles': array(enum(*ROLES[1:]), minItems=1, uniqueItems=True), 'brand_ids': ids()}, description='No OWNER invitation. Explicit brand grant required for each non-owner; seven-day expiry default.')
-define('Invitation', {'invitation_id': UUID, 'workspace_id': UUID, 'email': text(format='email'), 'roles': array(ref('Role')), 'brand_ids': ids(), 'expires_at': DATE, 'state': enum('PENDING', 'ACCEPTED', 'REVOKED', 'EXPIRED')})
+define('Invitation', {'revision': integer(1), 'invitation_id': UUID, 'workspace_id': UUID, 'email': text(format='email'), 'roles': array(ref('Role')), 'brand_ids': ids(), 'expires_at': DATE, 'state': enum('PENDING', 'ACCEPTED', 'REVOKED', 'EXPIRED')})
 define('InviteAccept', {'token': STR}, description='Session verified intended identity must match invitation; token alone insufficient.')
 define('MembershipEdit', {'roles': array(enum(*ROLES[1:]), minItems=1, uniqueItems=True), 'state': enum('ACTIVE', 'SUSPENDED')})
 define('Membership', {'membership_id': UUID, 'workspace_id': UUID, 'user_id': UUID, 'roles': array(ref('Role')), 'state': enum('ACTIVE', 'SUSPENDED', 'REVOKED'), 'revision': integer(1)})

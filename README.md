@@ -2,11 +2,12 @@
 
 **Master contract:** [CONTENT_OS_ASTRA_BUILD_SPEC_v6.md](docs/spec/CONTENT_OS_ASTRA_BUILD_SPEC_v6.md). The scope now includes isolated client workspaces, text and both video routes, review, downloads, calendar and five direct publishing destinations. The earlier YouTube-only exclusions below are historical, not current scope.
 
-**Status: M0 local inventory/contracts/baseline gate passed. M1 foundation and legacy-safety subsets are implemented and tested; full M1 remains open. This application is not production-ready.** Provider account-level proofs remain external gates. See [M1 progress and evidence](docs/M1_PROGRESS.md).
+**Status: M0 local inventory/contracts/baseline gate passed. M1 foundation, legacy safety and a reviewed development identity API are implemented and locally tested; full M1 remains open. This application is not production-ready.** Provider account-level proofs remain external gates. See [M1 progress and evidence](docs/M1_PROGRESS.md).
 
 ## Engineering entry points
 
 - [Current state and measured baseline](CURRENT_STATE.md)
+- [Reviewed identity API checkpoint](docs/IDENTITY_REVIEW.md) and [identity setup/interfaces](docs/M1_IDENTITY_API.md)
 - [Database design](docs/DATABASE_DESIGN.md) and [preservation-first migration plan](docs/MIGRATION_PLAN.md)
 - [API/event contracts](docs/API_CONTRACTS.md): target schemas are design-only; runtime OpenAPI stays separate
 - [Architecture/defaults](docs/adr/0001-stack-and-provider-boundaries.md) and [data/workers ADR](docs/adr/0002-data-and-workers.md)

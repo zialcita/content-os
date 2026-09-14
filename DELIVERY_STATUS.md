@@ -1,4 +1,6 @@
-# Delivery status — owner-authorized CI deferral
+# Delivery status — reviewed identity checkpoint; CI still deferred
+
+Current checkpoint2026-09-14: reviewed identity slice based on e5bc4dd is delivered through the enclosing commit on engineering/v6-m0-foundation / draftPR2. Fresh evidence:71 identity,44 foundation,59 runtime,43 contracts,5 isolation tests passed and frontend build passed. OIDC uses signed fixtures, not live accounts. CI and partial uploads are excluded and retained locally. Production/spending/publishing/merge/deployment gates remain closed. Previous delivery history follows.
 
 2026-09-11 UTC. The owner explicitly instructed: Commit code; defer CI file. This delivery contains tested M0 closure/M1 component code and documentation but excludes .github/workflows/ci.yml. The enclosing Git commit and PR2 identify the delivered revision; base is0534244dc751c2b802f516875519aa7ed2d0f505.
 

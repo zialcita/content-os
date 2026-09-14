@@ -51,3 +51,6 @@ collecting ... collected 44 items
 
 - generated xml file: /agent/workspace/content-os/docs/evidence/m1/foundation/pytest.xml -
 ============================== 44 passed in 5.68s ==============================
+
+
+Disposable foundation PostgreSQL tests exit: 0

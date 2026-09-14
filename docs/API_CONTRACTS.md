@@ -182,3 +182,6 @@ These boundaries preserve the full R1 requirements; they are not scope cuts. Tar
 
 ### Final alignment review
 Manual assets (including SCRIPT) may have plan_version_id null; paid production and regeneration still require an approved plan. Clip candidate requests, candidate responses and selection versions pin final_cut_rendition_id as well as the asset version, package and transcript. Validate that rendition belongs to the selected final cut and has exact final-media approval. Two additional regression tests cover these invariants. Install the pinned jsonschema validator before running the complete 42-test suite; the generator itself remains standard-library-only.
+
+## Identity checkpoint alignment —2026-09-14
+The target Invitation schema now includes revision>=1 so list results carry the version required by If-Match revocation; generator and runtime agree and a regression checks it. Target contracts remain distinct from the implemented identity subset at docs/evidence/m1/identity/runtime.openapi.json. See M1_IDENTITY_API.md for explicit development-only deviations (local invitation receipts, no ownership transfer/suspension or live-account proof). Complete contract suite now43 tests.

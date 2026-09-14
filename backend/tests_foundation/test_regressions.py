@@ -174,7 +174,8 @@ def downgrade():
     with pytest.raises(RuntimeError, match='PUBLIC EXECUTE=.*unsafe_future'):
         with db.engine.begin() as c:
             config.attributes['connection'] = c
-            command.upgrade(config, 'head')
+            # Target the deliberately unsafe branch, not the independent identity head.
+            command.upgrade(config, '0002_unsafe')
     with db.engine.begin() as c:
         assert c.execute(text("SELECT to_regprocedure('cos_v6.unsafe_future()')")).scalar_one() is None
         assert c.execute(text('SELECT version_num FROM public.cos_v6_alembic_version')).scalar_one() == '0001_m1_foundation'

@@ -1,5 +1,7 @@
 # M1 progress — local foundation implemented, milestone still open
 
+Identity update2026-09-14: backend login/session/CSRF/workspace/brand/invitation routes now have a reviewed development implementation, with additive migration002, composed privilege audits and71 PostgreSQL/ASGI tests using a signed fixture IdP. See IDENTITY_REVIEW.md and M1_IDENTITY_API.md. The earlier foundation-only descriptions below remain checkpoint history. Identity UI, real-provider acceptance and remaining M1 features are not complete.
+
 Date: 2026-09-11 UTC. Continuation baseline commit: 0534244dc751c2b802f516875519aa7ed2d0f505. Changes and evidence are identified by file hashes in each suite; the enclosing Git commit supplies the delivery revision. No production provisioning, migration, paid API work or social publication occurred.
 
 ## M0 local gate closed
@@ -53,7 +55,7 @@ These are local component proofs, not full AT or milestone acceptance. Foundatio
 ## Remaining M1 gate and next dependency order
 
 1. Expand immutable registry/approval core and preserve/quarantine representative legacy data with verified mappings; production privileges/ownership and pool-safe actor boundary.
-2. Implement actual Authlib OIDC/session/CSRF/invitation/brand authorization and route bindings. No identity provider exists yet; hosting/production issuer require owner selection before external provisioning.
+2. Backend Authlib OIDC/session/CSRF/invitation/brand routes are implemented for development and locally verified. Remaining: frontend login wiring, ownership transfer/reauthentication, full lifecycle/operational hardening and real approved OIDC account proof. Hosting/issuer still require owner selection before provisioning.
 3. Connect the real API/jobs/outbox workers; full lifecycle/cancellation/multi-step/reconciliation and live-safe multi-cap authority. Do not expose LOCAL_SIMULATION fixture functions as production operations.
 4. Private upload shell and quarantine/scanning lifecycle, then complete migration/isolation/concurrency/restart and OIDC/storage integration gates.
 

@@ -64,3 +64,14 @@ Changed-file groups: backend/foundation, backend/alembic, backend/tests_foundati
 ## 2026-09-11 — Authorized CI deferral
 
 Owner instruction: Commit code; defer CI file. Rechecked PR2 remains open/draft on engineering/v6-m0-foundation at0534244dc751c2b802f516875519aa7ed2d0f505 and main is unchanged. Preserve .github/workflows/ci.yml locally; explicitly exclude workflow files from this delivery. CI installation/hosted evidence remains a pending M1 acceptance gate. The prepared backend/frontend/scripts bytes match the previously tested payload; only delivery/status documentation and metadata are updated for this retry. No tests are relabeled as hosted CI. No alternate credentials, repository, branch, merge or deployment.
+
+
+## 2026-09-14 — Reviewed identity checkpoint
+
+Continued from e5bc4dde0aee434743704ccefb7f0c1fec5189ff after owner-approved direct review. Preserved a pre-review recovery ZIP. No delegated review was used for this checkpoint. Read and reviewed identity SQL, OIDC/Authlib verification, sessions/CSRF/roles/invitations, request transactions and migration/privilege boundaries. Fixed bounded token download/total-time and malformed-lifetime validation, exactHost enforcement, event-loop-blocking SQL, concurrent session mutation locks, missing invitation revision, session identity/user composite FK and NULL SQL pagination. See docs/IDENTITY_REVIEW.md for findings and limitations.
+
+Integrated revision002 additively, composed identity+foundation privilege audits at every migration and head rerun, pinned Authlib/crypto dependencies. Kept foundation regression semantics and19-table assertion at revision001; separately tested fullhead and original simulation accounting after identity upgrade. Target/runtime Invitation revision now agrees; target generator reproduces all4 artifacts.
+
+Fresh final results:71 identity PostgreSQL/ASGI tests passed,44 foundation tests passed,59 legacy/runtime tests passed,43 contract checks passed,5 isolation checks passed, Next.js build/type checks passed, uv pip check passed. Identity uses a cryptographically signed fake IdP, not live identity-provider proof; recorded deprecation warnings are not hidden. New evidence lives in docs/evidence/m1/identity and identity-checkpoint. Failed intermediate fixture-isolation run was repaired by cleaning only its generated local database-role mapping; no test assertion was removed.
+
+Commit scope: reviewed identity code/tests/migration, composed audit, necessary test-harness/dependency/contract updates and documentation/evidence. EXCLUDED: deferred .github/workflows, partial backend/content_core SQL and earlier root evidence recovery files. No uploads resumed before identity checkpoint. No real users/invitations/providers, spending, publishing, production data/DDL, merge or deployment. Full M1 remainsOPEN for UI, real IdP acceptance, upload/worker/registry/authority integration and operational gates.

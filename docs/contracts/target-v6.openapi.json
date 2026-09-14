@@ -4631,6 +4631,10 @@
             "format": "uuid",
             "type": "string"
           },
+          "revision": {
+            "minimum": 1,
+            "type": "integer"
+          },
           "roles": {
             "items": {
               "$ref": "#/components/schemas/Role"
@@ -4652,6 +4656,7 @@
           }
         },
         "required": [
+          "revision",
           "invitation_id",
           "workspace_id",
           "email",

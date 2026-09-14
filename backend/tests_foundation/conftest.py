@@ -17,7 +17,8 @@ ROOT = Path(__file__).resolve().parents[2]
 def migrate(connection, direction='upgrade'):
     config = Config(str(ROOT / 'backend/alembic.ini'))
     config.attributes['connection'] = connection
-    getattr(command, direction)(config, 'head' if direction == 'upgrade' else 'base')
+    # This suite certifies the original 19-table foundation revision, not future slices.
+    getattr(command, direction)(config, '0001_m1_foundation' if direction == 'upgrade' else 'base')
 
 
 @pytest.fixture(scope='session')
