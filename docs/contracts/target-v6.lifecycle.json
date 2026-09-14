@@ -1,0 +1,253 @@
+{
+  "contract_status": "planned",
+  "delivery": {
+    "atomicity": "Persist domain mutation and outbox together; persist inbox dedup and projection mutation together.",
+    "deduplicate_by": [
+      "consumer_id",
+      "event_id"
+    ],
+    "delivery_semantics": "at-least-once",
+    "inbound_callbacks": "Use provider-supported verification only; signature scheme/payload/route are provider-specific and frozen in M4/M5. Do not invent HMAC support. Dedup callbacks and resolve to known local attempts before tenant mutation.",
+    "mechanism": "Transactional outbox + deduplicated inbox",
+    "ordering": "Aggregate version is monotonic within workspace/aggregate; consumer checks versions and fetches/reconciles gaps, not global delivery order.",
+    "outbound_webhooks": {
+      "enabled_by_default": false,
+      "replay_id": "event_id",
+      "signature": "HMAC over timestamp plus raw body, per-endpoint secret; exact header/canonicalization frozen before enabling",
+      "timestamp_tolerance_seconds": 300
+    },
+    "schema_evolution": "Envelope schema_version=1; compatible additions require explicit optional schema change. Required fields/meaning changes require new schema version. Unsupported type/version quarantined; never executed as instruction.",
+    "tenant_binding": "Envelope workspace, payload references, known attempt/provider remote identifiers must agree before state update."
+  },
+  "events": {
+    "asset.stale": {
+      "milestone": "M2",
+      "schema": "AssetStaleEvent"
+    },
+    "asset.version_created": {
+      "milestone": "M2",
+      "schema": "AssetVersionCreatedEvent"
+    },
+    "connection.state_changed": {
+      "milestone": "M5",
+      "schema": "ConnectionStateChangedEvent"
+    },
+    "job.reconciliation_required": {
+      "milestone": "M1",
+      "schema": "JobReconciliationRequiredEvent"
+    },
+    "job.state_changed": {
+      "milestone": "M1",
+      "schema": "JobStateChangedEvent"
+    },
+    "metrics.snapshot_recorded": {
+      "milestone": "M6",
+      "schema": "MetricsSnapshotRecordedEvent"
+    },
+    "package.version_created": {
+      "milestone": "M2",
+      "schema": "PackageVersionCreatedEvent"
+    },
+    "plan.execution_requested": {
+      "milestone": "M2",
+      "schema": "PlanExecutionRequestedEvent"
+    },
+    "plan.version_created": {
+      "milestone": "M2",
+      "schema": "PlanVersionCreatedEvent"
+    },
+    "publication.late_paused": {
+      "milestone": "M5",
+      "schema": "PublicationLatePausedEvent"
+    },
+    "publication.revision_created": {
+      "milestone": "M5",
+      "schema": "PublicationRevisionCreatedEvent"
+    },
+    "publication.state_changed": {
+      "milestone": "M5",
+      "schema": "PublicationStateChangedEvent"
+    },
+    "review.decision_recorded": {
+      "milestone": "M2",
+      "schema": "ReviewDecisionRecordedEvent"
+    },
+    "review.invalidated": {
+      "milestone": "M2",
+      "schema": "ReviewInvalidatedEvent"
+    },
+    "review.requested": {
+      "milestone": "M2",
+      "schema": "ReviewRequestedEvent"
+    },
+    "source.processing_completed": {
+      "milestone": "M3",
+      "schema": "SourceProcessingCompletedEvent"
+    },
+    "source.transcript_version_created": {
+      "milestone": "M3",
+      "schema": "SourceTranscriptVersionCreatedEvent"
+    },
+    "source.version_created": {
+      "milestone": "M2",
+      "schema": "SourceVersionCreatedEvent"
+    },
+    "usage.budget_blocked": {
+      "milestone": "M1",
+      "schema": "UsageBudgetBlockedEvent"
+    },
+    "usage.preproduction_authorized": {
+      "milestone": "M1",
+      "schema": "UsagePreproductionAuthorizedEvent"
+    },
+    "usage.released": {
+      "milestone": "M1",
+      "schema": "UsageReleasedEvent"
+    },
+    "usage.reserved": {
+      "milestone": "M1",
+      "schema": "UsageReservedEvent"
+    },
+    "usage.settled": {
+      "milestone": "M1",
+      "schema": "UsageSettledEvent"
+    }
+  },
+  "job": {
+    "authority": "Spec section 13 exact transition table",
+    "guards": [
+      "Claim lease atomically, heartbeat and monotonically increasing fencing token.",
+      "Persist intent before submit. UNKNOWN acceptance => RECONCILING, no blind resubmit.",
+      "At most 3 total safe submission attempts; polling is separate.",
+      "Cancellation may finish SUCCEEDED remotely; retain actual spend, stop downstream.",
+      "Terminal state never regresses because a callback is duplicated or arrives late.",
+      "PREPRODUCTION reserves against immutable owner/admin authorization plus workspace/job/campaign caps where present; unconfigured live allowance zero. Every paid step binds authorization actor, operation, logical operation and exact input hash; no approved production plan needed or implied.",
+      "PRODUCTION always requires exact approved production plan; PREPRODUCTION authorization never substitutes. ADMIN workspace jobs are restricted to workspace export/delete with null brand/campaign and explicit WORKSPACE scope.",
+      "Retry/cancel rechecks originating operation authority without universal EDIT intersection; viewer asset export and publisher publication work are supported. Owner-only deletion/export and operator reconcile restrictions are unchanged.",
+      "Timeline write atomically returns a fresh output asset version; output binding is excluded from timeline hash/dependencies, preventing a timeline/output cycle."
+    ],
+    "initial": "QUEUED",
+    "transitions": {
+      "CANCELLED": [],
+      "CANCEL_REQUESTED": [
+        "CANCELLED",
+        "SUCCEEDED",
+        "RECONCILING"
+      ],
+      "FAILED_PERMANENT": [],
+      "FAILED_RETRYABLE": [
+        "QUEUED",
+        "FAILED_PERMANENT",
+        "CANCELLED"
+      ],
+      "QUEUED": [
+        "RUNNING",
+        "CANCELLED"
+      ],
+      "RECONCILING": [
+        "WAITING_PROVIDER",
+        "SUCCEEDED",
+        "FAILED_PERMANENT",
+        "CANCEL_REQUESTED"
+      ],
+      "RUNNING": [
+        "WAITING_PROVIDER",
+        "WAITING_USER",
+        "RECONCILING",
+        "SUCCEEDED",
+        "FAILED_RETRYABLE",
+        "FAILED_PERMANENT",
+        "CANCEL_REQUESTED"
+      ],
+      "SUCCEEDED": [],
+      "WAITING_PROVIDER": [
+        "RUNNING",
+        "SUCCEEDED",
+        "RECONCILING",
+        "FAILED_RETRYABLE",
+        "FAILED_PERMANENT",
+        "CANCEL_REQUESTED"
+      ],
+      "WAITING_USER": [
+        "QUEUED",
+        "CANCELLED"
+      ]
+    }
+  },
+  "publication": {
+    "authority": "Proposed M5 transition graph derived from section 15 states; product/adapter review required",
+    "guards": [
+      "DRAFT/PAUSED -> SCHEDULED requires exact revision approval, current rights and permissions.",
+      "Revising scheduled/paused metadata/account/time pauses and creates new pending revision, never mutates an approved snapshot.",
+      "SUBMITTING/PROCESSING/RECONCILING -> PUBLISHED requires independently verified destination state and requested visibility.",
+      "FAILED -> DRAFT only after proven nonacceptance/safe reconciliation; new approval required. Unknown stays RECONCILING.",
+      "TAKEDOWN_REQUESTED -> PUBLISHED only on verified takedown failure; preserve history and notify.",
+      "Do not cancel accepted remote work as if unpublished; request takedown after reconciliation.",
+      "Dispatch >15 minutes late pauses and notifies; no surprising stale post."
+    ],
+    "initial": "DRAFT",
+    "transitions": {
+      "CANCELLED": [],
+      "DRAFT": [
+        "SCHEDULED",
+        "CANCELLED"
+      ],
+      "FAILED": [
+        "DRAFT",
+        "CANCELLED"
+      ],
+      "PAUSED": [
+        "SCHEDULED",
+        "CANCELLED"
+      ],
+      "PROCESSING": [
+        "PUBLISHED",
+        "RECONCILING",
+        "FAILED"
+      ],
+      "PUBLISHED": [
+        "TAKEDOWN_REQUESTED"
+      ],
+      "RECONCILING": [
+        "PROCESSING",
+        "PUBLISHED",
+        "FAILED",
+        "CANCELLED"
+      ],
+      "SCHEDULED": [
+        "PAUSED",
+        "SUBMITTING",
+        "CANCELLED"
+      ],
+      "SUBMITTING": [
+        "PROCESSING",
+        "PUBLISHED",
+        "RECONCILING",
+        "FAILED"
+      ],
+      "TAKEDOWN_REQUESTED": [
+        "TAKEN_DOWN",
+        "PUBLISHED",
+        "RECONCILING"
+      ],
+      "TAKEN_DOWN": []
+    }
+  },
+  "reservation": {
+    "guards": [
+      "Unknown outcome retains reservation.",
+      "Adjustments are new immutable ledger entries, not state rewind.",
+      "Simulated attempts cannot settle as live spend."
+    ],
+    "initial": "RESERVED",
+    "transitions": {
+      "RELEASED": [],
+      "RESERVED": [
+        "SETTLED",
+        "RELEASED"
+      ],
+      "SETTLED": []
+    }
+  },
+  "schema_version": 1
+}

@@ -1,0 +1,2 @@
+{"server": "PostgreSQL 16.2 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 10.2.1 20210130 (Red Hat 10.2.1-11), 64-bit", "extensions_available": ["vector", "plpgsql"]}
+Legacy init_db succeeded on disposable PostgreSQL

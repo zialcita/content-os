@@ -1,0 +1,8 @@
+{
+  "description": "Chromium screenshot of completed real local private-text workflow; signed fixture IdP",
+  "sha256": "610914ef8e6dc5cb9fa79e5070b32ec0bce2ad4cce9db8e25fa68dbf604e2611",
+  "bytes": 121467,
+  "delivery": "Thread image asset, not committed as binary",
+  "thread_file_id": "cmu0tughh0u4807adsy8cg8kt",
+  "test": "backend/tests_content_core/test_ui.py"
+}

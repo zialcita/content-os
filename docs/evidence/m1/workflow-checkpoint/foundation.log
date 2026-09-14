@@ -1,0 +1,56 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.14, pytest-9.1.1, pluggy-1.6.0 -- /agent/workspace/content-os/.venv/bin/python
+rootdir: /agent/workspace/content-os
+configfile: ../../../dev/null
+collecting ... collected 44 items
+
+../../agent/workspace/content-os/backend/tests_foundation/test_postgres.py::test_additive_upgrade_twice_and_retention_safe_downgrade PASSED [  2%]
+../../agent/workspace/content-os/backend/tests_foundation/test_postgres.py::test_runtime_is_nonowner_nonbypass_and_no_direct_sensitive_dml PASSED [  4%]
+../../agent/workspace/content-os/backend/tests_foundation/test_postgres.py::test_rls_missing_context_cross_tenant_and_guc_spoof PASSED [  6%]
+../../agent/workspace/content-os/backend/tests_foundation/test_postgres.py::test_pending_unclaimed_never_implicitly_active PASSED [  9%]
+../../agent/workspace/content-os/backend/tests_foundation/test_postgres.py::test_identity_uniqueness_and_active_owner_proof PASSED [ 11%]
+../../agent/workspace/content-os/backend/tests_foundation/test_postgres.py::test_roles_and_owner_authority_are_not_grantable PASSED [ 13%]
+../../agent/workspace/content-os/backend/tests_foundation/test_postgres.py::test_cross_workspace_brand_and_step_references_rejected PASSED [ 15%]
+../../agent/workspace/content-os/backend/tests_foundation/test_postgres.py::test_worker_cannot_use_another_originating_actor PASSED [ 18%]
+../../agent/workspace/content-os/backend/tests_foundation/test_postgres.py::test_zero_cap_missing_cap_and_integer_only PASSED [ 20%]
+../../agent/workspace/content-os/backend/tests_foundation/test_postgres.py::test_two_connections_contend_for_remaining_cap PASSED [ 22%]
+../../agent/workspace/content-os/backend/tests_foundation/test_postgres.py::test_reserve_replay_release_exactly_once PASSED [ 25%]
+../../agent/workspace/content-os/backend/tests_foundation/test_postgres.py::test_settle_and_duplicate_inbox_exactly_once PASSED [ 27%]
+../../agent/workspace/content-os/backend/tests_foundation/test_postgres.py::test_truthful_simulated_overrun_blocks_new_reservations PASSED [ 29%]
+../../agent/workspace/content-os/backend/tests_foundation/test_postgres.py::test_skip_locked_claim_skips_locked_step PASSED [ 31%]
+../../agent/workspace/content-os/backend/tests_foundation/test_postgres.py::test_expired_fence_cannot_write_outcome_ledger_or_outbox PASSED [ 34%]
+../../agent/workspace/content-os/backend/tests_foundation/test_postgres.py::test_process_death_after_committed_intent_recovers_no_blind_retry PASSED [ 36%]
+../../agent/workspace/content-os/backend/tests_foundation/test_postgres.py::test_intent_cannot_release_or_resubmit PASSED [ 38%]
+../../agent/workspace/content-os/backend/tests_foundation/test_postgres.py::test_outbox_lease_expiry_fences_ack_and_reclaims PASSED [ 40%]
+../../agent/workspace/content-os/backend/tests_foundation/test_postgres.py::test_mode_cannot_be_live_and_publication_unimplemented PASSED [ 43%]
+../../agent/workspace/content-os/backend/tests_foundation/test_postgres.py::test_idempotency_replay_and_different_hash_conflict PASSED [ 45%]
+../../agent/workspace/content-os/backend/tests_foundation/test_postgres.py::test_null_fence_is_not_a_bypass PASSED [ 47%]
+../../agent/workspace/content-os/backend/tests_foundation/test_postgres.py::test_inbox_failure_rolls_back_business_ledger_and_outbox PASSED [ 50%]
+../../agent/workspace/content-os/backend/tests_foundation/test_postgres.py::test_concurrent_duplicate_inbox_has_one_effect PASSED [ 52%]
+../../agent/workspace/content-os/backend/tests_foundation/test_postgres.py::test_settle_release_race_is_one_terminal_outcome PASSED [ 54%]
+../../agent/workspace/content-os/backend/tests_foundation/test_postgres.py::test_immutable_history_and_counter_rebuild PASSED [ 56%]
+../../agent/workspace/content-os/backend/tests_foundation/test_postgres.py::test_downgrade_preserves_new_ledger_history PASSED [ 59%]
+../../agent/workspace/content-os/backend/tests_foundation/test_postgres.py::test_bigint_cap_comparison_does_not_overflow PASSED [ 61%]
+../../agent/workspace/content-os/backend/tests_foundation/test_regressions.py::test_snapshot_before_committed_revoke_cannot_reserve[READ COMMITTED] PASSED [ 63%]
+../../agent/workspace/content-os/backend/tests_foundation/test_regressions.py::test_snapshot_before_committed_revoke_cannot_reserve[REPEATABLE READ] PASSED [ 65%]
+../../agent/workspace/content-os/backend/tests_foundation/test_regressions.py::test_snapshot_before_committed_revoke_cannot_reserve[SERIALIZABLE] PASSED [ 68%]
+../../agent/workspace/content-os/backend/tests_foundation/test_regressions.py::test_actor_and_rls_reject_unsupported_isolation[REPEATABLE READ] PASSED [ 70%]
+../../agent/workspace/content-os/backend/tests_foundation/test_regressions.py::test_actor_and_rls_reject_unsupported_isolation[SERIALIZABLE] PASSED [ 72%]
+../../agent/workspace/content-os/backend/tests_foundation/test_regressions.py::test_null_claim_rejected_without_mutation[worker] PASSED [ 75%]
+../../agent/workspace/content-os/backend/tests_foundation/test_regressions.py::test_null_claim_rejected_without_mutation[seconds] PASSED [ 77%]
+../../agent/workspace/content-os/backend/tests_foundation/test_regressions.py::test_null_heartbeat_rejected_without_mutation[worker] PASSED [ 79%]
+../../agent/workspace/content-os/backend/tests_foundation/test_regressions.py::test_null_heartbeat_rejected_without_mutation[seconds] PASSED [ 81%]
+../../agent/workspace/content-os/backend/tests_foundation/test_regressions.py::test_null_heartbeat_rejected_without_mutation[token] PASSED [ 84%]
+../../agent/workspace/content-os/backend/tests_foundation/test_regressions.py::test_null_outbox_claim_rejected_without_mutation[worker] PASSED [ 86%]
+../../agent/workspace/content-os/backend/tests_foundation/test_regressions.py::test_null_outbox_claim_rejected_without_mutation[seconds] PASSED [ 88%]
+../../agent/workspace/content-os/backend/tests_foundation/test_regressions.py::test_lease_owner_expiry_state_constraints[job_steps-status-RUNNING-QUEUED] PASSED [ 90%]
+../../agent/workspace/content-os/backend/tests_foundation/test_regressions.py::test_lease_owner_expiry_state_constraints[event_outbox-state-DELIVERING-PENDING] PASSED [ 93%]
+../../agent/workspace/content-os/backend/tests_foundation/test_regressions.py::test_current_routines_have_exact_runtime_allowlist_and_no_public_execute PASSED [ 95%]
+../../agent/workspace/content-os/backend/tests_foundation/test_regressions.py::test_head_audit_detects_new_default_public_definer_and_runtime_grant PASSED [ 97%]
+../../agent/workspace/content-os/backend/tests_foundation/test_regressions.py::test_future_revision_unsafe_definer_fails_before_migration_commit PASSED [100%]
+
+- generated xml file: /agent/workspace/content-os/docs/evidence/m1/foundation/pytest.xml -
+============================== 44 passed in 5.54s ==============================
+
+
+Disposable foundation PostgreSQL tests exit: 0

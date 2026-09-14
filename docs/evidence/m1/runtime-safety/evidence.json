@@ -1,0 +1,29 @@
+{
+  "slice": "M1 legacy runtime safety",
+  "recorded_at": "2026-09-11T23:13:23.813757+00:00",
+  "base_commit": "0534244dc751c2b802f516875519aa7ed2d0f505",
+  "working_tree_changes": true,
+  "tests": 59,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "duration_seconds": 11.34,
+  "baseline_cases": 3,
+  "runtime_safety_cases": 56,
+  "outbound_network": "socket connection calls blocked in bootstrap and child processes",
+  "database": "per-run/per-process temporary SQLite, no inherited environment or dotenv",
+  "production_ready": false,
+  "real_provider_spend": 0,
+  "real_publications": 0,
+  "sha256": {
+    "backend/config.py": "feb9c6897bb9040c1d6dbb3eacc9840c17857bfd488074fe7a3d0081a2900f46",
+    "backend/main.py": "da3b5409fc97c53bae81879aeb9ef3f9fe6f8c9d619d48fb8d5742064aed037b",
+    "backend/services/runtime_policy.py": "483c5ba9372b5a79f6391d68c476e0b0f4eeacca7a3ab20e5090a43813240f8f",
+    "backend/services/spend.py": "9b78d2ea25015c901e6604f451f8ba69a777a859888531311730c2d4f650285f",
+    "backend/routers/health.py": "faa0207c5e8a909420a630dbcec2581edfee0313a6c0596e83995748973753b2",
+    "backend/tests/test_pipeline.py": "25930dd2d2e0fe6464a423f56e2b7763c71e8d1950371734cda0772999536c0e",
+    "backend/tests/test_runtime_safety.py": "2f60681ddf1c4963038846b55461bab33c660d85f118eed747d84b9703372f62",
+    "docs/M1_RUNTIME_SAFETY.md": "cbbb57ac3e589fccbf959f7b75ee862fa1c3a20e0d32faac0edca50d701a1e46",
+    "docs/evidence/m1/runtime-safety/run_safe_tests.py": "39f7d4fc3ca01d72904f7b5a5611236b58fe304b3a170f5aca8de7851f8b8971"
+  }
+}

@@ -1,4 +1,8 @@
-# Content OS — locked MVP contract
+# Historical MVP contract — superseded by v6
+
+This file is retained for historical context only. The binding product target is [CONTENT_OS_ASTRA_BUILD_SPEC_v6.md](docs/spec/CONTENT_OS_ASTRA_BUILD_SPEC_v6.md). The YouTube-only scope and simulated-fallback rules below do not govern v6 implementation. Original bytes are preserved at [docs/history/MVP_CONTRACT.pre-v6.md](docs/history/MVP_CONTRACT.pre-v6.md).
+
+## Original contract (historical)
 
 This repo implements **only** the v1 YouTube pillar pipeline. Do not expand scope.
 

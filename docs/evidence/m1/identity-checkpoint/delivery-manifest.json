@@ -1,0 +1,260 @@
+{
+  "baseline": "e5bc4dde0aee434743704ccefb7f0c1fec5189ff",
+  "review": "docs/IDENTITY_REVIEW.md",
+  "checks": {
+    "identity": 71,
+    "foundation": 44,
+    "runtime": 59,
+    "contracts": 43,
+    "isolation": 5,
+    "frontend_build": "PASS",
+    "dependency_check": "PASS",
+    "hosted_ci": "DEFERRED",
+    "real_oidc": "NOT_TESTED",
+    "full_M1": "OPEN"
+  },
+  "excluded_prefixes": [
+    ".github/",
+    "backend/content_core/",
+    "backend/tests_content_core/",
+    "docs/evidence/m1/content-core/",
+    "evidence/"
+  ],
+  "files": [
+    {
+      "path": "BUILD_LOG.md",
+      "bytes": 11553,
+      "sha256": "a5b25ee781daf5367764a484c44545cdfe1fe8d1e116b0c527273ca8e74674b7"
+    },
+    {
+      "path": "CURRENT_STATE.md",
+      "bytes": 10291,
+      "sha256": "5fa02e99f076a90f6bcc503faa169ae4c72dbf06cad5a039b712885a67803647"
+    },
+    {
+      "path": "DELIVERY_STATUS.md",
+      "bytes": 1709,
+      "sha256": "84e40faaf54cd87866f8e7220594d59f0a13fef8d95ce13d5443240dc2c49f93"
+    },
+    {
+      "path": "README.md",
+      "bytes": 5477,
+      "sha256": "1bdcc7f8bc98a17126b9d12203cd6730b77e803ed11cfbbc79ef0f12612aa9c3"
+    },
+    {
+      "path": "backend/alembic/env.py",
+      "bytes": 770,
+      "sha256": "41c3549fb55a08a3f63a9bb2a40da762c001325bf7c09a05729b4fbb1105616c"
+    },
+    {
+      "path": "backend/alembic/versions/0002_sessions.py",
+      "bytes": 673,
+      "sha256": "c668ca3289c3381011b8dbe5330e6dd886c86d073c04ce0d0113b01ea2da5cfa"
+    },
+    {
+      "path": "backend/foundation/migration_audit.py",
+      "bytes": 1005,
+      "sha256": "98b973cf9634484f52e75096ad558be17325625baab07b280b0b0428e8b9657a"
+    },
+    {
+      "path": "backend/requirements.lock",
+      "bytes": 848,
+      "sha256": "8a238f27344b53fe8997a6fbc989939a0e96fa962259c714dc9cd8dda706dabb"
+    },
+    {
+      "path": "backend/secure_api/__init__.py",
+      "bytes": 87,
+      "sha256": "1a8b34740262e15580a6b5f49d44dd780e06037a18d940e37190b90ba4731fd9"
+    },
+    {
+      "path": "backend/secure_api/app.py",
+      "bytes": 25200,
+      "sha256": "4ecc9a1ab618b2b3e27610523447c2a3f0ee88fedd3134ddd2ce8b508c53ef38"
+    },
+    {
+      "path": "backend/secure_api/audit.py",
+      "bytes": 6747,
+      "sha256": "f133cc50f625c7564d6fc13f1b1b0325ffe688c034c7e904d6c35f97ed97b751"
+    },
+    {
+      "path": "backend/secure_api/dependencies.py",
+      "bytes": 1596,
+      "sha256": "934ab96d85dfbc9eba6e29df502046800a742f51b63c31c508a862269a093865"
+    },
+    {
+      "path": "backend/secure_api/errors.py",
+      "bytes": 3151,
+      "sha256": "b246f4d5520b1833971ae6b99ec878dd348a899218777688dac10528c2afe2f0"
+    },
+    {
+      "path": "backend/secure_api/models.py",
+      "bytes": 4292,
+      "sha256": "44450c94875a58cbca5d1c0060f45417fa2533b8bf38ccf8398a6350966458f8"
+    },
+    {
+      "path": "backend/secure_api/oidc.py",
+      "bytes": 8689,
+      "sha256": "d13524701979c4738e57245c289f4c2a8b13ecd74ba78789f1ff2f48792e84b9"
+    },
+    {
+      "path": "backend/secure_api/session_schema.sql",
+      "bytes": 33587,
+      "sha256": "ae7de89dadd8e3c157b15aafb898277b8da79d3886d940599dcf7b5ecace77a1"
+    },
+    {
+      "path": "backend/tests_foundation/conftest.py",
+      "bytes": 5608,
+      "sha256": "529557f7302cbc6e5eaeabccb080fbbaafa96d010084f9a6307177db8d72f2e0"
+    },
+    {
+      "path": "backend/tests_foundation/test_regressions.py",
+      "bytes": 9291,
+      "sha256": "1ed881c78c7ee87114f596caf91a7a03ebfcf6986397ade8118a502b98766def"
+    },
+    {
+      "path": "backend/tests_identity/conftest.py",
+      "bytes": 10944,
+      "sha256": "8b9d9a1f23a5fdf2e007ac054d07d5fb159f9c27f5e1c37cfb8b659f66d80fc5"
+    },
+    {
+      "path": "backend/tests_identity/test_combined_boundary.py",
+      "bytes": 3627,
+      "sha256": "7b097e71510040e35150d1b139543a86be19b8d29e79a16a93da0c2612da3845"
+    },
+    {
+      "path": "backend/tests_identity/test_identity.py",
+      "bytes": 6262,
+      "sha256": "18774bdd639e0068e47fe7df22e97c1304b51a71e783ffa9fb7695e4facbad02"
+    },
+    {
+      "path": "backend/tests_identity/test_mutations.py",
+      "bytes": 9901,
+      "sha256": "07ba05d4f0e962c53ec1953e751128bf77ce7afba292dad671003f00a2cd5821"
+    },
+    {
+      "path": "backend/tests_identity/test_recovery_review.py",
+      "bytes": 7009,
+      "sha256": "cc75637385730e425c0463df531be9563c64d3febd01c518687d40d9daa3d0eb"
+    },
+    {
+      "path": "backend/tests_identity/test_security.py",
+      "bytes": 12743,
+      "sha256": "417bc36c8236ab17cbcd02668d91071ecf8050ba9f5cf0ba23214fec1aa490d3"
+    },
+    {
+      "path": "docs/API_CONTRACTS.md",
+      "bytes": 33276,
+      "sha256": "edd9194e26d92b3b995b9a0ee7452a90d2f3a17f09e01aa47a6234138e488ce5"
+    },
+    {
+      "path": "docs/IDENTITY_REVIEW.md",
+      "bytes": 5974,
+      "sha256": "9f24af12c8a6cd38b3cf3f70b192c82ccb85b583430c60c31cbcba2c9497c7ee"
+    },
+    {
+      "path": "docs/M1_IDENTITY_API.md",
+      "bytes": 21778,
+      "sha256": "af4097c21ae83943ec98b934d78c88556b6e1e8012844425aab33298acdaf09c"
+    },
+    {
+      "path": "docs/M1_PROGRESS.md",
+      "bytes": 8324,
+      "sha256": "cd29aa5875aaafa5629215375414e25ffdb83b21968a874959d8dc8ff15d8748"
+    },
+    {
+      "path": "docs/contracts/build_contracts.py",
+      "bytes": 104343,
+      "sha256": "466fdf3f56af91a4ea750eea62aaea5c6b1f7b29e17c3ee3c26f6eeb8c73cfef"
+    },
+    {
+      "path": "docs/contracts/target-v6.openapi.json",
+      "bytes": 906446,
+      "sha256": "a3ae5dd96c26bde6ec6e6ffa398fc6df161652da2dddf51a4de9b4d73234f182"
+    },
+    {
+      "path": "docs/contracts/test_final_bindings.py",
+      "bytes": 1477,
+      "sha256": "be38a73b6b4d06fa13d6b3d5e23af75d651f1e88258ac1c864bd157ef3cf6e26"
+    },
+    {
+      "path": "docs/evidence/m1/foundation/postgres-tests.log",
+      "bytes": 6880,
+      "sha256": "5fd59fd0ba2538b0e1ba0fbf3e29d442e5f08fe5ce2cd8bd7ae26a1ee28329db"
+    },
+    {
+      "path": "docs/evidence/m1/foundation/pytest.xml",
+      "bytes": 6356,
+      "sha256": "6ba7dc79d253822d5394a1ff93ebd2f8ab99cbf8ebf8d2fab98148a1f2b8e951"
+    },
+    {
+      "path": "docs/evidence/m1/identity-checkpoint/contracts.log",
+      "bytes": 6469,
+      "sha256": "a9a2e6302849c5ebb6d9412ed57c0856688a930b57e4fd9370424da5f51b7bf7"
+    },
+    {
+      "path": "docs/evidence/m1/identity-checkpoint/dependencies.log",
+      "bytes": 119,
+      "sha256": "9f2f75a48585b912e04bffb16ca5a70a18312e9a97cf890672ee000ed382e624"
+    },
+    {
+      "path": "docs/evidence/m1/identity-checkpoint/foundation-runner.log",
+      "bytes": 6929,
+      "sha256": "6bc792cd0a1af9ea9717f451d2ca09972adab939d3827e8c015c930887ce63bf"
+    },
+    {
+      "path": "docs/evidence/m1/identity-checkpoint/frontend-build.log",
+      "bytes": 1275,
+      "sha256": "4b35b0d3be91d3df2294cdbccbc41d33ca0ca5dcd4fd1f7585b3e2fa7a6b8d6b"
+    },
+    {
+      "path": "docs/evidence/m1/identity-checkpoint/identity-runner.log",
+      "bytes": 11872,
+      "sha256": "e91ddb8b70820a8b705e585e64828787d92a8e5e48be6636040767ede212858d"
+    },
+    {
+      "path": "docs/evidence/m1/identity-checkpoint/isolation.log",
+      "bytes": 949,
+      "sha256": "6674282211b15bdee1dcb2bc6259cb12f6839ff720d20412919d303431983a41"
+    },
+    {
+      "path": "docs/evidence/m1/identity-checkpoint/runtime.log",
+      "bytes": 8503,
+      "sha256": "13c5e7e492958a3f0fcc76d6946e4ff5043dc6ee5877a84475ae4204be7c570d"
+    },
+    {
+      "path": "docs/evidence/m1/identity/environment.json",
+      "bytes": 605,
+      "sha256": "9bf09d85122d5a52e6d9a8ce4006dc70c894fd224f288dd43ec3d8e6107958f2"
+    },
+    {
+      "path": "docs/evidence/m1/identity/postgres-tests.log",
+      "bytes": 11825,
+      "sha256": "908b7c4538e13bb8b3fe378d285e39c397e340eb865584725ba109f4d18e8759"
+    },
+    {
+      "path": "docs/evidence/m1/identity/pytest.xml",
+      "bytes": 10204,
+      "sha256": "3249f58a748974b1552f0051f9b088a65a85650fb47d7fc64cde7b1ba9e233dd"
+    },
+    {
+      "path": "docs/evidence/m1/identity/runtime.openapi.json",
+      "bytes": 119992,
+      "sha256": "237d07702ced3d429d704bdb701d9f7eb21a1690afe88d2f64f2b9c7c41a83b7"
+    },
+    {
+      "path": "docs/evidence/m1/identity/source-manifest.json",
+      "bytes": 2887,
+      "sha256": "a4e5834784be6fed169d85bc5067ae3e7abe2e9ae27061cdbd55c309279b1700"
+    },
+    {
+      "path": "docs/evidence/m1/runtime-safety/pytest.xml",
+      "bytes": 8182,
+      "sha256": "8985fb4903d4235d24ebab6b0c2612bf1bed64dae572e63689b74b09e6a41f9c"
+    },
+    {
+      "path": "scripts/test_identity_postgres.py",
+      "bytes": 3200,
+      "sha256": "d93f8de0b436ed59b9c22fe5492d7cf8956d570b78516963347ab5829d5970e8"
+    }
+  ]
+}

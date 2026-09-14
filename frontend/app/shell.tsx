@@ -52,7 +52,8 @@ export function Shell({ children }: { children: React.ReactNode }) {
     return (
       <div className="boot card">
         <h2>Content OS</h2>
-        <p className="lead">Create a workspace to get an API key. No provider keys required.</p>
+        <p className="simulation-banner" role="status">Development simulation only — no live publishing or provider spending.</p>
+        <p className="lead">Create a disposable demo workspace. Production login and client onboarding are not available yet.</p>
         <form
           className="stack"
           onSubmit={(e) => {
@@ -80,10 +81,13 @@ export function Shell({ children }: { children: React.ReactNode }) {
           </Link>
         ))}
         <p className="muted" style={{ marginTop: 24 }}>
-          {ws ? `${ws.name} · $${ws.spend_usd.toFixed(3)} / $${ws.spend_limit_usd}` : key.slice(0, 12)}
+          {ws ? `${ws.name} · Simulated usage: $${ws.spend_usd.toFixed(3)} / $${ws.spend_limit_usd}` : "Demo workspace"}
         </p>
       </nav>
-      <main>{children}</main>
+      <main>
+        <p className="simulation-banner" role="status">Development simulation only. Render URLs, published states and usage below are fixtures — not live outcomes.</p>
+        {children}
+      </main>
     </div>
   );
 }

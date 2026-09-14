@@ -1,5 +1,6 @@
 from functools import lru_cache
 
+from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -9,14 +10,17 @@ class Settings(BaseSettings):
         extra="ignore",
     )
 
-    app_env: str = "development"
+    # Unconfigured deployments fail closed. Only explicit development/test
+    # simulation is permitted by services.runtime_policy for this legacy app.
+    app_env: str = "production"
+    runtime_mode: str = "blocked"
     api_host: str = "0.0.0.0"
     api_port: int = 8000
     cors_origins: str = "http://localhost:3000"
 
     database_url: str = "sqlite:///./data/contentos.db"
     redis_url: str = "redis://localhost:6379/0"
-    spend_limit_usd: float = 25.0
+    spend_limit_usd: float = Field(default=0.0, ge=0, allow_inf_nan=False)
 
     ai_base_url: str = "https://api.openai.com/v1"
     ai_api_key: str = ""

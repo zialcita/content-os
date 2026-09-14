@@ -1,0 +1,359 @@
+{
+  "baseline_commit": "0534244dc751c2b802f516875519aa7ed2d0f505",
+  "m0_local_gate": "PASS",
+  "m1_full_gate": "OPEN",
+  "checks": {
+    "postgres_foundation_passed": 44,
+    "legacy_runtime_passed": 59,
+    "contracts_passed": 42,
+    "isolation_passed": 5,
+    "frontend_build": "PASS",
+    "npm_reported_vulnerabilities": 0,
+    "hosted_ci": "DEFERRED_NOT_INSTALLED"
+  },
+  "files": [
+    {
+      "path": ".env.example",
+      "bytes": 1357,
+      "sha256": "f80f8b94ed91bd65be8d166313e09132f6bee3709c99a29fe1ea13ad503fd308"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 396,
+      "sha256": "6d8009d6269703349c93b2c13afca2b8d81785bcb0aab0486513b8829d79b41e"
+    },
+    {
+      "path": "BUILD_LOG.md",
+      "bytes": 9359,
+      "sha256": "480801dcf30f7649a7daa10031eeabe2914d3eea648325a886ac283fd233fe6b"
+    },
+    {
+      "path": "CURRENT_STATE.md",
+      "bytes": 9679,
+      "sha256": "51dbb89e9ec330005072995ab4308337381445533b9f80e0f1e8a6fc500b2886"
+    },
+    {
+      "path": "DELIVERY_STATUS.md",
+      "bytes": 1207,
+      "sha256": "d87d19ede28cf867172795ec985f7fd39a4972bb13231819979286a41582c0ce"
+    },
+    {
+      "path": "DEPLOYMENT.md",
+      "bytes": 4594,
+      "sha256": "eba34dcdd9a05dd7430e21cd958c019f0b3c3a1287ae0b9a1f84614830824925"
+    },
+    {
+      "path": "README.md",
+      "bytes": 5321,
+      "sha256": "b15c68422f346618e7cf5e7e721acf162f9080c8d3bd28041d961559bfb6005e"
+    },
+    {
+      "path": "backend/Dockerfile",
+      "bytes": 278,
+      "sha256": "a86431184d44890ec56ead8588456a76b8eff261950c887905fc9c83f9b1393e"
+    },
+    {
+      "path": "backend/alembic.ini",
+      "bytes": 93,
+      "sha256": "70e3246abd2804ec7c292aef7b3e3d31e1ae6c776bf4679a6eee2fd688bd1d02"
+    },
+    {
+      "path": "backend/alembic/env.py",
+      "bytes": 765,
+      "sha256": "a8400e01b434e6ca2b44b60c524e73bea3a3714c62b77166dabaf72471883b8f"
+    },
+    {
+      "path": "backend/alembic/versions/0001_m1_foundation.py",
+      "bytes": 515,
+      "sha256": "419988a1da8e5a1a222bbe510e7ba21f9f90dd5fb29dc9e2fd371d24af7bae27"
+    },
+    {
+      "path": "backend/config.py",
+      "bytes": 1965,
+      "sha256": "feb9c6897bb9040c1d6dbb3eacc9840c17857bfd488074fe7a3d0081a2900f46"
+    },
+    {
+      "path": "backend/foundation/__init__.py",
+      "bytes": 75,
+      "sha256": "1d95c426b919578e21727b7337cb846b1b5a7f7271ebd50696cf9bef4b885712"
+    },
+    {
+      "path": "backend/foundation/privileges.py",
+      "bytes": 2488,
+      "sha256": "4be1292b42d30b77184f5db386cae5e3cb633696a3201a01ec84808d25f6e5b2"
+    },
+    {
+      "path": "backend/foundation/schema.sql",
+      "bytes": 36441,
+      "sha256": "32c414b19068b2b22527a2dfd9a72476cc75b9905f0775e0d1602434f79e1868"
+    },
+    {
+      "path": "backend/foundation/service.py",
+      "bytes": 1443,
+      "sha256": "d0a908c67aba26ca56ff2c917454aabce0291f77f3e12822c8e9df9633365a4d"
+    },
+    {
+      "path": "backend/main.py",
+      "bytes": 2539,
+      "sha256": "da3b5409fc97c53bae81879aeb9ef3f9fe6f8c9d619d48fb8d5742064aed037b"
+    },
+    {
+      "path": "backend/requirements.lock",
+      "bytes": 785,
+      "sha256": "3d9245283e6c2a98fe06c627bc1913c5b7e32e2e7319500983643bf0b7488b9b"
+    },
+    {
+      "path": "backend/requirements.txt",
+      "bytes": 94,
+      "sha256": "c6f0ecc6bace314414e944f1f87e0e3c3fb4f5fffb3940dfc0fa23e5cdd28e71"
+    },
+    {
+      "path": "backend/routers/health.py",
+      "bytes": 1220,
+      "sha256": "faa0207c5e8a909420a630dbcec2581edfee0313a6c0596e83995748973753b2"
+    },
+    {
+      "path": "backend/services/runtime_policy.py",
+      "bytes": 2849,
+      "sha256": "483c5ba9372b5a79f6391d68c476e0b0f4eeacca7a3ab20e5090a43813240f8f"
+    },
+    {
+      "path": "backend/services/spend.py",
+      "bytes": 2584,
+      "sha256": "9b78d2ea25015c901e6604f451f8ba69a777a859888531311730c2d4f650285f"
+    },
+    {
+      "path": "backend/tests/test_pipeline.py",
+      "bytes": 4326,
+      "sha256": "25930dd2d2e0fe6464a423f56e2b7763c71e8d1950371734cda0772999536c0e"
+    },
+    {
+      "path": "backend/tests/test_runtime_safety.py",
+      "bytes": 14360,
+      "sha256": "2f60681ddf1c4963038846b55461bab33c660d85f118eed747d84b9703372f62"
+    },
+    {
+      "path": "backend/tests_foundation/conftest.py",
+      "bytes": 5505,
+      "sha256": "62fa1eeefd74b15ee7a6a1161fdf543160acdeccaa1b8acd29cde5a3eb2efc65"
+    },
+    {
+      "path": "backend/tests_foundation/test_postgres.py",
+      "bytes": 20610,
+      "sha256": "8cef7260a880b032d2fbd41de47506b58fb908941c634b770f44aea626bbe270"
+    },
+    {
+      "path": "backend/tests_foundation/test_regressions.py",
+      "bytes": 9196,
+      "sha256": "cffb972379432efc64c5897e0941cf4e665452bdcbcc8e3db2f4f0c3f4303e9c"
+    },
+    {
+      "path": "docs/ACCEPTANCE_MATRIX.md",
+      "bytes": 53586,
+      "sha256": "3fa4bf169c20d4063071308ccd250b178b4bf563b78a1bf07524862bd31519fb"
+    },
+    {
+      "path": "docs/DECISIONS_REQUIRED.md",
+      "bytes": 5978,
+      "sha256": "8730758e3ff5564820874bc32755906c303240ffff5f71e7509a3d030a15816e"
+    },
+    {
+      "path": "docs/LOCAL_SETUP.md",
+      "bytes": 5029,
+      "sha256": "003ed641db9c7b677f9549b32967e7c2414431b12bac2d7c2b7e62276c34a387"
+    },
+    {
+      "path": "docs/M1_FOUNDATION.md",
+      "bytes": 18452,
+      "sha256": "bf73e0aac69c4ce3e84570ddf08798dbb77622034604a92d019f35fc90493f23"
+    },
+    {
+      "path": "docs/M1_PROGRESS.md",
+      "bytes": 7757,
+      "sha256": "4cca93ae13cd31e624ef7bd961d5ef7f857535744983581b19e7c99b6422ea44"
+    },
+    {
+      "path": "docs/M1_RUNTIME_SAFETY.md",
+      "bytes": 10505,
+      "sha256": "cbbb57ac3e589fccbf959f7b75ee862fa1c3a20e0d32faac0edca50d701a1e46"
+    },
+    {
+      "path": "docs/MILESTONE_BACKLOG.md",
+      "bytes": 41102,
+      "sha256": "1815b82c763c531232ab5e91c9a981c8107439992b79ea55bdf26a16f74d7393"
+    },
+    {
+      "path": "docs/adr/0001-stack-and-provider-boundaries.md",
+      "bytes": 7591,
+      "sha256": "a45be34a43d0b5be32f6f604665361e075ab8a62801a5a05fd3550dda03f0afb"
+    },
+    {
+      "path": "docs/evidence/m0/frontend-build-granted.log",
+      "bytes": 1278,
+      "sha256": "df14730351efbaaf8cc18a3f7a582d0d9bdd46c70b9ab43d7a143d88d72989b5"
+    },
+    {
+      "path": "docs/evidence/m0/frontend-build-patched.log",
+      "bytes": 1278,
+      "sha256": "14b3c8b567048b72a70bbc8813b6eab2e506e7acf79b9306d553d766f6acede1"
+    },
+    {
+      "path": "docs/evidence/m0/npm-audit-granted.json",
+      "bytes": 3366,
+      "sha256": "6f241275e25c734e6b07a60660553186cea472a281d2b20856f8e5660f13a97f"
+    },
+    {
+      "path": "docs/evidence/m0/npm-audit-patched.json",
+      "bytes": 361,
+      "sha256": "85ea8e3c36dfd7288c2a2c4fdd3cdc6cf38bb9bf38c70661641ee347f49cf371"
+    },
+    {
+      "path": "docs/evidence/m0/npm-ci-granted.log",
+      "bytes": 267,
+      "sha256": "64b21db623f506a95e04e3bbdafe08e9744c28b4d6906226d053ba65a0a7f27b"
+    },
+    {
+      "path": "docs/evidence/m0/npm-ci-patched.log",
+      "bytes": 140,
+      "sha256": "4b42ffcb14d574bb04c1b7810806ffdd21eba7ba8b2249377a265a07fbef3ee7"
+    },
+    {
+      "path": "docs/evidence/m0/npm-lock-security-update.log",
+      "bytes": 132,
+      "sha256": "c5ab308945f731f1be47861d955d701e2ae0e686ee21aeefd1092c3281dea9d2"
+    },
+    {
+      "path": "docs/evidence/m1/foundation/environment.json",
+      "bytes": 2875,
+      "sha256": "dd76f79f53ae515170a3180a142a26ff00e00b59b4b0bdcb1f6aea87c9948e6c"
+    },
+    {
+      "path": "docs/evidence/m1/foundation/postgres-tests.log",
+      "bytes": 6880,
+      "sha256": "627dad006a6c3d348bfd63c7001c89712f216e7791272f0c15c195bb0e0e8148"
+    },
+    {
+      "path": "docs/evidence/m1/foundation/pytest.xml",
+      "bytes": 6356,
+      "sha256": "8d7b712027d1fdedc97e7d83cc1b9f9345511651ec4bde45838e080939abe0fb"
+    },
+    {
+      "path": "docs/evidence/m1/foundation/runner.log",
+      "bytes": 6929,
+      "sha256": "2f821e86e8008c9891723f6400cf43b1a3eef0433f1d4b6e86471baf2ffc5e7c"
+    },
+    {
+      "path": "docs/evidence/m1/foundation/source-manifest.json",
+      "bytes": 2175,
+      "sha256": "8828fd799448b1ac97cc443ec7ecd55ec93f8e2eca8d27ead1dbef059483e84f"
+    },
+    {
+      "path": "docs/evidence/m1/integration/contracts.log",
+      "bytes": 6307,
+      "sha256": "57575b50c5866f72e408243fcddedfefb337e355ff77ba262264600a24fc59d1"
+    },
+    {
+      "path": "docs/evidence/m1/integration/frontend-build.log",
+      "bytes": 1278,
+      "sha256": "237f42919fcf0491eb44a25b921f6d69d0d01186e2735314373dce5046c168ba"
+    },
+    {
+      "path": "docs/evidence/m1/integration/isolation.log",
+      "bytes": 949,
+      "sha256": "2beb0eb00e5ee0c27a1a8d874491c1b5b25907c8ebcdc862dbd6eb0cd4624f42"
+    },
+    {
+      "path": "docs/evidence/m1/integration/npm-audit.json",
+      "bytes": 361,
+      "sha256": "85ea8e3c36dfd7288c2a2c4fdd3cdc6cf38bb9bf38c70661641ee347f49cf371"
+    },
+    {
+      "path": "docs/evidence/m1/runtime-safety/evidence.json",
+      "bytes": 1554,
+      "sha256": "200059de56552eb266c3c0b3a36073d52b18370c647e467ace5063a953b958e3"
+    },
+    {
+      "path": "docs/evidence/m1/runtime-safety/isolation-regression.log",
+      "bytes": 949,
+      "sha256": "dc8684a92fa823dc5b1ed6814b30981f9cac7660a5b05b965318c0e61038eff3"
+    },
+    {
+      "path": "docs/evidence/m1/runtime-safety/pytest.log",
+      "bytes": 8503,
+      "sha256": "b334b34e2a474bc1290163a91e968e30618a0b226497b52b0e56709a411196d9"
+    },
+    {
+      "path": "docs/evidence/m1/runtime-safety/pytest.xml",
+      "bytes": 8182,
+      "sha256": "4145c8124685c04029266a3e372d5e2e89adfcc3e991a27f89c80fd9f8437c6c"
+    },
+    {
+      "path": "docs/evidence/m1/runtime-safety/run_safe_tests.py",
+      "bytes": 1267,
+      "sha256": "39f7d4fc3ca01d72904f7b5a5611236b58fe304b3a170f5aca8de7851f8b8971"
+    },
+    {
+      "path": "docs/history/requirements.pre-m1.txt",
+      "bytes": 206,
+      "sha256": "24f4718b4455226a6d06f0b18632c8b4e24a0ead2204084fdbaeb6e5f972438f"
+    },
+    {
+      "path": "frontend/app/globals.css",
+      "bytes": 2562,
+      "sha256": "6d109e318c09a5247800df4418c7cb9a2c3aa351ac27d7c1609178c0eb5956ad"
+    },
+    {
+      "path": "frontend/app/shell.tsx",
+      "bytes": 2925,
+      "sha256": "77865f83afbba98c3aa39c75fa65c7ae583dc6cbd5a59641b1083eb1cc24077a"
+    },
+    {
+      "path": "frontend/next-env.d.ts",
+      "bytes": 262,
+      "sha256": "85ae5aee75f011967cf2d25cbc342f62d69314e9d925f7f4aa3456fc2cffcca6"
+    },
+    {
+      "path": "frontend/package-lock.json",
+      "bytes": 32846,
+      "sha256": "452ee9521d956d0591dbb5272db1354faa3da79143313a2d36b4adf4cadb8c2c"
+    },
+    {
+      "path": "frontend/package.json",
+      "bytes": 486,
+      "sha256": "ecc98fb25f48b6f2b9e37035bbcc08a4c561ecb21645939b68f6762ba35a6564"
+    },
+    {
+      "path": "scripts/probe_m0_postgres.py",
+      "bytes": 3095,
+      "sha256": "070aa91edb89753d4af4ad602c85c31f8477aa24a0f31c0f3ec8ab7dc6f00816"
+    },
+    {
+      "path": "scripts/snapshot_m0.py",
+      "bytes": 1734,
+      "sha256": "cf036da6bfebd77bb9f2d760ed207fbd519e58150dc94b602dd58b61bb400015"
+    },
+    {
+      "path": "scripts/test_foundation_postgres.py",
+      "bytes": 2159,
+      "sha256": "e17e23c5fa9d32b96af0a2fa7219bc7aa54618bc9c290ed46a2a91aa52d0c9b4"
+    },
+    {
+      "path": "scripts/test_m0_safety.py",
+      "bytes": 11196,
+      "sha256": "bcbec6cf3b711bfe4047ccb871027c2a7c118b133cbd8ffaf942171e4a097f90"
+    },
+    {
+      "path": "scripts/verify_m0.py",
+      "bytes": 2700,
+      "sha256": "209008d2f59ff1d678ed159fa0b932bf03397d53aa69a456fa6d7fcd318d932b"
+    }
+  ],
+  "delivery": "Owner-authorized code/docs commit; CI workflow deferred",
+  "deferred_files": [
+    {
+      "path": ".github/workflows/ci.yml",
+      "sha256": "2c39767f3673b11ab9913b0bacc9260ba44f1f033adbbf6710b83ed937842c58",
+      "retained": "Local working tree and previously delivered archive; not committed"
+    }
+  ]
+}

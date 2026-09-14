@@ -1,0 +1,12 @@
+{
+  "workflow": "OIDC fixture login \u2192 real PostgreSQL workspace/brand \u2192 private file upload \u2192 queued job \u2192 separate worker \u2192 immutable version \u2192 exact text preview \u2192 metadata revision",
+  "bytes": 61,
+  "sha256": "01bf28adf9b546719c6400235654e2ab7015c200e3798af73112c5fbd8a5262a",
+  "queued": "QUEUED",
+  "completed": "SUCCEEDED",
+  "text_policy": "TEXT_POLICY_V1, not antivirus certification",
+  "real_provider_calls": 0,
+  "real_file_processed": true,
+  "version_before": "d7675308-93bd-4bb2-8b38-8e82385487e5",
+  "version_after": "1fde0cff-9df1-47cb-979c-ad863b266b49"
+}

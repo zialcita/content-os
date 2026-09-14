@@ -1,0 +1,19 @@
+{
+  "server": "PostgreSQL 16.2 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 10.2.1 20210130 (Red Hat 10.2.1-11), 64-bit",
+  "schema_revision": "0002_sessions",
+  "real_oidc_proof": false,
+  "identity_source": "cryptographically signed fake IdP, fixture accounts only",
+  "provider_calls": 0,
+  "database_accounts": "two service fixture logins, NOT per-user",
+  "env_scrubbed": true,
+  "dsn_logged": false,
+  "versions": {
+    "Authlib": "1.6.6",
+    "cryptography": "46.0.5",
+    "fastapi": "0.141.1",
+    "sqlalchemy": "2.0.52",
+    "psycopg": "3.3.5",
+    "httpx": "0.28.1",
+    "pytest": "9.1.1"
+  }
+}

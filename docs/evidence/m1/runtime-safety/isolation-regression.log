@@ -1,0 +1,11 @@
+test_bootstrap_cli_disables_dotenv_before_pytest_collection (test_m0_safety.M0SafetyTests.test_bootstrap_cli_disables_dotenv_before_pytest_collection) ... ok
+test_bootstrap_disables_dotenv_and_clears_preexisting_settings_cache (test_m0_safety.M0SafetyTests.test_bootstrap_disables_dotenv_and_clears_preexisting_settings_cache) ... ok
+test_disposable_runner_passes_selected_database_not_ambient (test_m0_safety.M0SafetyTests.test_disposable_runner_passes_selected_database_not_ambient) ... ok
+test_positive_control_constructed_dotenv_really_loads (test_m0_safety.M0SafetyTests.test_positive_control_constructed_dotenv_really_loads)
+Prove poisoning is effective, without creating an engine/connection. ... ok
+test_snapshot_disables_dotenv_before_real_app_import (test_m0_safety.M0SafetyTests.test_snapshot_disables_dotenv_before_real_app_import) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 2.528s
+
+OK

@@ -1,0 +1,44 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.14, pytest-9.1.1, pluggy-1.6.0 -- /agent/workspace/content-os/.venv/bin/python
+rootdir: /agent/workspace/content-os
+configfile: ../../../dev/null
+collecting ... collected 22 items
+
+../../agent/workspace/content-os/backend/tests_content_core/test_boundaries.py::test_csrf_incomplete_upload_and_conflicting_idempotency PASSED [  4%]
+../../agent/workspace/content-os/backend/tests_content_core/test_boundaries.py::test_revoked_editor_job_is_blocked_before_processing PASSED [  9%]
+../../agent/workspace/content-os/backend/tests_content_core/test_boundaries.py::test_zero_storage_quota_and_cross_brand_reference_denied PASSED [ 13%]
+../../agent/workspace/content-os/backend/tests_content_core/test_boundaries.py::test_symlink_hardlink_fifo_and_world_readable_storage_refused PASSED [ 18%]
+../../agent/workspace/content-os/backend/tests_content_core/test_boundaries.py::test_cancel_reclaims_quota_and_keeps_unrelated_upload PASSED [ 22%]
+../../agent/workspace/content-os/backend/tests_content_core/test_boundaries.py::test_workflow_ui_does_not_interpret_source_html PASSED [ 27%]
+../../agent/workspace/content-os/backend/tests_content_core/test_boundaries.py::test_full_head_rerun_and_unsafe_runtime_grant_are_audited PASSED [ 31%]
+../../agent/workspace/content-os/backend/tests_content_core/test_boundaries.py::test_ui_rejects_backslash_return_path PASSED [ 36%]
+../../agent/workspace/content-os/backend/tests_content_core/test_boundaries.py::test_oversized_document_rejected_before_reserving_storage PASSED [ 40%]
+../../agent/workspace/content-os/backend/tests_content_core/test_boundaries.py::test_worker_login_cannot_have_schema_create PASSED [ 45%]
+../../agent/workspace/content-os/backend/tests_content_core/test_ui.py::test_browser_signin_upload_worker_and_source_preview PASSED [ 50%]
+../../agent/workspace/content-os/backend/tests_content_core/test_workflow.py::test_login_upload_worker_preview_and_immutable_revision PASSED [ 54%]
+../../agent/workspace/content-os/backend/tests_content_core/test_workflow.py::test_resume_and_replay_do_not_duplicate PASSED [ 59%]
+../../agent/workspace/content-os/backend/tests_content_core/test_workflow.py::test_bad_or_unscannable_content_never_becomes_ready[hash] PASSED [ 63%]
+../../agent/workspace/content-os/backend/tests_content_core/test_workflow.py::test_bad_or_unscannable_content_never_becomes_ready[binary] PASSED [ 68%]
+../../agent/workspace/content-os/backend/tests_content_core/test_workflow.py::test_bad_or_unscannable_content_never_becomes_ready[missing_scanner] PASSED [ 72%]
+../../agent/workspace/content-os/backend/tests_content_core/test_workflow.py::test_bad_or_unscannable_content_never_becomes_ready[pdf] PASSED [ 77%]
+../../agent/workspace/content-os/backend/tests_content_core/test_workflow.py::test_cross_tenant_and_viewer_cannot_mutate PASSED [ 81%]
+../../agent/workspace/content-os/backend/tests_content_core/test_workflow.py::test_cancel_fences_worker_and_purges_only_own_file PASSED [ 86%]
+../../agent/workspace/content-os/backend/tests_content_core/test_workflow.py::test_expired_worker_reclaim_has_new_fence PASSED [ 90%]
+../../agent/workspace/content-os/backend/tests_content_core/test_workflow.py::test_immutable_version_and_missing_subtype_rejected PASSED [ 95%]
+../../agent/workspace/content-os/backend/tests_content_core/test_workflow.py::test_content_privilege_audit_denies_public_grant PASSED [100%]
+
+=============================== warnings summary ===============================
+../../agent/workspace/content-os/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /agent/workspace/content-os/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+../../agent/workspace/content-os/.venv/lib/python3.12/site-packages/starlette/testclient.py:53
+  /agent/workspace/content-os/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+- generated xml file: /agent/workspace/content-os/docs/evidence/m1/content-core/pytest.xml -
+======================= 22 passed, 2 warnings in 10.22s ========================
+
+
+Disposable private workflow tests exit: 0

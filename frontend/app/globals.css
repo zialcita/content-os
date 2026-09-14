@@ -49,3 +49,4 @@ form.stack { display: grid; gap: 10px; max-width: 640px; }
 textarea { min-height: 180px; width: 100%; }
 .error { color: var(--danger); white-space: pre-wrap; }
 .boot { max-width: 480px; margin: 12vh auto; }
+.simulation-banner { padding: 12px 16px; margin: 0 0 20px; border: 1px solid #8a6a20; border-radius: 8px; background: #30270f; color: #ffe3a3; font-size: 14px; line-height: 1.5; }

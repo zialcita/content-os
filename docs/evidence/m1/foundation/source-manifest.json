@@ -1,0 +1,39 @@
+{
+  "baseline_head": "0534244dc751c2b802f516875519aa7ed2d0f505",
+  "recorded_at_utc": "2026-09-11T23:26:53.300338+00:00",
+  "command": "python3 scripts/test_foundation_postgres.py /agent/workspace/content-os/.venv/bin/python3.12",
+  "result": {
+    "passed": 44,
+    "failed": 0,
+    "skipped": 0,
+    "exit_code": 0,
+    "junit_elapsed_seconds": "5.207"
+  },
+  "dependencies": {
+    "alembic": "1.18.4",
+    "SQLAlchemy": "2.0.52",
+    "psycopg": "3.3.5",
+    "pytest": "9.1.1",
+    "Mako": "1.4.1",
+    "MarkupSafe": "3.0.3"
+  },
+  "files": {
+    "backend/alembic.ini": "70e3246abd2804ec7c292aef7b3e3d31e1ae6c776bf4679a6eee2fd688bd1d02",
+    "backend/alembic/env.py": "a8400e01b434e6ca2b44b60c524e73bea3a3714c62b77166dabaf72471883b8f",
+    "backend/alembic/versions/0001_m1_foundation.py": "419988a1da8e5a1a222bbe510e7ba21f9f90dd5fb29dc9e2fd371d24af7bae27",
+    "backend/foundation/__init__.py": "1d95c426b919578e21727b7337cb846b1b5a7f7271ebd50696cf9bef4b885712",
+    "backend/foundation/privileges.py": "4be1292b42d30b77184f5db386cae5e3cb633696a3201a01ec84808d25f6e5b2",
+    "backend/foundation/schema.sql": "32c414b19068b2b22527a2dfd9a72476cc75b9905f0775e0d1602434f79e1868",
+    "backend/foundation/service.py": "d0a908c67aba26ca56ff2c917454aabce0291f77f3e12822c8e9df9633365a4d",
+    "backend/tests_foundation/conftest.py": "62fa1eeefd74b15ee7a6a1161fdf543160acdeccaa1b8acd29cde5a3eb2efc65",
+    "backend/tests_foundation/test_postgres.py": "8cef7260a880b032d2fbd41de47506b58fb908941c634b770f44aea626bbe270",
+    "backend/tests_foundation/test_regressions.py": "cffb972379432efc64c5897e0941cf4e665452bdcbcc8e3db2f4f0c3f4303e9c",
+    "docs/M1_FOUNDATION.md": "bf73e0aac69c4ce3e84570ddf08798dbb77622034604a92d019f35fc90493f23",
+    "scripts/test_foundation_postgres.py": "e17e23c5fa9d32b96af0a2fa7219bc7aa54618bc9c290ed46a2a91aa52d0c9b4"
+  },
+  "reviewer_fixes": [
+    "READ COMMITTED enforcement in SQL actor/authorize; no auth_epoch update claim",
+    "Explicit NULL lease/fence rejection and owner/expiry/state constraints",
+    "Explicit current function revocation; transactional per-revision and head-rerun privilege audit; no global default privilege changes"
+  ]
+}

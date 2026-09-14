@@ -1,0 +1,911 @@
+[
+  {
+    "name": "workspaces",
+    "columns": [
+      {
+        "name": "id",
+        "type": "VARCHAR(36)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "name",
+        "type": "VARCHAR(200)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "api_key_hash",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "api_key_prefix",
+        "type": "VARCHAR(16)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "spend_usd",
+        "type": "FLOAT",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "spend_limit_usd",
+        "type": "FLOAT",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ]
+  },
+  {
+    "name": "audit_logs",
+    "columns": [
+      {
+        "name": "id",
+        "type": "VARCHAR(36)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "workspace_id",
+        "type": "VARCHAR(36)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": [
+          "workspaces.id"
+        ]
+      },
+      {
+        "name": "actor",
+        "type": "VARCHAR(120)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "action",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "entity_type",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "entity_id",
+        "type": "VARCHAR(36)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "payload",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ]
+  },
+  {
+    "name": "avatar_profiles",
+    "columns": [
+      {
+        "name": "id",
+        "type": "VARCHAR(36)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "workspace_id",
+        "type": "VARCHAR(36)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": [
+          "workspaces.id"
+        ]
+      },
+      {
+        "name": "name",
+        "type": "VARCHAR(200)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "provider",
+        "type": "VARCHAR(32)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "provider_avatar_id",
+        "type": "VARCHAR(200)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "settings",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ]
+  },
+  {
+    "name": "brands",
+    "columns": [
+      {
+        "name": "id",
+        "type": "VARCHAR(36)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "workspace_id",
+        "type": "VARCHAR(36)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": [
+          "workspaces.id"
+        ]
+      },
+      {
+        "name": "name",
+        "type": "VARCHAR(200)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "voice",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "guidelines",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ]
+  },
+  {
+    "name": "media_assets",
+    "columns": [
+      {
+        "name": "id",
+        "type": "VARCHAR(36)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "workspace_id",
+        "type": "VARCHAR(36)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": [
+          "workspaces.id"
+        ]
+      },
+      {
+        "name": "kind",
+        "type": "VARCHAR(32)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "source",
+        "type": "VARCHAR(32)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "uri",
+        "type": "VARCHAR(2000)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "title",
+        "type": "VARCHAR(300)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "metadata",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ]
+  },
+  {
+    "name": "research_sources",
+    "columns": [
+      {
+        "name": "id",
+        "type": "VARCHAR(36)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "workspace_id",
+        "type": "VARCHAR(36)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": [
+          "workspaces.id"
+        ]
+      },
+      {
+        "name": "name",
+        "type": "VARCHAR(200)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "url",
+        "type": "VARCHAR(2000)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "source_type",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "status",
+        "type": "VARCHAR(32)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ]
+  },
+  {
+    "name": "users",
+    "columns": [
+      {
+        "name": "id",
+        "type": "VARCHAR(36)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "workspace_id",
+        "type": "VARCHAR(36)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": [
+          "workspaces.id"
+        ]
+      },
+      {
+        "name": "email",
+        "type": "VARCHAR(320)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "name",
+        "type": "VARCHAR(200)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "role",
+        "type": "VARCHAR(32)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ]
+  },
+  {
+    "name": "evidence_items",
+    "columns": [
+      {
+        "name": "id",
+        "type": "VARCHAR(36)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "workspace_id",
+        "type": "VARCHAR(36)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": [
+          "workspaces.id"
+        ]
+      },
+      {
+        "name": "source_id",
+        "type": "VARCHAR(36)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": [
+          "research_sources.id"
+        ]
+      },
+      {
+        "name": "title",
+        "type": "VARCHAR(400)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "content",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "url",
+        "type": "VARCHAR(2000)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "embedding",
+        "type": "JSON",
+        "nullable": true,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ]
+  },
+  {
+    "name": "personas",
+    "columns": [
+      {
+        "name": "id",
+        "type": "VARCHAR(36)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "workspace_id",
+        "type": "VARCHAR(36)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": [
+          "workspaces.id"
+        ]
+      },
+      {
+        "name": "brand_id",
+        "type": "VARCHAR(36)",
+        "nullable": true,
+        "primary_key": false,
+        "foreign_keys": [
+          "brands.id"
+        ]
+      },
+      {
+        "name": "name",
+        "type": "VARCHAR(200)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "description",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "tone",
+        "type": "VARCHAR(200)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "audience",
+        "type": "VARCHAR(200)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ]
+  },
+  {
+    "name": "video_projects",
+    "columns": [
+      {
+        "name": "id",
+        "type": "VARCHAR(36)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "workspace_id",
+        "type": "VARCHAR(36)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": [
+          "workspaces.id"
+        ]
+      },
+      {
+        "name": "brand_id",
+        "type": "VARCHAR(36)",
+        "nullable": true,
+        "primary_key": false,
+        "foreign_keys": [
+          "brands.id"
+        ]
+      },
+      {
+        "name": "persona_id",
+        "type": "VARCHAR(36)",
+        "nullable": true,
+        "primary_key": false,
+        "foreign_keys": [
+          "personas.id"
+        ]
+      },
+      {
+        "name": "avatar_id",
+        "type": "VARCHAR(36)",
+        "nullable": true,
+        "primary_key": false,
+        "foreign_keys": [
+          "avatar_profiles.id"
+        ]
+      },
+      {
+        "name": "title",
+        "type": "VARCHAR(300)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "topic",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "status",
+        "type": "VARCHAR(32)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "script_draft",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "script_final",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "youtube_video_id",
+        "type": "VARCHAR(64)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "published_url",
+        "type": "VARCHAR(2000)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "error",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "updated_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ]
+  },
+  {
+    "name": "clips",
+    "columns": [
+      {
+        "name": "id",
+        "type": "VARCHAR(36)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "workspace_id",
+        "type": "VARCHAR(36)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": [
+          "workspaces.id"
+        ]
+      },
+      {
+        "name": "video_id",
+        "type": "VARCHAR(36)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": [
+          "video_projects.id"
+        ]
+      },
+      {
+        "name": "asset_id",
+        "type": "VARCHAR(36)",
+        "nullable": true,
+        "primary_key": false,
+        "foreign_keys": [
+          "media_assets.id"
+        ]
+      },
+      {
+        "name": "title",
+        "type": "VARCHAR(300)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "start_s",
+        "type": "FLOAT",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "end_s",
+        "type": "FLOAT",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ]
+  },
+  {
+    "name": "cost_ledger",
+    "columns": [
+      {
+        "name": "id",
+        "type": "VARCHAR(36)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "workspace_id",
+        "type": "VARCHAR(36)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": [
+          "workspaces.id"
+        ]
+      },
+      {
+        "name": "video_id",
+        "type": "VARCHAR(36)",
+        "nullable": true,
+        "primary_key": false,
+        "foreign_keys": [
+          "video_projects.id"
+        ]
+      },
+      {
+        "name": "provider",
+        "type": "VARCHAR(32)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "operation",
+        "type": "VARCHAR(80)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "amount_usd",
+        "type": "FLOAT",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ]
+  },
+  {
+    "name": "render_jobs",
+    "columns": [
+      {
+        "name": "id",
+        "type": "VARCHAR(36)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "workspace_id",
+        "type": "VARCHAR(36)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": [
+          "workspaces.id"
+        ]
+      },
+      {
+        "name": "video_id",
+        "type": "VARCHAR(36)",
+        "nullable": true,
+        "primary_key": false,
+        "foreign_keys": [
+          "video_projects.id"
+        ]
+      },
+      {
+        "name": "job_type",
+        "type": "VARCHAR(32)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "provider",
+        "type": "VARCHAR(32)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "status",
+        "type": "VARCHAR(32)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "external_id",
+        "type": "VARCHAR(200)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "result_payload",
+        "type": "JSON",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "error",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "updated_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      }
+    ]
+  },
+  {
+    "name": "video_scenes",
+    "columns": [
+      {
+        "name": "id",
+        "type": "VARCHAR(36)",
+        "nullable": false,
+        "primary_key": true,
+        "foreign_keys": []
+      },
+      {
+        "name": "video_id",
+        "type": "VARCHAR(36)",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": [
+          "video_projects.id"
+        ]
+      },
+      {
+        "name": "idx",
+        "type": "INTEGER",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "script_text",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "visual_direction",
+        "type": "TEXT",
+        "nullable": false,
+        "primary_key": false,
+        "foreign_keys": []
+      },
+      {
+        "name": "aroll_asset_id",
+        "type": "VARCHAR(36)",
+        "nullable": true,
+        "primary_key": false,
+        "foreign_keys": [
+          "media_assets.id"
+        ]
+      },
+      {
+        "name": "broll_asset_id",
+        "type": "VARCHAR(36)",
+        "nullable": true,
+        "primary_key": false,
+        "foreign_keys": [
+          "media_assets.id"
+        ]
+      }
+    ]
+  }
+]

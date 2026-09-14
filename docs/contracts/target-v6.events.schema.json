@@ -1,0 +1,4474 @@
+{
+  "$defs": {
+    "ApprovalSubject": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/PackageApprovalSubject"
+        },
+        {
+          "$ref": "#/$defs/PlanApprovalSubject"
+        },
+        {
+          "$ref": "#/$defs/AssetApprovalSubject"
+        },
+        {
+          "$ref": "#/$defs/ScriptApprovalSubject"
+        },
+        {
+          "$ref": "#/$defs/PublicationApprovalSubject"
+        },
+        {
+          "$ref": "#/$defs/VoiceSampleApprovalSubject"
+        },
+        {
+          "$ref": "#/$defs/ClipSelectionApprovalSubject"
+        },
+        {
+          "$ref": "#/$defs/RenditionApprovalSubject"
+        }
+      ]
+    },
+    "AssetApprovalSubject": {
+      "additionalProperties": false,
+      "description": "subject_id is asset_id; subject_version_id is exact asset_version_id. Must equal path and persisted immutable snapshot; never latest. Resolves only to asset/final_editorial in asset_versions; service enforces exact subject hash and tenant.",
+      "properties": {
+        "subject_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "subject_type": {
+          "const": "ASSET"
+        },
+        "subject_version_id": {
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "subject_type",
+        "subject_id",
+        "subject_version_id"
+      ],
+      "type": "object",
+      "x-registry-kind": "asset",
+      "x-review-scope": "final_editorial",
+      "x-version-table": "asset_versions"
+    },
+    "AssetStaleEvent": {
+      "additionalProperties": false,
+      "description": "Transactional outbox event; persisted with originating mutation. Tenant in payload must match envelope; immutable version references never latest.",
+      "properties": {
+        "aggregate_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "aggregate_version": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "correlation_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "data": {
+          "additionalProperties": false,
+          "properties": {
+            "asset_id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "asset_version_id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "brand_id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "changed_dependency_version_id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "paused_publication_ids": {
+              "items": {
+                "format": "uuid",
+                "type": "string"
+              },
+              "type": "array",
+              "uniqueItems": true
+            }
+          },
+          "required": [
+            "asset_id",
+            "asset_version_id",
+            "changed_dependency_version_id",
+            "paused_publication_ids",
+            "brand_id"
+          ],
+          "type": "object"
+        },
+        "event_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "occurred_at": {
+          "description": "UTC RFC3339 instant ending Z.",
+          "format": "date-time",
+          "pattern": "Z$",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "type": {
+          "const": "asset.stale"
+        },
+        "workspace_id": {
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "event_id",
+        "schema_version",
+        "type",
+        "occurred_at",
+        "workspace_id",
+        "aggregate_id",
+        "aggregate_version",
+        "correlation_id",
+        "data"
+      ],
+      "type": "object"
+    },
+    "AssetType": {
+      "enum": [
+        "MAIN_VIDEO",
+        "CLIP",
+        "LINKEDIN_POST",
+        "ARTICLE",
+        "NEWSLETTER",
+        "SCRIPT",
+        "CAPTIONS",
+        "THUMBNAIL"
+      ],
+      "type": "string"
+    },
+    "AssetVersionCreatedEvent": {
+      "additionalProperties": false,
+      "description": "Transactional outbox event; persisted with originating mutation. Tenant in payload must match envelope; immutable version references never latest.",
+      "properties": {
+        "aggregate_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "aggregate_version": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "correlation_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "data": {
+          "additionalProperties": false,
+          "properties": {
+            "asset_id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "asset_version_id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "brand_id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "dependency_version_ids": {
+              "items": {
+                "format": "uuid",
+                "type": "string"
+              },
+              "type": "array",
+              "uniqueItems": true
+            },
+            "previous_version_id": {
+              "anyOf": [
+                {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "asset_id",
+            "asset_version_id",
+            "previous_version_id",
+            "brand_id",
+            "dependency_version_ids"
+          ],
+          "type": "object"
+        },
+        "event_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "occurred_at": {
+          "description": "UTC RFC3339 instant ending Z.",
+          "format": "date-time",
+          "pattern": "Z$",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "type": {
+          "const": "asset.version_created"
+        },
+        "workspace_id": {
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "event_id",
+        "schema_version",
+        "type",
+        "occurred_at",
+        "workspace_id",
+        "aggregate_id",
+        "aggregate_version",
+        "correlation_id",
+        "data"
+      ],
+      "type": "object"
+    },
+    "ClipSelectionApprovalSubject": {
+      "additionalProperties": false,
+      "description": "subject_id is selection_id; subject_version_id is exact selection_version_id. Must equal path and persisted immutable snapshot; never latest. Resolves only to clip_selection/clip_selection in clip_selection_versions; service enforces exact subject hash and tenant.",
+      "properties": {
+        "subject_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "subject_type": {
+          "const": "CLIP_SELECTION"
+        },
+        "subject_version_id": {
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "subject_type",
+        "subject_id",
+        "subject_version_id"
+      ],
+      "type": "object",
+      "x-registry-kind": "clip_selection",
+      "x-review-scope": "clip_selection",
+      "x-version-table": "clip_selection_versions"
+    },
+    "ConnectionStateChangedEvent": {
+      "additionalProperties": false,
+      "description": "Transactional outbox event; persisted with originating mutation. Tenant in payload must match envelope; immutable version references never latest.",
+      "properties": {
+        "aggregate_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "aggregate_version": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "correlation_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "data": {
+          "additionalProperties": false,
+          "properties": {
+            "brand_id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "connection_id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "previous_state": {
+              "enum": [
+                "CONNECTED",
+                "EXPIRED",
+                "REVOKED",
+                "BLOCKED"
+              ],
+              "type": "string"
+            },
+            "reason": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "state": {
+              "enum": [
+                "CONNECTED",
+                "EXPIRED",
+                "REVOKED",
+                "BLOCKED"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "connection_id",
+            "brand_id",
+            "previous_state",
+            "state",
+            "reason"
+          ],
+          "type": "object"
+        },
+        "event_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "occurred_at": {
+          "description": "UTC RFC3339 instant ending Z.",
+          "format": "date-time",
+          "pattern": "Z$",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "type": {
+          "const": "connection.state_changed"
+        },
+        "workspace_id": {
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "event_id",
+        "schema_version",
+        "type",
+        "occurred_at",
+        "workspace_id",
+        "aggregate_id",
+        "aggregate_version",
+        "correlation_id",
+        "data"
+      ],
+      "type": "object"
+    },
+    "CustomerCreditsUsageEntry": {
+      "additionalProperties": false,
+      "description": "Signed integer customer credits; not money. No amount, amount_micros, currency or fabricated currency code. Database currency is NULL; unit is credits.",
+      "properties": {
+        "brand_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "campaign_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "credits": {
+          "type": "integer"
+        },
+        "entry_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "job_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "kind": {
+          "enum": [
+            "SETTLEMENT",
+            "ADJUSTMENT"
+          ],
+          "type": "string"
+        },
+        "ledger": {
+          "const": "CUSTOMER_CREDITS"
+        },
+        "logical_operation_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "occurred_at": {
+          "description": "UTC RFC3339 instant ending Z.",
+          "format": "date-time",
+          "pattern": "Z$",
+          "type": "string"
+        },
+        "provider_mode": {
+          "enum": [
+            "LIVE",
+            "DEVELOPMENT_SIMULATED"
+          ],
+          "type": "string"
+        },
+        "reservation_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "workspace_id": {
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "entry_id",
+        "workspace_id",
+        "brand_id",
+        "campaign_id",
+        "job_id",
+        "logical_operation_id",
+        "reservation_id",
+        "kind",
+        "provider_mode",
+        "occurred_at",
+        "ledger",
+        "credits"
+      ],
+      "type": "object"
+    },
+    "Destination": {
+      "enum": [
+        "YOUTUBE_LONG",
+        "YOUTUBE_SHORTS",
+        "LINKEDIN_TEXT",
+        "INSTAGRAM_REELS",
+        "FACEBOOK_PAGE_REELS",
+        "TIKTOK_VIDEO"
+      ],
+      "type": "string"
+    },
+    "DomainEvent": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/SourceVersionCreatedEvent"
+        },
+        {
+          "$ref": "#/$defs/SourceProcessingCompletedEvent"
+        },
+        {
+          "$ref": "#/$defs/SourceTranscriptVersionCreatedEvent"
+        },
+        {
+          "$ref": "#/$defs/PackageVersionCreatedEvent"
+        },
+        {
+          "$ref": "#/$defs/PlanVersionCreatedEvent"
+        },
+        {
+          "$ref": "#/$defs/AssetVersionCreatedEvent"
+        },
+        {
+          "$ref": "#/$defs/PlanExecutionRequestedEvent"
+        },
+        {
+          "$ref": "#/$defs/AssetStaleEvent"
+        },
+        {
+          "$ref": "#/$defs/JobStateChangedEvent"
+        },
+        {
+          "$ref": "#/$defs/JobReconciliationRequiredEvent"
+        },
+        {
+          "$ref": "#/$defs/ReviewRequestedEvent"
+        },
+        {
+          "$ref": "#/$defs/ReviewDecisionRecordedEvent"
+        },
+        {
+          "$ref": "#/$defs/ReviewInvalidatedEvent"
+        },
+        {
+          "$ref": "#/$defs/PublicationRevisionCreatedEvent"
+        },
+        {
+          "$ref": "#/$defs/PublicationStateChangedEvent"
+        },
+        {
+          "$ref": "#/$defs/PublicationLatePausedEvent"
+        },
+        {
+          "$ref": "#/$defs/MetricsSnapshotRecordedEvent"
+        },
+        {
+          "$ref": "#/$defs/UsageReservedEvent"
+        },
+        {
+          "$ref": "#/$defs/UsageSettledEvent"
+        },
+        {
+          "$ref": "#/$defs/UsageReleasedEvent"
+        },
+        {
+          "$ref": "#/$defs/UsageBudgetBlockedEvent"
+        },
+        {
+          "$ref": "#/$defs/ConnectionStateChangedEvent"
+        },
+        {
+          "$ref": "#/$defs/UsagePreproductionAuthorizedEvent"
+        }
+      ]
+    },
+    "Error": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "$ref": "#/$defs/ErrorCode"
+        },
+        "correlation_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "field_errors": {
+          "items": {
+            "$ref": "#/$defs/FieldError"
+          },
+          "type": "array"
+        },
+        "message": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "retryable": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "code",
+        "message",
+        "field_errors",
+        "retryable",
+        "correlation_id"
+      ],
+      "type": "object"
+    },
+    "ErrorCode": {
+      "enum": [
+        "UNAUTHENTICATED",
+        "FORBIDDEN",
+        "NOT_FOUND",
+        "CONFLICT",
+        "STALE_VERSION",
+        "IDEMPOTENCY_CONFLICT",
+        "INVALID_INPUT",
+        "INVALID_STATE",
+        "RATE_LIMITED",
+        "BUDGET_EXCEEDED",
+        "PRECONDITION_REQUIRED",
+        "IDEMPOTENCY_KEY_REQUIRED",
+        "APPROVAL_REQUIRED",
+        "RIGHTS_BLOCKED",
+        "STALE_DEPENDENCY",
+        "ALIGNMENT_REQUIRED",
+        "CLAIM_UNSUPPORTED",
+        "CAPABILITY_UNSUPPORTED",
+        "PROVIDER_UNAVAILABLE",
+        "RECONCILIATION_REQUIRED",
+        "UNSAFE_URL",
+        "UPLOAD_INVALID",
+        "DST_AMBIGUOUS",
+        "DST_NONEXISTENT",
+        "INTERNAL_ERROR"
+      ],
+      "type": "string"
+    },
+    "FieldError": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "$ref": "#/$defs/ErrorCode"
+        },
+        "field": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "message": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "field",
+        "code",
+        "message"
+      ],
+      "type": "object"
+    },
+    "JobReconciliationRequiredEvent": {
+      "additionalProperties": false,
+      "description": "Transactional outbox event; persisted with originating mutation. Tenant in payload must match envelope; immutable version references never latest.",
+      "properties": {
+        "aggregate_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "aggregate_version": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "correlation_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "data": {
+          "additionalProperties": false,
+          "allOf": [
+            {
+              "else": {
+                "properties": {
+                  "brand_id": {
+                    "format": "uuid",
+                    "type": "string"
+                  },
+                  "job_type": {
+                    "not": {
+                      "enum": [
+                        "WORKSPACE_EXPORT",
+                        "WORKSPACE_DELETE"
+                      ],
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "if": {
+                "properties": {
+                  "scope_type": {
+                    "const": "WORKSPACE"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "brand_id": {
+                    "type": "null"
+                  },
+                  "campaign_id": {
+                    "type": "null"
+                  },
+                  "job_type": {
+                    "enum": [
+                      "WORKSPACE_EXPORT",
+                      "WORKSPACE_DELETE"
+                    ],
+                    "type": "string"
+                  },
+                  "purpose": {
+                    "const": "ADMIN"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "job_type": {
+                    "const": "WORKSPACE_EXPORT"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "originating_operation_id": {
+                    "const": "requestWorkspaceExport"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "job_type": {
+                    "const": "WORKSPACE_DELETE"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "originating_operation_id": {
+                    "const": "requestWorkspaceDeletion"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "originating_operation_id": {
+                    "enum": [
+                      "previewBrandVoice",
+                      "createSourceFromURL",
+                      "processSource",
+                      "alignTranscript",
+                      "draftPackage",
+                      "proposePlan"
+                    ],
+                    "type": "string"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "purpose": {
+                    "const": "PREPRODUCTION"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "originating_operation_id": {
+                    "enum": [
+                      "executePlan",
+                      "regenerateComponents",
+                      "requestRendition",
+                      "previewTimeline",
+                      "generateClipCandidates"
+                    ],
+                    "type": "string"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "purpose": {
+                    "const": "PRODUCTION"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "job_type": {
+                    "enum": [
+                      "GENERATE",
+                      "REGENERATE",
+                      "RENDER",
+                      "PREVIEW",
+                      "CLIP_CANDIDATES"
+                    ],
+                    "type": "string"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "purpose": {
+                    "const": "PRODUCTION"
+                  }
+                }
+              }
+            },
+            {
+              "else": {
+                "properties": {
+                  "preproduction_authorization_id": {
+                    "type": "null"
+                  }
+                }
+              },
+              "if": {
+                "properties": {
+                  "purpose": {
+                    "const": "PREPRODUCTION"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "originating_operation_id": {
+                    "enum": [
+                      "previewBrandVoice",
+                      "createSourceFromURL",
+                      "processSource",
+                      "alignTranscript",
+                      "draftPackage",
+                      "proposePlan"
+                    ],
+                    "type": "string"
+                  },
+                  "preproduction_authorization_id": {
+                    "format": "uuid",
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          ],
+          "description": "Scope/purpose/operation/authorization mirror originating job and must match persisted parent. Null brand/campaign permitted only for constrained WORKSPACE ADMIN export/delete.",
+          "properties": {
+            "attempt_id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "brand_id": {
+              "anyOf": [
+                {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "campaign_id": {
+              "anyOf": [
+                {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "job_id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "job_type": {
+              "enum": [
+                "INGEST",
+                "TRANSCRIBE",
+                "ALIGN",
+                "DRAFT_PACKAGE",
+                "PROPOSE_PLAN",
+                "ESTIMATE",
+                "GENERATE",
+                "REGENERATE",
+                "RENDER",
+                "PREVIEW",
+                "CLIP_CANDIDATES",
+                "EXPORT",
+                "PUBLISH",
+                "TAKEDOWN",
+                "METRICS",
+                "VALIDATE_CONNECTION",
+                "WORKSPACE_EXPORT",
+                "WORKSPACE_DELETE",
+                "VOICE_SAMPLE"
+              ],
+              "type": "string"
+            },
+            "logical_operation_id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "originating_operation_id": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "preproduction_authorization_id": {
+              "anyOf": [
+                {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "purpose": {
+              "enum": [
+                "PREPRODUCTION",
+                "PRODUCTION",
+                "ADMIN",
+                "PUBLICATION"
+              ],
+              "type": "string"
+            },
+            "reason": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "reservation_id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "scope_type": {
+              "enum": [
+                "BRAND",
+                "WORKSPACE"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "job_id",
+            "attempt_id",
+            "logical_operation_id",
+            "reason",
+            "reservation_id",
+            "brand_id",
+            "scope_type",
+            "campaign_id",
+            "job_type",
+            "purpose",
+            "originating_operation_id",
+            "preproduction_authorization_id"
+          ],
+          "type": "object"
+        },
+        "event_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "occurred_at": {
+          "description": "UTC RFC3339 instant ending Z.",
+          "format": "date-time",
+          "pattern": "Z$",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "type": {
+          "const": "job.reconciliation_required"
+        },
+        "workspace_id": {
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "event_id",
+        "schema_version",
+        "type",
+        "occurred_at",
+        "workspace_id",
+        "aggregate_id",
+        "aggregate_version",
+        "correlation_id",
+        "data"
+      ],
+      "type": "object"
+    },
+    "JobState": {
+      "enum": [
+        "QUEUED",
+        "RUNNING",
+        "WAITING_PROVIDER",
+        "WAITING_USER",
+        "RECONCILING",
+        "SUCCEEDED",
+        "FAILED_RETRYABLE",
+        "FAILED_PERMANENT",
+        "CANCEL_REQUESTED",
+        "CANCELLED"
+      ],
+      "type": "string"
+    },
+    "JobStateChangedEvent": {
+      "additionalProperties": false,
+      "description": "Transactional outbox event; persisted with originating mutation. Tenant in payload must match envelope; immutable version references never latest.",
+      "properties": {
+        "aggregate_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "aggregate_version": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "correlation_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "data": {
+          "additionalProperties": false,
+          "allOf": [
+            {
+              "else": {
+                "properties": {
+                  "brand_id": {
+                    "format": "uuid",
+                    "type": "string"
+                  },
+                  "job_type": {
+                    "not": {
+                      "enum": [
+                        "WORKSPACE_EXPORT",
+                        "WORKSPACE_DELETE"
+                      ],
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "if": {
+                "properties": {
+                  "scope_type": {
+                    "const": "WORKSPACE"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "brand_id": {
+                    "type": "null"
+                  },
+                  "campaign_id": {
+                    "type": "null"
+                  },
+                  "job_type": {
+                    "enum": [
+                      "WORKSPACE_EXPORT",
+                      "WORKSPACE_DELETE"
+                    ],
+                    "type": "string"
+                  },
+                  "purpose": {
+                    "const": "ADMIN"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "job_type": {
+                    "const": "WORKSPACE_EXPORT"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "originating_operation_id": {
+                    "const": "requestWorkspaceExport"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "job_type": {
+                    "const": "WORKSPACE_DELETE"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "originating_operation_id": {
+                    "const": "requestWorkspaceDeletion"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "originating_operation_id": {
+                    "enum": [
+                      "previewBrandVoice",
+                      "createSourceFromURL",
+                      "processSource",
+                      "alignTranscript",
+                      "draftPackage",
+                      "proposePlan"
+                    ],
+                    "type": "string"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "purpose": {
+                    "const": "PREPRODUCTION"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "originating_operation_id": {
+                    "enum": [
+                      "executePlan",
+                      "regenerateComponents",
+                      "requestRendition",
+                      "previewTimeline",
+                      "generateClipCandidates"
+                    ],
+                    "type": "string"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "purpose": {
+                    "const": "PRODUCTION"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "job_type": {
+                    "enum": [
+                      "GENERATE",
+                      "REGENERATE",
+                      "RENDER",
+                      "PREVIEW",
+                      "CLIP_CANDIDATES"
+                    ],
+                    "type": "string"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "purpose": {
+                    "const": "PRODUCTION"
+                  }
+                }
+              }
+            },
+            {
+              "else": {
+                "properties": {
+                  "preproduction_authorization_id": {
+                    "type": "null"
+                  }
+                }
+              },
+              "if": {
+                "properties": {
+                  "purpose": {
+                    "const": "PREPRODUCTION"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "originating_operation_id": {
+                    "enum": [
+                      "previewBrandVoice",
+                      "createSourceFromURL",
+                      "processSource",
+                      "alignTranscript",
+                      "draftPackage",
+                      "proposePlan"
+                    ],
+                    "type": "string"
+                  },
+                  "preproduction_authorization_id": {
+                    "format": "uuid",
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            {
+              "oneOf": [
+                {
+                  "properties": {
+                    "previous_state": {
+                      "const": "QUEUED"
+                    },
+                    "state": {
+                      "enum": [
+                        "RUNNING",
+                        "CANCELLED"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "previous_state",
+                    "state"
+                  ]
+                },
+                {
+                  "properties": {
+                    "previous_state": {
+                      "const": "RUNNING"
+                    },
+                    "state": {
+                      "enum": [
+                        "WAITING_PROVIDER",
+                        "WAITING_USER",
+                        "RECONCILING",
+                        "SUCCEEDED",
+                        "FAILED_RETRYABLE",
+                        "FAILED_PERMANENT",
+                        "CANCEL_REQUESTED"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "previous_state",
+                    "state"
+                  ]
+                },
+                {
+                  "properties": {
+                    "previous_state": {
+                      "const": "WAITING_PROVIDER"
+                    },
+                    "state": {
+                      "enum": [
+                        "RUNNING",
+                        "SUCCEEDED",
+                        "RECONCILING",
+                        "FAILED_RETRYABLE",
+                        "FAILED_PERMANENT",
+                        "CANCEL_REQUESTED"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "previous_state",
+                    "state"
+                  ]
+                },
+                {
+                  "properties": {
+                    "previous_state": {
+                      "const": "WAITING_USER"
+                    },
+                    "state": {
+                      "enum": [
+                        "QUEUED",
+                        "CANCELLED"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "previous_state",
+                    "state"
+                  ]
+                },
+                {
+                  "properties": {
+                    "previous_state": {
+                      "const": "RECONCILING"
+                    },
+                    "state": {
+                      "enum": [
+                        "WAITING_PROVIDER",
+                        "SUCCEEDED",
+                        "FAILED_PERMANENT",
+                        "CANCEL_REQUESTED"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "previous_state",
+                    "state"
+                  ]
+                },
+                {
+                  "properties": {
+                    "previous_state": {
+                      "const": "FAILED_RETRYABLE"
+                    },
+                    "state": {
+                      "enum": [
+                        "QUEUED",
+                        "FAILED_PERMANENT",
+                        "CANCELLED"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "previous_state",
+                    "state"
+                  ]
+                },
+                {
+                  "properties": {
+                    "previous_state": {
+                      "const": "CANCEL_REQUESTED"
+                    },
+                    "state": {
+                      "enum": [
+                        "CANCELLED",
+                        "SUCCEEDED",
+                        "RECONCILING"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "previous_state",
+                    "state"
+                  ]
+                }
+              ]
+            }
+          ],
+          "description": "Scope/purpose/operation/authorization mirror originating job and must match persisted parent. Null brand/campaign permitted only for constrained WORKSPACE ADMIN export/delete.",
+          "properties": {
+            "brand_id": {
+              "anyOf": [
+                {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "campaign_id": {
+              "anyOf": [
+                {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "error": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/Error"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "fencing_token": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "job_id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "job_type": {
+              "enum": [
+                "INGEST",
+                "TRANSCRIBE",
+                "ALIGN",
+                "DRAFT_PACKAGE",
+                "PROPOSE_PLAN",
+                "ESTIMATE",
+                "GENERATE",
+                "REGENERATE",
+                "RENDER",
+                "PREVIEW",
+                "CLIP_CANDIDATES",
+                "EXPORT",
+                "PUBLISH",
+                "TAKEDOWN",
+                "METRICS",
+                "VALIDATE_CONNECTION",
+                "WORKSPACE_EXPORT",
+                "WORKSPACE_DELETE",
+                "VOICE_SAMPLE"
+              ],
+              "type": "string"
+            },
+            "logical_operation_id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "originating_operation_id": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "preproduction_authorization_id": {
+              "anyOf": [
+                {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "previous_state": {
+              "$ref": "#/$defs/JobState"
+            },
+            "purpose": {
+              "enum": [
+                "PREPRODUCTION",
+                "PRODUCTION",
+                "ADMIN",
+                "PUBLICATION"
+              ],
+              "type": "string"
+            },
+            "scope_type": {
+              "enum": [
+                "BRAND",
+                "WORKSPACE"
+              ],
+              "type": "string"
+            },
+            "state": {
+              "$ref": "#/$defs/JobState"
+            },
+            "step_id": {
+              "anyOf": [
+                {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "job_id",
+            "previous_state",
+            "state",
+            "step_id",
+            "logical_operation_id",
+            "fencing_token",
+            "error",
+            "brand_id",
+            "scope_type",
+            "campaign_id",
+            "job_type",
+            "purpose",
+            "originating_operation_id",
+            "preproduction_authorization_id"
+          ],
+          "type": "object"
+        },
+        "event_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "occurred_at": {
+          "description": "UTC RFC3339 instant ending Z.",
+          "format": "date-time",
+          "pattern": "Z$",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "type": {
+          "const": "job.state_changed"
+        },
+        "workspace_id": {
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "event_id",
+        "schema_version",
+        "type",
+        "occurred_at",
+        "workspace_id",
+        "aggregate_id",
+        "aggregate_version",
+        "correlation_id",
+        "data"
+      ],
+      "type": "object"
+    },
+    "MetricSnapshot": {
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "availability": {
+                "enum": [
+                  "UNAVAILABLE",
+                  "NOT_PERMITTED"
+                ],
+                "type": "string"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "value": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ],
+      "description": "Unavailable is null, not zero. Never sum cumulative snapshots as interval activity.",
+      "properties": {
+        "availability": {
+          "enum": [
+            "AVAILABLE",
+            "UNAVAILABLE",
+            "NOT_PERMITTED"
+          ],
+          "type": "string"
+        },
+        "brand_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "definition": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "definition_version": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "measurement_kind": {
+          "enum": [
+            "CUMULATIVE",
+            "INTERVAL"
+          ],
+          "type": "string"
+        },
+        "native_metric_name": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "provider": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "publication_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "retrieved_at": {
+          "description": "UTC RFC3339 instant ending Z.",
+          "format": "date-time",
+          "pattern": "Z$",
+          "type": "string"
+        },
+        "snapshot_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "window_end": {
+          "description": "UTC RFC3339 instant ending Z.",
+          "format": "date-time",
+          "pattern": "Z$",
+          "type": "string"
+        },
+        "window_start": {
+          "description": "UTC RFC3339 instant ending Z.",
+          "format": "date-time",
+          "pattern": "Z$",
+          "type": "string"
+        },
+        "workspace_id": {
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "workspace_id",
+        "brand_id",
+        "snapshot_id",
+        "publication_id",
+        "provider",
+        "native_metric_name",
+        "definition",
+        "definition_version",
+        "window_start",
+        "window_end",
+        "retrieved_at",
+        "measurement_kind",
+        "availability",
+        "value"
+      ],
+      "type": "object"
+    },
+    "MetricsSnapshotRecordedEvent": {
+      "additionalProperties": false,
+      "description": "Transactional outbox event; persisted with originating mutation. Tenant in payload must match envelope; immutable version references never latest.",
+      "properties": {
+        "aggregate_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "aggregate_version": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "correlation_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "data": {
+          "additionalProperties": false,
+          "properties": {
+            "snapshot": {
+              "$ref": "#/$defs/MetricSnapshot"
+            }
+          },
+          "required": [
+            "snapshot"
+          ],
+          "type": "object"
+        },
+        "event_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "occurred_at": {
+          "description": "UTC RFC3339 instant ending Z.",
+          "format": "date-time",
+          "pattern": "Z$",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "type": {
+          "const": "metrics.snapshot_recorded"
+        },
+        "workspace_id": {
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "event_id",
+        "schema_version",
+        "type",
+        "occurred_at",
+        "workspace_id",
+        "aggregate_id",
+        "aggregate_version",
+        "correlation_id",
+        "data"
+      ],
+      "type": "object"
+    },
+    "Money": {
+      "additionalProperties": false,
+      "description": "Integer millionths of currency unit; never float USD. Zero is a hard zero.",
+      "properties": {
+        "amount_micros": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "currency": {
+          "pattern": "^[A-Z]{3}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "amount_micros",
+        "currency"
+      ],
+      "type": "object"
+    },
+    "PackageApprovalSubject": {
+      "additionalProperties": false,
+      "description": "subject_id is package_id; subject_version_id is exact version_id. Must equal path and persisted immutable snapshot; never latest. Resolves only to package/editorial in content_package_versions; service enforces exact subject hash and tenant.",
+      "properties": {
+        "subject_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "subject_type": {
+          "const": "PACKAGE"
+        },
+        "subject_version_id": {
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "subject_type",
+        "subject_id",
+        "subject_version_id"
+      ],
+      "type": "object",
+      "x-registry-kind": "package",
+      "x-review-scope": "editorial",
+      "x-version-table": "content_package_versions"
+    },
+    "PackageVersionCreatedEvent": {
+      "additionalProperties": false,
+      "description": "Transactional outbox event; persisted with originating mutation. Tenant in payload must match envelope; immutable version references never latest.",
+      "properties": {
+        "aggregate_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "aggregate_version": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "correlation_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "data": {
+          "additionalProperties": false,
+          "properties": {
+            "brand_id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "dependency_version_ids": {
+              "items": {
+                "format": "uuid",
+                "type": "string"
+              },
+              "type": "array",
+              "uniqueItems": true
+            },
+            "package_id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "previous_version_id": {
+              "anyOf": [
+                {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "version_id": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "package_id",
+            "version_id",
+            "previous_version_id",
+            "brand_id",
+            "dependency_version_ids"
+          ],
+          "type": "object"
+        },
+        "event_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "occurred_at": {
+          "description": "UTC RFC3339 instant ending Z.",
+          "format": "date-time",
+          "pattern": "Z$",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "type": {
+          "const": "package.version_created"
+        },
+        "workspace_id": {
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "event_id",
+        "schema_version",
+        "type",
+        "occurred_at",
+        "workspace_id",
+        "aggregate_id",
+        "aggregate_version",
+        "correlation_id",
+        "data"
+      ],
+      "type": "object"
+    },
+    "PlanApprovalSubject": {
+      "additionalProperties": false,
+      "description": "subject_id is plan_id; subject_version_id is exact plan_version_id. Must equal path and persisted immutable snapshot; never latest. Resolves only to plan/production_budget in asset_plan_versions; service enforces exact subject hash and tenant.",
+      "properties": {
+        "subject_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "subject_type": {
+          "const": "PLAN"
+        },
+        "subject_version_id": {
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "subject_type",
+        "subject_id",
+        "subject_version_id"
+      ],
+      "type": "object",
+      "x-registry-kind": "plan",
+      "x-review-scope": "production_budget",
+      "x-version-table": "asset_plan_versions"
+    },
+    "PlanExecutionRequestedEvent": {
+      "additionalProperties": false,
+      "description": "Transactional outbox event; persisted with originating mutation. Tenant in payload must match envelope; immutable version references never latest.",
+      "properties": {
+        "aggregate_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "aggregate_version": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "correlation_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "data": {
+          "additionalProperties": false,
+          "properties": {
+            "approval_decision_id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "brand_id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "budget_cap": {
+              "$ref": "#/$defs/Money"
+            },
+            "job_id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "plan_id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "plan_version_id": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "plan_id",
+            "plan_version_id",
+            "approval_decision_id",
+            "job_id",
+            "budget_cap",
+            "brand_id"
+          ],
+          "type": "object"
+        },
+        "event_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "occurred_at": {
+          "description": "UTC RFC3339 instant ending Z.",
+          "format": "date-time",
+          "pattern": "Z$",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "type": {
+          "const": "plan.execution_requested"
+        },
+        "workspace_id": {
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "event_id",
+        "schema_version",
+        "type",
+        "occurred_at",
+        "workspace_id",
+        "aggregate_id",
+        "aggregate_version",
+        "correlation_id",
+        "data"
+      ],
+      "type": "object"
+    },
+    "PlanVersionCreatedEvent": {
+      "additionalProperties": false,
+      "description": "Transactional outbox event; persisted with originating mutation. Tenant in payload must match envelope; immutable version references never latest.",
+      "properties": {
+        "aggregate_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "aggregate_version": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "correlation_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "data": {
+          "additionalProperties": false,
+          "properties": {
+            "brand_id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "dependency_version_ids": {
+              "items": {
+                "format": "uuid",
+                "type": "string"
+              },
+              "type": "array",
+              "uniqueItems": true
+            },
+            "plan_id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "plan_version_id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "previous_version_id": {
+              "anyOf": [
+                {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "plan_id",
+            "plan_version_id",
+            "previous_version_id",
+            "brand_id",
+            "dependency_version_ids"
+          ],
+          "type": "object"
+        },
+        "event_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "occurred_at": {
+          "description": "UTC RFC3339 instant ending Z.",
+          "format": "date-time",
+          "pattern": "Z$",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "type": {
+          "const": "plan.version_created"
+        },
+        "workspace_id": {
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "event_id",
+        "schema_version",
+        "type",
+        "occurred_at",
+        "workspace_id",
+        "aggregate_id",
+        "aggregate_version",
+        "correlation_id",
+        "data"
+      ],
+      "type": "object"
+    },
+    "PreproductionAlignmentRequestInput": {
+      "additionalProperties": false,
+      "description": "Exact normalized operation request before authorization ID is issued. Canonical request stored immutably and compared with consuming operation; actor/scope/logical operation and SHA-256 must match authorization.",
+      "properties": {
+        "campaign_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "logical_operation_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "method": {
+          "enum": [
+            "PROVIDER",
+            "MANUAL_CONFIRM"
+          ],
+          "type": "string"
+        },
+        "reason": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "segment_ids": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "transcript_version_id": {
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "transcript_version_id",
+        "method",
+        "segment_ids",
+        "reason",
+        "logical_operation_id",
+        "campaign_id"
+      ],
+      "type": "object"
+    },
+    "PreproductionAuthorization": {
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "else": {
+            "properties": {
+              "operation_if_match": {
+                "type": "null"
+              }
+            }
+          },
+          "if": {
+            "properties": {
+              "operation_id": {
+                "enum": [
+                  "processSource",
+                  "alignTranscript"
+                ],
+                "type": "string"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "operation_if_match": {
+                "minLength": 3,
+                "pattern": "^\"[^\" ]+\"$",
+                "type": "string"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "operation_id": {
+                "const": "previewBrandVoice"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "operation_input": {
+                "$ref": "#/$defs/PreproductionVoicePreviewRequestInput"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "operation_id": {
+                "const": "createSourceFromURL"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "operation_input": {
+                "$ref": "#/$defs/PreproductionSourceURLCreateInput"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "operation_id": {
+                "const": "processSource"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "operation_input": {
+                "$ref": "#/$defs/PreproductionSourceProcessInput"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "operation_id": {
+                "const": "alignTranscript"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "operation_input": {
+                "$ref": "#/$defs/PreproductionAlignmentRequestInput"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "operation_id": {
+                "const": "draftPackage"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "operation_input": {
+                "$ref": "#/$defs/PreproductionPackageDraftRequestInput"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "operation_id": {
+                "const": "proposePlan"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "operation_input": {
+                "$ref": "#/$defs/PreproductionPlanProposalInput"
+              }
+            }
+          }
+        }
+      ],
+      "description": " operation_input is the typed canonical_request persisted by the database; service recomputes input_sha256 and rejects a mismatch. One job redemption atomically binds the authorization and explicitly approved job cap; no second-job reuse. Revocation is append-only and checked at dispatch.",
+      "properties": {
+        "actor_user_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "brand_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "budget_policy_revision": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "campaign_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "cap": {
+          "$ref": "#/$defs/Money"
+        },
+        "created_at": {
+          "description": "UTC RFC3339 instant ending Z.",
+          "format": "date-time",
+          "pattern": "Z$",
+          "type": "string"
+        },
+        "created_by": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "expires_at": {
+          "description": "UTC RFC3339 instant ending Z.",
+          "format": "date-time",
+          "pattern": "Z$",
+          "type": "string"
+        },
+        "input_sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "type": "string"
+        },
+        "inputs": {
+          "items": {
+            "$ref": "#/$defs/VersionBinding"
+          },
+          "type": "array"
+        },
+        "job_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "logical_operation_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "operation_id": {
+          "enum": [
+            "previewBrandVoice",
+            "createSourceFromURL",
+            "processSource",
+            "alignTranscript",
+            "draftPackage",
+            "proposePlan"
+          ],
+          "type": "string"
+        },
+        "operation_if_match": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "minLength": 3,
+              "pattern": "^\"[^\" ]+\"$",
+              "type": "string"
+            }
+          ]
+        },
+        "operation_input": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/PreproductionVoicePreviewRequestInput"
+            },
+            {
+              "$ref": "#/$defs/PreproductionSourceURLCreateInput"
+            },
+            {
+              "$ref": "#/$defs/PreproductionSourceProcessInput"
+            },
+            {
+              "$ref": "#/$defs/PreproductionAlignmentRequestInput"
+            },
+            {
+              "$ref": "#/$defs/PreproductionPackageDraftRequestInput"
+            },
+            {
+              "$ref": "#/$defs/PreproductionPlanProposalInput"
+            }
+          ]
+        },
+        "preproduction_authorization_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "reason": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "workspace_id": {
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "brand_id",
+        "actor_user_id",
+        "campaign_id",
+        "job_id",
+        "logical_operation_id",
+        "operation_id",
+        "input_sha256",
+        "inputs",
+        "cap",
+        "expires_at",
+        "reason",
+        "workspace_id",
+        "preproduction_authorization_id",
+        "created_by",
+        "created_at",
+        "budget_policy_revision",
+        "operation_input",
+        "operation_if_match"
+      ],
+      "type": "object",
+      "x-default-live-cap-micros": 0,
+      "x-immutable": true,
+      "x-version-table": "preproduction_authorizations"
+    },
+    "PreproductionPackageDraftRequestInput": {
+      "additionalProperties": false,
+      "description": "Exact normalized operation request before authorization ID is issued. Canonical request stored immutably and compared with consuming operation; actor/scope/logical operation and SHA-256 must match authorization.",
+      "properties": {
+        "brand_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "brand_profile_version_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "budget_cap": {
+          "$ref": "#/$defs/Money"
+        },
+        "campaign_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "logical_operation_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "research_required": {
+          "type": "boolean"
+        },
+        "source_version_ids": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "topic": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "brand_id",
+        "campaign_id",
+        "topic",
+        "source_version_ids",
+        "brand_profile_version_id",
+        "research_required",
+        "budget_cap",
+        "logical_operation_id"
+      ],
+      "type": "object"
+    },
+    "PreproductionPlanProposalInput": {
+      "additionalProperties": false,
+      "description": "Exact normalized operation request before authorization ID is issued. Canonical request stored immutably and compared with consuming operation; actor/scope/logical operation and SHA-256 must match authorization.",
+      "properties": {
+        "budget_ceiling": {
+          "$ref": "#/$defs/Money"
+        },
+        "campaign_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "destinations": {
+          "items": {
+            "$ref": "#/$defs/Destination"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "logical_operation_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "package_version_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "requested_asset_types": {
+          "items": {
+            "$ref": "#/$defs/AssetType"
+          },
+          "minItems": 1,
+          "type": "array",
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "package_version_id",
+        "requested_asset_types",
+        "destinations",
+        "budget_ceiling",
+        "logical_operation_id",
+        "campaign_id"
+      ],
+      "type": "object"
+    },
+    "PreproductionSourceProcessInput": {
+      "additionalProperties": false,
+      "description": "Exact normalized operation request before authorization ID is issued. Canonical request stored immutably and compared with consuming operation; actor/scope/logical operation and SHA-256 must match authorization.",
+      "properties": {
+        "budget_cap": {
+          "$ref": "#/$defs/Money"
+        },
+        "campaign_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "logical_operation_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "operations": {
+          "items": {
+            "enum": [
+              "EXTRACT",
+              "TRANSCRIBE",
+              "PROBE",
+              "ALIGN"
+            ],
+            "type": "string"
+          },
+          "minItems": 1,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "source_version_id": {
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source_version_id",
+        "operations",
+        "budget_cap",
+        "logical_operation_id",
+        "campaign_id"
+      ],
+      "type": "object"
+    },
+    "PreproductionSourceURLCreateInput": {
+      "additionalProperties": false,
+      "description": "Exact normalized operation request before authorization ID is issued. Canonical request stored immutably and compared with consuming operation; actor/scope/logical operation and SHA-256 must match authorization.",
+      "properties": {
+        "brand_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "campaign_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "logical_operation_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "rights": {
+          "$ref": "#/$defs/RightsAssertion"
+        },
+        "source_type": {
+          "enum": [
+            "PUBLIC_URL",
+            "YOUTUBE_REFERENCE"
+          ],
+          "type": "string"
+        },
+        "url": {
+          "format": "uri",
+          "pattern": "^https?://",
+          "type": "string"
+        }
+      },
+      "required": [
+        "brand_id",
+        "url",
+        "source_type",
+        "rights",
+        "logical_operation_id",
+        "campaign_id"
+      ],
+      "type": "object"
+    },
+    "PreproductionVoicePreviewRequestInput": {
+      "additionalProperties": false,
+      "description": "Exact normalized operation request before authorization ID is issued. Canonical request stored immutably and compared with consuming operation; actor/scope/logical operation and SHA-256 must match authorization.",
+      "properties": {
+        "campaign_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "logical_operation_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "profile_version_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "sample_topic": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "profile_version_id",
+        "sample_topic",
+        "logical_operation_id",
+        "campaign_id"
+      ],
+      "type": "object"
+    },
+    "ProviderCostUsageEntry": {
+      "additionalProperties": false,
+      "description": "Signed currency micro-units for actual provider cost; corrections are immutable signed adjustments. Simulated work never settles as live spend.",
+      "properties": {
+        "amount": {
+          "$ref": "#/$defs/SignedMoney"
+        },
+        "brand_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "campaign_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "entry_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "job_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "kind": {
+          "enum": [
+            "SETTLEMENT",
+            "ADJUSTMENT"
+          ],
+          "type": "string"
+        },
+        "ledger": {
+          "const": "PROVIDER_COST"
+        },
+        "logical_operation_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "occurred_at": {
+          "description": "UTC RFC3339 instant ending Z.",
+          "format": "date-time",
+          "pattern": "Z$",
+          "type": "string"
+        },
+        "provider_mode": {
+          "enum": [
+            "LIVE",
+            "DEVELOPMENT_SIMULATED"
+          ],
+          "type": "string"
+        },
+        "reservation_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "unit_name": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "units": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "workspace_id": {
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "entry_id",
+        "workspace_id",
+        "brand_id",
+        "campaign_id",
+        "job_id",
+        "logical_operation_id",
+        "reservation_id",
+        "kind",
+        "provider_mode",
+        "occurred_at",
+        "ledger",
+        "amount",
+        "units",
+        "unit_name"
+      ],
+      "type": "object"
+    },
+    "PublicationApprovalSubject": {
+      "additionalProperties": false,
+      "description": "subject_id is publication_id; subject_version_id is exact publication_revision_id. Must equal path and persisted immutable snapshot; never latest. Resolves only to publication_revision/publication in publication_revisions; service enforces exact subject hash and tenant.",
+      "properties": {
+        "subject_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "subject_type": {
+          "const": "PUBLICATION"
+        },
+        "subject_version_id": {
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "subject_type",
+        "subject_id",
+        "subject_version_id"
+      ],
+      "type": "object",
+      "x-registry-kind": "publication_revision",
+      "x-review-scope": "publication",
+      "x-version-table": "publication_revisions"
+    },
+    "PublicationLatePausedEvent": {
+      "additionalProperties": false,
+      "description": "Transactional outbox event; persisted with originating mutation. Tenant in payload must match envelope; immutable version references never latest.",
+      "properties": {
+        "aggregate_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "aggregate_version": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "correlation_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "data": {
+          "additionalProperties": false,
+          "properties": {
+            "brand_id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "detected_at": {
+              "description": "UTC RFC3339 instant ending Z.",
+              "format": "date-time",
+              "pattern": "Z$",
+              "type": "string"
+            },
+            "late_by_seconds": {
+              "minimum": 901,
+              "type": "integer"
+            },
+            "publication_id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "publication_revision_id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "scheduled_at": {
+              "description": "UTC RFC3339 instant ending Z.",
+              "format": "date-time",
+              "pattern": "Z$",
+              "type": "string"
+            }
+          },
+          "required": [
+            "publication_id",
+            "publication_revision_id",
+            "scheduled_at",
+            "detected_at",
+            "late_by_seconds",
+            "brand_id"
+          ],
+          "type": "object"
+        },
+        "event_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "occurred_at": {
+          "description": "UTC RFC3339 instant ending Z.",
+          "format": "date-time",
+          "pattern": "Z$",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "type": {
+          "const": "publication.late_paused"
+        },
+        "workspace_id": {
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "event_id",
+        "schema_version",
+        "type",
+        "occurred_at",
+        "workspace_id",
+        "aggregate_id",
+        "aggregate_version",
+        "correlation_id",
+        "data"
+      ],
+      "type": "object"
+    },
+    "PublicationRevisionCreatedEvent": {
+      "additionalProperties": false,
+      "description": "Transactional outbox event; persisted with originating mutation. Tenant in payload must match envelope; immutable version references never latest.",
+      "properties": {
+        "aggregate_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "aggregate_version": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "correlation_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "data": {
+          "additionalProperties": false,
+          "properties": {
+            "brand_id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "logical_publication_id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "previous_revision_id": {
+              "anyOf": [
+                {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "publication_id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "publication_revision_id": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "publication_id",
+            "publication_revision_id",
+            "logical_publication_id",
+            "previous_revision_id",
+            "brand_id"
+          ],
+          "type": "object"
+        },
+        "event_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "occurred_at": {
+          "description": "UTC RFC3339 instant ending Z.",
+          "format": "date-time",
+          "pattern": "Z$",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "type": {
+          "const": "publication.revision_created"
+        },
+        "workspace_id": {
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "event_id",
+        "schema_version",
+        "type",
+        "occurred_at",
+        "workspace_id",
+        "aggregate_id",
+        "aggregate_version",
+        "correlation_id",
+        "data"
+      ],
+      "type": "object"
+    },
+    "PublicationState": {
+      "enum": [
+        "DRAFT",
+        "SCHEDULED",
+        "PAUSED",
+        "SUBMITTING",
+        "PROCESSING",
+        "PUBLISHED",
+        "RECONCILING",
+        "FAILED",
+        "CANCELLED",
+        "TAKEDOWN_REQUESTED",
+        "TAKEN_DOWN"
+      ],
+      "type": "string"
+    },
+    "PublicationStateChangedEvent": {
+      "additionalProperties": false,
+      "description": "Transactional outbox event; persisted with originating mutation. Tenant in payload must match envelope; immutable version references never latest.",
+      "properties": {
+        "aggregate_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "aggregate_version": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "correlation_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "data": {
+          "additionalProperties": false,
+          "allOf": [
+            {
+              "oneOf": [
+                {
+                  "properties": {
+                    "previous_state": {
+                      "const": "DRAFT"
+                    },
+                    "state": {
+                      "enum": [
+                        "SCHEDULED",
+                        "CANCELLED"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "previous_state",
+                    "state"
+                  ]
+                },
+                {
+                  "properties": {
+                    "previous_state": {
+                      "const": "SCHEDULED"
+                    },
+                    "state": {
+                      "enum": [
+                        "PAUSED",
+                        "SUBMITTING",
+                        "CANCELLED"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "previous_state",
+                    "state"
+                  ]
+                },
+                {
+                  "properties": {
+                    "previous_state": {
+                      "const": "PAUSED"
+                    },
+                    "state": {
+                      "enum": [
+                        "SCHEDULED",
+                        "CANCELLED"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "previous_state",
+                    "state"
+                  ]
+                },
+                {
+                  "properties": {
+                    "previous_state": {
+                      "const": "SUBMITTING"
+                    },
+                    "state": {
+                      "enum": [
+                        "PROCESSING",
+                        "PUBLISHED",
+                        "RECONCILING",
+                        "FAILED"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "previous_state",
+                    "state"
+                  ]
+                },
+                {
+                  "properties": {
+                    "previous_state": {
+                      "const": "PROCESSING"
+                    },
+                    "state": {
+                      "enum": [
+                        "PUBLISHED",
+                        "RECONCILING",
+                        "FAILED"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "previous_state",
+                    "state"
+                  ]
+                },
+                {
+                  "properties": {
+                    "previous_state": {
+                      "const": "PUBLISHED"
+                    },
+                    "state": {
+                      "enum": [
+                        "TAKEDOWN_REQUESTED"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "previous_state",
+                    "state"
+                  ]
+                },
+                {
+                  "properties": {
+                    "previous_state": {
+                      "const": "RECONCILING"
+                    },
+                    "state": {
+                      "enum": [
+                        "PROCESSING",
+                        "PUBLISHED",
+                        "FAILED",
+                        "CANCELLED"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "previous_state",
+                    "state"
+                  ]
+                },
+                {
+                  "properties": {
+                    "previous_state": {
+                      "const": "FAILED"
+                    },
+                    "state": {
+                      "enum": [
+                        "DRAFT",
+                        "CANCELLED"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "previous_state",
+                    "state"
+                  ]
+                },
+                {
+                  "properties": {
+                    "previous_state": {
+                      "const": "TAKEDOWN_REQUESTED"
+                    },
+                    "state": {
+                      "enum": [
+                        "TAKEN_DOWN",
+                        "PUBLISHED",
+                        "RECONCILING"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "previous_state",
+                    "state"
+                  ]
+                }
+              ]
+            },
+            {
+              "if": {
+                "properties": {
+                  "state": {
+                    "const": "PUBLISHED"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "remote_id": {
+                    "minLength": 1,
+                    "type": "string"
+                  },
+                  "verified_live_at": {
+                    "description": "UTC RFC3339 instant ending Z.",
+                    "format": "date-time",
+                    "pattern": "Z$",
+                    "type": "string"
+                  },
+                  "verified_visibility": {
+                    "enum": [
+                      "PUBLIC",
+                      "UNLISTED",
+                      "PRIVATE"
+                    ],
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          ],
+          "properties": {
+            "attempt_id": {
+              "anyOf": [
+                {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "brand_id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "logical_publication_id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "previous_state": {
+              "$ref": "#/$defs/PublicationState"
+            },
+            "publication_id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "publication_revision_id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "remote_id": {
+              "anyOf": [
+                {
+                  "minLength": 1,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "state": {
+              "$ref": "#/$defs/PublicationState"
+            },
+            "verified_live_at": {
+              "anyOf": [
+                {
+                  "description": "UTC RFC3339 instant ending Z.",
+                  "format": "date-time",
+                  "pattern": "Z$",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "verified_visibility": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "PUBLIC",
+                    "UNLISTED",
+                    "PRIVATE"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "publication_id",
+            "publication_revision_id",
+            "logical_publication_id",
+            "previous_state",
+            "state",
+            "attempt_id",
+            "remote_id",
+            "verified_live_at",
+            "verified_visibility",
+            "brand_id"
+          ],
+          "type": "object"
+        },
+        "event_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "occurred_at": {
+          "description": "UTC RFC3339 instant ending Z.",
+          "format": "date-time",
+          "pattern": "Z$",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "type": {
+          "const": "publication.state_changed"
+        },
+        "workspace_id": {
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "event_id",
+        "schema_version",
+        "type",
+        "occurred_at",
+        "workspace_id",
+        "aggregate_id",
+        "aggregate_version",
+        "correlation_id",
+        "data"
+      ],
+      "type": "object"
+    },
+    "RenditionApprovalSubject": {
+      "additionalProperties": false,
+      "description": "subject_id is rendition_id; subject_version_id is exact rendition_id. Must equal path and persisted immutable snapshot; never latest. Resolves only to rendition/final_media in renditions; service enforces exact subject hash and tenant. Rendition is itself an immutable version: subject_id and subject_version_id both equal path rendition_id.",
+      "properties": {
+        "scope": {
+          "const": "final_media"
+        },
+        "subject_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "subject_type": {
+          "const": "RENDITION"
+        },
+        "subject_version_id": {
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "subject_type",
+        "subject_id",
+        "subject_version_id",
+        "scope"
+      ],
+      "type": "object",
+      "x-registry-kind": "rendition",
+      "x-review-scope": "final_media",
+      "x-version-table": "renditions"
+    },
+    "Reservation": {
+      "additionalProperties": false,
+      "properties": {
+        "amount": {
+          "$ref": "#/$defs/Money"
+        },
+        "brand_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "campaign_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "created_at": {
+          "description": "UTC RFC3339 instant ending Z.",
+          "format": "date-time",
+          "pattern": "Z$",
+          "type": "string"
+        },
+        "job_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "logical_operation_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "reservation_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "resolved_at": {
+          "anyOf": [
+            {
+              "description": "UTC RFC3339 instant ending Z.",
+              "format": "date-time",
+              "pattern": "Z$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "state": {
+          "enum": [
+            "RESERVED",
+            "SETTLED",
+            "RELEASED"
+          ],
+          "type": "string"
+        },
+        "workspace_id": {
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "reservation_id",
+        "workspace_id",
+        "brand_id",
+        "campaign_id",
+        "job_id",
+        "logical_operation_id",
+        "state",
+        "amount",
+        "created_at",
+        "resolved_at"
+      ],
+      "type": "object"
+    },
+    "ReviewDecisionRecordedEvent": {
+      "additionalProperties": false,
+      "description": "Transactional outbox event; persisted with originating mutation. Tenant in payload must match envelope; immutable version references never latest.",
+      "properties": {
+        "aggregate_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "aggregate_version": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "correlation_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "data": {
+          "additionalProperties": false,
+          "properties": {
+            "actor_user_id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "brand_id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "decision": {
+              "enum": [
+                "APPROVED",
+                "REJECTED"
+              ],
+              "type": "string"
+            },
+            "decision_id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "reason": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "subject": {
+              "$ref": "#/$defs/ApprovalSubject"
+            }
+          },
+          "required": [
+            "decision_id",
+            "subject",
+            "decision",
+            "actor_user_id",
+            "reason",
+            "brand_id"
+          ],
+          "type": "object"
+        },
+        "event_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "occurred_at": {
+          "description": "UTC RFC3339 instant ending Z.",
+          "format": "date-time",
+          "pattern": "Z$",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "type": {
+          "const": "review.decision_recorded"
+        },
+        "workspace_id": {
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "event_id",
+        "schema_version",
+        "type",
+        "occurred_at",
+        "workspace_id",
+        "aggregate_id",
+        "aggregate_version",
+        "correlation_id",
+        "data"
+      ],
+      "type": "object"
+    },
+    "ReviewInvalidatedEvent": {
+      "additionalProperties": false,
+      "description": "Transactional outbox event; persisted with originating mutation. Tenant in payload must match envelope; immutable version references never latest.",
+      "properties": {
+        "aggregate_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "aggregate_version": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "correlation_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "data": {
+          "additionalProperties": false,
+          "properties": {
+            "brand_id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "changed_version_id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "decision_id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "reason": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "subject": {
+              "$ref": "#/$defs/ApprovalSubject"
+            }
+          },
+          "required": [
+            "decision_id",
+            "subject",
+            "changed_version_id",
+            "reason",
+            "brand_id"
+          ],
+          "type": "object"
+        },
+        "event_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "occurred_at": {
+          "description": "UTC RFC3339 instant ending Z.",
+          "format": "date-time",
+          "pattern": "Z$",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "type": {
+          "const": "review.invalidated"
+        },
+        "workspace_id": {
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "event_id",
+        "schema_version",
+        "type",
+        "occurred_at",
+        "workspace_id",
+        "aggregate_id",
+        "aggregate_version",
+        "correlation_id",
+        "data"
+      ],
+      "type": "object"
+    },
+    "ReviewRequestedEvent": {
+      "additionalProperties": false,
+      "description": "Transactional outbox event; persisted with originating mutation. Tenant in payload must match envelope; immutable version references never latest.",
+      "properties": {
+        "aggregate_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "aggregate_version": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "correlation_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "data": {
+          "additionalProperties": false,
+          "properties": {
+            "brand_id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "review_task_id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "reviewer_user_ids": {
+              "items": {
+                "format": "uuid",
+                "type": "string"
+              },
+              "type": "array",
+              "uniqueItems": true
+            },
+            "subject": {
+              "$ref": "#/$defs/ApprovalSubject"
+            }
+          },
+          "required": [
+            "review_task_id",
+            "subject",
+            "reviewer_user_ids",
+            "brand_id"
+          ],
+          "type": "object"
+        },
+        "event_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "occurred_at": {
+          "description": "UTC RFC3339 instant ending Z.",
+          "format": "date-time",
+          "pattern": "Z$",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "type": {
+          "const": "review.requested"
+        },
+        "workspace_id": {
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "event_id",
+        "schema_version",
+        "type",
+        "occurred_at",
+        "workspace_id",
+        "aggregate_id",
+        "aggregate_version",
+        "correlation_id",
+        "data"
+      ],
+      "type": "object"
+    },
+    "RightsAssertion": {
+      "additionalProperties": false,
+      "properties": {
+        "asserted_by": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "expires_at": {
+          "anyOf": [
+            {
+              "description": "UTC RFC3339 instant ending Z.",
+              "format": "date-time",
+              "pattern": "Z$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "permitted_uses": {
+          "items": {
+            "enum": [
+              "PROCESS",
+              "DERIVE",
+              "PUBLISH",
+              "EXPORT"
+            ],
+            "type": "string"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        "rights_evidence": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "asserted_by",
+        "permitted_uses",
+        "rights_evidence",
+        "expires_at"
+      ],
+      "type": "object"
+    },
+    "ScriptApprovalSubject": {
+      "additionalProperties": false,
+      "description": "subject_id is asset_id; subject_version_id is exact asset_version_id. Must equal path and persisted immutable snapshot; never latest. Resolves only to asset/narration in asset_versions; service enforces exact subject hash and tenant. Requires asset_type SCRIPT and immutable script_versions detail with id = asset_version_id; no independent script registry row.",
+      "properties": {
+        "subject_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "subject_type": {
+          "const": "SCRIPT"
+        },
+        "subject_version_id": {
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "subject_type",
+        "subject_id",
+        "subject_version_id"
+      ],
+      "type": "object",
+      "x-registry-kind": "asset",
+      "x-review-scope": "narration",
+      "x-version-table": "asset_versions"
+    },
+    "SignedMoney": {
+      "additionalProperties": false,
+      "properties": {
+        "amount_micros": {
+          "type": "integer"
+        },
+        "currency": {
+          "pattern": "^[A-Z]{3}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "amount_micros",
+        "currency"
+      ],
+      "type": "object"
+    },
+    "SourceProcessingCompletedEvent": {
+      "additionalProperties": false,
+      "description": "Transactional outbox event; persisted with originating mutation. Tenant in payload must match envelope; immutable version references never latest.",
+      "properties": {
+        "aggregate_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "aggregate_version": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "correlation_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "data": {
+          "additionalProperties": false,
+          "properties": {
+            "brand_id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "extraction_complete": {
+              "type": "boolean"
+            },
+            "job_id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "source_id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "source_version_id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "transcript_version_id": {
+              "anyOf": [
+                {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "source_id",
+            "source_version_id",
+            "brand_id",
+            "job_id",
+            "extraction_complete",
+            "transcript_version_id"
+          ],
+          "type": "object"
+        },
+        "event_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "occurred_at": {
+          "description": "UTC RFC3339 instant ending Z.",
+          "format": "date-time",
+          "pattern": "Z$",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "type": {
+          "const": "source.processing_completed"
+        },
+        "workspace_id": {
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "event_id",
+        "schema_version",
+        "type",
+        "occurred_at",
+        "workspace_id",
+        "aggregate_id",
+        "aggregate_version",
+        "correlation_id",
+        "data"
+      ],
+      "type": "object"
+    },
+    "SourceTranscriptVersionCreatedEvent": {
+      "additionalProperties": false,
+      "description": "Transactional outbox event; persisted with originating mutation. Tenant in payload must match envelope; immutable version references never latest.",
+      "properties": {
+        "aggregate_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "aggregate_version": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "correlation_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "data": {
+          "additionalProperties": false,
+          "properties": {
+            "alignment_status": {
+              "enum": [
+                "ALIGNED",
+                "NEEDS_ALIGNMENT",
+                "MANUALLY_CONFIRMED"
+              ],
+              "type": "string"
+            },
+            "brand_id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "previous_version_id": {
+              "anyOf": [
+                {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "source_id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "transcript_version_id": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "source_id",
+            "transcript_version_id",
+            "previous_version_id",
+            "brand_id",
+            "alignment_status"
+          ],
+          "type": "object"
+        },
+        "event_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "occurred_at": {
+          "description": "UTC RFC3339 instant ending Z.",
+          "format": "date-time",
+          "pattern": "Z$",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "type": {
+          "const": "source.transcript_version_created"
+        },
+        "workspace_id": {
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "event_id",
+        "schema_version",
+        "type",
+        "occurred_at",
+        "workspace_id",
+        "aggregate_id",
+        "aggregate_version",
+        "correlation_id",
+        "data"
+      ],
+      "type": "object"
+    },
+    "SourceVersionCreatedEvent": {
+      "additionalProperties": false,
+      "description": "Transactional outbox event; persisted with originating mutation. Tenant in payload must match envelope; immutable version references never latest.",
+      "properties": {
+        "aggregate_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "aggregate_version": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "correlation_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "data": {
+          "additionalProperties": false,
+          "properties": {
+            "brand_id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "sha256": {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            "source_id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "source_version_id": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "source_id",
+            "source_version_id",
+            "brand_id",
+            "sha256"
+          ],
+          "type": "object"
+        },
+        "event_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "occurred_at": {
+          "description": "UTC RFC3339 instant ending Z.",
+          "format": "date-time",
+          "pattern": "Z$",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "type": {
+          "const": "source.version_created"
+        },
+        "workspace_id": {
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "event_id",
+        "schema_version",
+        "type",
+        "occurred_at",
+        "workspace_id",
+        "aggregate_id",
+        "aggregate_version",
+        "correlation_id",
+        "data"
+      ],
+      "type": "object"
+    },
+    "UsageBudgetBlockedEvent": {
+      "additionalProperties": false,
+      "description": "Transactional outbox event; persisted with originating mutation. Tenant in payload must match envelope; immutable version references never latest.",
+      "properties": {
+        "aggregate_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "aggregate_version": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "correlation_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "data": {
+          "additionalProperties": false,
+          "properties": {
+            "available_amount": {
+              "$ref": "#/$defs/Money"
+            },
+            "code": {
+              "const": "BUDGET_EXCEEDED"
+            },
+            "job_id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "required_amount": {
+              "$ref": "#/$defs/Money"
+            }
+          },
+          "required": [
+            "job_id",
+            "code",
+            "required_amount",
+            "available_amount"
+          ],
+          "type": "object"
+        },
+        "event_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "occurred_at": {
+          "description": "UTC RFC3339 instant ending Z.",
+          "format": "date-time",
+          "pattern": "Z$",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "type": {
+          "const": "usage.budget_blocked"
+        },
+        "workspace_id": {
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "event_id",
+        "schema_version",
+        "type",
+        "occurred_at",
+        "workspace_id",
+        "aggregate_id",
+        "aggregate_version",
+        "correlation_id",
+        "data"
+      ],
+      "type": "object"
+    },
+    "UsageEntry": {
+      "description": "Immutable discriminated ledger entries. Provider cost uses signed money; customer credits use signed integer credits, never fabricated currency. Event mirrors use this exact union.",
+      "oneOf": [
+        {
+          "$ref": "#/$defs/ProviderCostUsageEntry"
+        },
+        {
+          "$ref": "#/$defs/CustomerCreditsUsageEntry"
+        }
+      ]
+    },
+    "UsagePreproductionAuthorizedEvent": {
+      "additionalProperties": false,
+      "description": "Transactional outbox event; persisted with originating mutation. Tenant in payload must match envelope; immutable version references never latest.",
+      "properties": {
+        "aggregate_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "aggregate_version": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "correlation_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "data": {
+          "additionalProperties": false,
+          "properties": {
+            "authorization": {
+              "$ref": "#/$defs/PreproductionAuthorization"
+            }
+          },
+          "required": [
+            "authorization"
+          ],
+          "type": "object"
+        },
+        "event_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "occurred_at": {
+          "description": "UTC RFC3339 instant ending Z.",
+          "format": "date-time",
+          "pattern": "Z$",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "type": {
+          "const": "usage.preproduction_authorized"
+        },
+        "workspace_id": {
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "event_id",
+        "schema_version",
+        "type",
+        "occurred_at",
+        "workspace_id",
+        "aggregate_id",
+        "aggregate_version",
+        "correlation_id",
+        "data"
+      ],
+      "type": "object"
+    },
+    "UsageReleasedEvent": {
+      "additionalProperties": false,
+      "description": "Transactional outbox event; persisted with originating mutation. Tenant in payload must match envelope; immutable version references never latest.",
+      "properties": {
+        "aggregate_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "aggregate_version": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "correlation_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "data": {
+          "additionalProperties": false,
+          "properties": {
+            "amount": {
+              "$ref": "#/$defs/Money"
+            },
+            "job_id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "reason": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "reservation_id": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "reservation_id",
+            "job_id",
+            "amount",
+            "reason"
+          ],
+          "type": "object"
+        },
+        "event_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "occurred_at": {
+          "description": "UTC RFC3339 instant ending Z.",
+          "format": "date-time",
+          "pattern": "Z$",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "type": {
+          "const": "usage.released"
+        },
+        "workspace_id": {
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "event_id",
+        "schema_version",
+        "type",
+        "occurred_at",
+        "workspace_id",
+        "aggregate_id",
+        "aggregate_version",
+        "correlation_id",
+        "data"
+      ],
+      "type": "object"
+    },
+    "UsageReservedEvent": {
+      "additionalProperties": false,
+      "description": "Transactional outbox event; persisted with originating mutation. Tenant in payload must match envelope; immutable version references never latest.",
+      "properties": {
+        "aggregate_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "aggregate_version": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "correlation_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "data": {
+          "additionalProperties": false,
+          "properties": {
+            "reservation": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/Reservation"
+                },
+                {
+                  "properties": {
+                    "state": {
+                      "const": "RESERVED"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "required": [
+            "reservation"
+          ],
+          "type": "object"
+        },
+        "event_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "occurred_at": {
+          "description": "UTC RFC3339 instant ending Z.",
+          "format": "date-time",
+          "pattern": "Z$",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "type": {
+          "const": "usage.reserved"
+        },
+        "workspace_id": {
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "event_id",
+        "schema_version",
+        "type",
+        "occurred_at",
+        "workspace_id",
+        "aggregate_id",
+        "aggregate_version",
+        "correlation_id",
+        "data"
+      ],
+      "type": "object"
+    },
+    "UsageSettledEvent": {
+      "additionalProperties": false,
+      "description": "Transactional outbox event; persisted with originating mutation. Tenant in payload must match envelope; immutable version references never latest.",
+      "properties": {
+        "aggregate_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "aggregate_version": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "correlation_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "data": {
+          "additionalProperties": false,
+          "properties": {
+            "reservation_id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "usage_entry": {
+              "$ref": "#/$defs/UsageEntry"
+            }
+          },
+          "required": [
+            "reservation_id",
+            "usage_entry"
+          ],
+          "type": "object"
+        },
+        "event_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "occurred_at": {
+          "description": "UTC RFC3339 instant ending Z.",
+          "format": "date-time",
+          "pattern": "Z$",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "type": {
+          "const": "usage.settled"
+        },
+        "workspace_id": {
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "event_id",
+        "schema_version",
+        "type",
+        "occurred_at",
+        "workspace_id",
+        "aggregate_id",
+        "aggregate_version",
+        "correlation_id",
+        "data"
+      ],
+      "type": "object"
+    },
+    "VersionBinding": {
+      "additionalProperties": false,
+      "description": "SCRIPT is an ASSET binding: script_versions is an immutable detail extension sharing asset_versions.id, never a second registry kind. VOICE_SAMPLE and CLIP_SELECTION map to voice_sample_versions and clip_selection_versions.",
+      "properties": {
+        "entity_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "SOURCE",
+            "TRANSCRIPT",
+            "PACKAGE",
+            "PLAN",
+            "RECIPE",
+            "PERSONA",
+            "BRAND_PROFILE",
+            "TIMELINE",
+            "ASSET",
+            "RENDITION",
+            "RENDER_PRESET",
+            "CONSENT",
+            "VOICE_SAMPLE",
+            "CLIP_SELECTION"
+          ],
+          "type": "string"
+        },
+        "sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "type": "string"
+        },
+        "version_id": {
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "entity_id",
+        "version_id",
+        "sha256"
+      ],
+      "type": "object"
+    },
+    "VoiceSampleApprovalSubject": {
+      "additionalProperties": false,
+      "description": "subject_id is sample_id; subject_version_id is exact sample_version_id. Must equal path and persisted immutable snapshot; never latest. Resolves only to voice_sample/brand_voice in voice_sample_versions; service enforces exact subject hash and tenant.",
+      "properties": {
+        "subject_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "subject_type": {
+          "const": "VOICE_SAMPLE"
+        },
+        "subject_version_id": {
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "subject_type",
+        "subject_id",
+        "subject_version_id"
+      ],
+      "type": "object",
+      "x-registry-kind": "voice_sample",
+      "x-review-scope": "brand_voice",
+      "x-version-table": "voice_sample_versions"
+    }
+  },
+  "$id": "urn:content-os:planned:target-v6:events",
+  "$ref": "#/$defs/DomainEvent",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Planned Content OS v6 domain event envelope and typed payloads",
+  "x-implementation-status": "planned"
+}

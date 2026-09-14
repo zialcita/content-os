@@ -1,0 +1,14 @@
+{
+  "source_commit": "d3e3f9934681dcb29e65194f9699566165ccd813",
+  "python": "3.12.14",
+  "node": "v24.14.1",
+  "npm": "11.11.0",
+  "frontend_lockfile_version": 3,
+  "frontend_locked_versions": {
+    "next": "15.5.25",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "typescript": "5.9.3"
+  },
+  "frontend_installed": false
+}
