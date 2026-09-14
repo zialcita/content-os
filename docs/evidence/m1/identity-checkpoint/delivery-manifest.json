@@ -203,8 +203,8 @@
     },
     {
       "path": "docs/evidence/m1/identity-checkpoint/frontend-build.log",
-      "bytes": 1278,
-      "sha256": "95f245c149544e8c9c28f7dec444725893929777e6d9ee70ab66f4f249fe487e"
+      "bytes": 1275,
+      "sha256": "4b35b0d3be91d3df2294cdbccbc41d33ca0ca5dcd4fd1f7585b3e2fa7a6b8d6b"
     },
     {
       "path": "docs/evidence/m1/identity-checkpoint/identity-runner.log",
