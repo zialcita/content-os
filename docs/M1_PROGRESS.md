@@ -1,5 +1,7 @@
 # M1 progress — local foundation implemented, milestone still open
 
+Private-source workflow update: see M1_WORKING_WORKFLOW.md for the completed22-test browser/API/file/worker development slice. Private text upload→validation→immutable version→preview now works end-to-end; earlier upload-unimplemented statements below are historical. Broader scanners/cloud storage, full registry/jobs and production acceptance remain open. CI is still deferred.
+
 Identity update2026-09-14: backend login/session/CSRF/workspace/brand/invitation routes now have a reviewed development implementation, with additive migration002, composed privilege audits and71 PostgreSQL/ASGI tests using a signed fixture IdP. See IDENTITY_REVIEW.md and M1_IDENTITY_API.md. The earlier foundation-only descriptions below remain checkpoint history. Identity UI, real-provider acceptance and remaining M1 features are not complete.
 
 Date: 2026-09-11 UTC. Continuation baseline commit: 0534244dc751c2b802f516875519aa7ed2d0f505. Changes and evidence are identified by file hashes in each suite; the enclosing Git commit supplies the delivery revision. No production provisioning, migration, paid API work or social publication occurred.

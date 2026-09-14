@@ -19,3 +19,7 @@ def audit_migrated_privileges(connection):
     if identity_present:
         from secure_api.audit import audit_identity_privileges
         audit_identity_privileges(connection)
+
+    if connection.execute(text("SELECT to_regclass('cos_v6.upload_intents') IS NOT NULL OR EXISTS(SELECT 1 FROM pg_roles WHERE rolname='cos_content_owner')")).scalar_one():
+        from content_core.security import audit_content_privileges
+        audit_content_privileges(connection)

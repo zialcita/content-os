@@ -1,0 +1,74 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.14, pytest-9.1.1, pluggy-1.6.0 -- /agent/workspace/content-os/.venv/bin/python
+rootdir: /agent/workspace/content-os/backend
+configfile: pytest.ini
+collecting ... collected 59 items
+
+content-os/backend/tests/test_pipeline.py::test_health PASSED            [  1%]
+content-os/backend/tests/test_pipeline.py::test_simulated_pipeline PASSED [  3%]
+content-os/backend/tests/test_pipeline.py::test_spend_gate PASSED        [  5%]
+content-os/backend/tests/test_runtime_safety.py::test_default_is_blocked_production_with_zero_budget PASSED [  6%]
+content-os/backend/tests/test_runtime_safety.py::test_production_never_unlocks[blocked] PASSED [  8%]
+content-os/backend/tests/test_runtime_safety.py::test_production_never_unlocks[simulation] PASSED [ 10%]
+content-os/backend/tests/test_runtime_safety.py::test_production_never_unlocks[live] PASSED [ 11%]
+content-os/backend/tests/test_runtime_safety.py::test_unknown_environment_cannot_bypass_production[prod] PASSED [ 13%]
+content-os/backend/tests/test_runtime_safety.py::test_unknown_environment_cannot_bypass_production[Production] PASSED [ 15%]
+content-os/backend/tests/test_runtime_safety.py::test_unknown_environment_cannot_bypass_production[staging] PASSED [ 16%]
+content-os/backend/tests/test_runtime_safety.py::test_unknown_environment_cannot_bypass_production[preview] PASSED [ 18%]
+content-os/backend/tests/test_runtime_safety.py::test_unknown_environment_cannot_bypass_production[] PASSED [ 20%]
+content-os/backend/tests/test_runtime_safety.py::test_unknown_environment_cannot_bypass_production[test ] PASSED [ 22%]
+content-os/backend/tests/test_runtime_safety.py::test_unknown_environment_cannot_bypass_production[development\n] PASSED [ 23%]
+content-os/backend/tests/test_runtime_safety.py::test_nonproduction_requires_exact_explicit_simulation[blocked-test] PASSED [ 25%]
+content-os/backend/tests/test_runtime_safety.py::test_nonproduction_requires_exact_explicit_simulation[blocked-development] PASSED [ 27%]
+content-os/backend/tests/test_runtime_safety.py::test_nonproduction_requires_exact_explicit_simulation[live-test] PASSED [ 28%]
+content-os/backend/tests/test_runtime_safety.py::test_nonproduction_requires_exact_explicit_simulation[live-development] PASSED [ 30%]
+content-os/backend/tests/test_runtime_safety.py::test_nonproduction_requires_exact_explicit_simulation[-test] PASSED [ 32%]
+content-os/backend/tests/test_runtime_safety.py::test_nonproduction_requires_exact_explicit_simulation[-development] PASSED [ 33%]
+content-os/backend/tests/test_runtime_safety.py::test_nonproduction_requires_exact_explicit_simulation[simulated-test] PASSED [ 35%]
+content-os/backend/tests/test_runtime_safety.py::test_nonproduction_requires_exact_explicit_simulation[simulated-development] PASSED [ 37%]
+content-os/backend/tests/test_runtime_safety.py::test_explicit_simulation_is_allowed[test] PASSED [ 38%]
+content-os/backend/tests/test_runtime_safety.py::test_explicit_simulation_is_allowed[development] PASSED [ 40%]
+content-os/backend/tests/test_runtime_safety.py::test_no_configured_stub_or_provider_fallback[avatar_engine-heygen] PASSED [ 42%]
+content-os/backend/tests/test_runtime_safety.py::test_no_configured_stub_or_provider_fallback[assembly_engine-shotstack] PASSED [ 44%]
+content-os/backend/tests/test_runtime_safety.py::test_no_configured_stub_or_provider_fallback[broll_engine-pexels] PASSED [ 45%]
+content-os/backend/tests/test_runtime_safety.py::test_no_configured_stub_or_provider_fallback[storage_backend-r2] PASSED [ 47%]
+content-os/backend/tests/test_runtime_safety.py::test_no_configured_stub_or_provider_fallback[ai_api_key-synthetic-not-a-key] PASSED [ 49%]
+content-os/backend/tests/test_runtime_safety.py::test_no_configured_stub_or_provider_fallback[heygen_api_key-synthetic-not-a-key] PASSED [ 50%]
+content-os/backend/tests/test_runtime_safety.py::test_no_configured_stub_or_provider_fallback[pexels_api_key-synthetic-not-a-key] PASSED [ 52%]
+content-os/backend/tests/test_runtime_safety.py::test_no_configured_stub_or_provider_fallback[higgsfield_api_key-synthetic-not-a-key] PASSED [ 54%]
+content-os/backend/tests/test_runtime_safety.py::test_no_configured_stub_or_provider_fallback[shotstack_api_key-synthetic-not-a-key] PASSED [ 55%]
+content-os/backend/tests/test_runtime_safety.py::test_no_configured_stub_or_provider_fallback[s3_access_key_id-synthetic-not-a-key] PASSED [ 57%]
+content-os/backend/tests/test_runtime_safety.py::test_no_configured_stub_or_provider_fallback[s3_secret_access_key-synthetic-not-a-key] PASSED [ 59%]
+content-os/backend/tests/test_runtime_safety.py::test_no_configured_stub_or_provider_fallback[google_client_id-synthetic-id] PASSED [ 61%]
+content-os/backend/tests/test_runtime_safety.py::test_no_configured_stub_or_provider_fallback[google_client_secret-synthetic-not-a-key] PASSED [ 62%]
+content-os/backend/tests/test_runtime_safety.py::test_no_configured_stub_or_provider_fallback[youtube_refresh_token-synthetic-not-a-key] PASSED [ 64%]
+content-os/backend/tests/test_runtime_safety.py::test_no_configured_stub_or_provider_fallback[youtube_channel_id-synthetic-id] PASSED [ 66%]
+content-os/backend/tests/test_runtime_safety.py::test_import_refuses_before_database_routes_or_scheduler[production-simulation-LEGACY_PRODUCTION_DISABLED] PASSED [ 67%]
+content-os/backend/tests/test_runtime_safety.py::test_import_refuses_before_database_routes_or_scheduler[production-blocked-LEGACY_PRODUCTION_DISABLED] PASSED [ 69%]
+content-os/backend/tests/test_runtime_safety.py::test_import_refuses_before_database_routes_or_scheduler[prod-simulation-UNSUPPORTED_ENVIRONMENT] PASSED [ 71%]
+content-os/backend/tests/test_runtime_safety.py::test_import_refuses_before_database_routes_or_scheduler[test-blocked-SIMULATION_OPT_IN_REQUIRED] PASSED [ 72%]
+content-os/backend/tests/test_runtime_safety.py::test_import_refuses_before_database_routes_or_scheduler[development-blocked-SIMULATION_OPT_IN_REQUIRED] PASSED [ 74%]
+content-os/backend/tests/test_runtime_safety.py::test_startup_simulation_has_labels_and_no_scheduler[test] PASSED [ 76%]
+content-os/backend/tests/test_runtime_safety.py::test_startup_simulation_has_labels_and_no_scheduler[development] PASSED [ 77%]
+content-os/backend/tests/test_runtime_safety.py::test_lifespan_rechecks_before_create_all PASSED [ 79%]
+content-os/backend/tests/test_runtime_safety.py::test_requests_without_lifespan_cannot_bypass_guard[production] PASSED [ 81%]
+content-os/backend/tests/test_runtime_safety.py::test_requests_without_lifespan_cannot_bypass_guard[staging] PASSED [ 83%]
+content-os/backend/tests/test_runtime_safety.py::test_tick_disabled_for_two_workspaces_with_no_global_advancement[test] PASSED [ 84%]
+content-os/backend/tests/test_runtime_safety.py::test_tick_disabled_for_two_workspaces_with_no_global_advancement[development] PASSED [ 86%]
+content-os/backend/tests/test_runtime_safety.py::test_zero_workspace_budget_does_not_fall_back_to_25 PASSED [ 88%]
+content-os/backend/tests/test_runtime_safety.py::test_zero_default_api_blocks_fixture_usage_and_rolls_back PASSED [ 89%]
+content-os/backend/tests/test_runtime_safety.py::test_fixture_ledger_is_explicitly_simulation_not_real_spend PASSED [ 91%]
+content-os/backend/tests/test_runtime_safety.py::test_invalid_usage_cannot_bypass_cap[-1] PASSED [ 93%]
+content-os/backend/tests/test_runtime_safety.py::test_invalid_usage_cannot_bypass_cap[float('nan')] PASSED [ 94%]
+content-os/backend/tests/test_runtime_safety.py::test_invalid_usage_cannot_bypass_cap[float('inf')] PASSED [ 96%]
+content-os/backend/tests/test_runtime_safety.py::test_real_provider_cannot_settle_in_legacy_ledger PASSED [ 98%]
+content-os/backend/tests/test_runtime_safety.py::test_dotenv_and_inherited_provider_database_are_not_loaded PASSED [100%]
+
+=============================== warnings summary ===============================
+content-os/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /agent/workspace/content-os/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+- generated xml file: /agent/workspace/content-os/docs/evidence/m1/runtime-safety/pytest.xml -
+======================== 59 passed, 1 warning in 13.44s ========================

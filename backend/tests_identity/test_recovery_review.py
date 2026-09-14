@@ -100,7 +100,7 @@ def test_head_rerun_audits_identity_role_drift(api):
         assert not c.execute(text("SELECT has_table_privilege(current_user,'cos_v6.sessions','SELECT')")).scalar_one()
 
 
-def test_full_head_preserves_both_revision_histories_and_audits(api):
+def test_identity_revision_preserves_prior_history_and_audits(api):
     from alembic import command
     from alembic.config import Config
     from conftest import ROOT
@@ -109,7 +109,8 @@ def test_full_head_preserves_both_revision_histories_and_audits(api):
         before = c.execute(text('SELECT count(*) FROM cos_v6.sessions')).scalar_one()
         config=Config(str(ROOT/'backend/alembic.ini'))
         config.attributes['connection']=c
-        command.upgrade(config, 'head')
+        # This suite certifies002; the content-core suite exercises combined head003.
+        command.upgrade(config, '0002_sessions')
         audit_migrated_privileges(c)
         assert c.execute(text('SELECT version_num FROM public.cos_v6_alembic_version')).scalar_one() == '0002_sessions'
         assert c.execute(text('SELECT payload FROM public.identity_legacy_sentinel')).scalar_one() == 'unchanged'

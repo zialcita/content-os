@@ -24,6 +24,13 @@ PRIVATE_TABLES = frozenset({'sessions', 'login_transactions', 'identity_profiles
                           'onboarding_authorizations', 'invitations', 'invitation_brands', 'identity_replays'})
 
 
+def expected_runtime_functions(connection):
+    if connection.execute(text("SELECT to_regclass('cos_v6.upload_intents') IS NOT NULL")).scalar_one():
+        from content_core.security import RUNTIME_FUNCTIONS as content_functions
+        return RUNTIME_FUNCTIONS | content_functions
+    return RUNTIME_FUNCTIONS
+
+
 def audit_identity_privileges(connection):
     """Raise on effective privilege drift, insecure roles or unsafe definer settings.
 
@@ -31,7 +38,7 @@ def audit_identity_privileges(connection):
     Deployment logins must only inherit the appropriate one of these runtime groups.
     """
     failures = []
-    for role, expected in [('cos_api_runtime', RUNTIME_FUNCTIONS), ('cos_identity_auth', AUTH_FUNCTIONS),
+    for role, expected in [('cos_api_runtime', expected_runtime_functions(connection)), ('cos_identity_auth', AUTH_FUNCTIONS),
                            ('cos_identity_owner', IDENTITY_FUNCTIONS)]:
         rows = connection.execute(text('''
             SELECT p.proname||'('||replace(oidvectortypes(p.proargtypes),', ',',')||')' AS signature,

@@ -1,0 +1,264 @@
+{
+  "baseline": "b63ffbf52f85e4d52905c5ec1d32974ac5578cba",
+  "workflow": "Real local private text-source upload, worker validation, immutable version and browser preview",
+  "checks": {
+    "workflow_browser": 22,
+    "identity": 71,
+    "foundation": 44,
+    "runtime": 59,
+    "contracts": 43,
+    "isolation": 5,
+    "frontend_build": "PASS",
+    "full_M1": "PARTIAL",
+    "full_R1": "NOT_COMPLETE",
+    "live_provider_proof": false,
+    "CI": "DEFERRED"
+  },
+  "files": [
+    {
+      "path": "BUILD_LOG.md",
+      "bytes": 13678,
+      "sha256": "264423ec5ecb76320a15601a2c08cace351ad0f73df539b414c0cfc46080b159"
+    },
+    {
+      "path": "CURRENT_STATE.md",
+      "bytes": 11180,
+      "sha256": "e39e6bfcd065cf96f8a12ff6c3cee179f9c214fc5bdfd1ee6c22ab35c36d6186"
+    },
+    {
+      "path": "DELIVERY_STATUS.md",
+      "bytes": 2437,
+      "sha256": "397ff637da5dc73e5a6f8928d097622f8504a9db06be7c798dd3b81f4929dfc2"
+    },
+    {
+      "path": "README.md",
+      "bytes": 5566,
+      "sha256": "c5fe4ca4d67febaed876ea1b0e0456fbf74efc1c81858a4d4a74108ea6eb954d"
+    },
+    {
+      "path": "backend/alembic/versions/0003_content_core.py",
+      "bytes": 630,
+      "sha256": "73fa2fbfe53bc2c7902ffcdc254702d2e41b55bc3d29d4c14013d2013129b9a4"
+    },
+    {
+      "path": "backend/content_core/models.py",
+      "bytes": 2406,
+      "sha256": "936f7a829b0f8b04ae9a89fb913f8761a5282aa79ca6fb62e2b8df5c9e85caf3"
+    },
+    {
+      "path": "backend/content_core/router.py",
+      "bytes": 9044,
+      "sha256": "8ce967b0ef9452b0465ad331c0c587b76557edecd8329e9694378a230114955f"
+    },
+    {
+      "path": "backend/content_core/run_worker.py",
+      "bytes": 1332,
+      "sha256": "3fec51223176be4209aac9c42a7c9ad30276afab7fd4b5b0c4ba1fa797ed73f8"
+    },
+    {
+      "path": "backend/content_core/schema.sql",
+      "bytes": 42112,
+      "sha256": "7c28039d3bc9927391f81133f4f0ceb79342afc31d6ad9a283f498be9aa1e207"
+    },
+    {
+      "path": "backend/content_core/security.py",
+      "bytes": 6429,
+      "sha256": "f3bee08dd6f3fe0de991ab4b5b0d91739f0fe74e474eb065112ece3bcc88c394"
+    },
+    {
+      "path": "backend/content_core/storage.py",
+      "bytes": 4911,
+      "sha256": "0f775b464a1c3eba27fc6c4ddfd3a197df9c9cd877c071b4b57f7a67af780a7a"
+    },
+    {
+      "path": "backend/content_core/workbench.html",
+      "bytes": 8835,
+      "sha256": "68f0afea8bd21ccca162007df23b8536a26da33424d6bdbad4ae440893c9ce04"
+    },
+    {
+      "path": "backend/content_core/workbench.py",
+      "bytes": 838,
+      "sha256": "f843dc6faa3a0c00be3cafbda2760be8acdc857b356e8b1792861ea7570b7d83"
+    },
+    {
+      "path": "backend/content_core/worker.py",
+      "bytes": 3026,
+      "sha256": "6ded4f138f7790903be7bfc1af500d264775abcf3a20af9cf76ef6b705ad4917"
+    },
+    {
+      "path": "backend/foundation/migration_audit.py",
+      "bytes": 1291,
+      "sha256": "187b1db4ebe501e533ce3cf82b2194658d4eb29161a95284fd943a0e1d4aa50e"
+    },
+    {
+      "path": "backend/requirements-browser-tests.lock",
+      "bytes": 131,
+      "sha256": "0b57435cbbebd3efd8d4d43187661c081379d1769341cbbec9f2c998214cd606"
+    },
+    {
+      "path": "backend/secure_api/app.py",
+      "bytes": 25820,
+      "sha256": "5a9eb8b5f41303d4145bf7f5c1fee11657fdf72138db1f56d96cdb246721f2d4"
+    },
+    {
+      "path": "backend/secure_api/audit.py",
+      "bytes": 7082,
+      "sha256": "69ecc560706ba18a2489f8e1096125497896dd7a0230927d021ece812753278a"
+    },
+    {
+      "path": "backend/secure_api/models.py",
+      "bytes": 4312,
+      "sha256": "7f2b998b4de28dcd956095165e2b091a63b46f8e97f81151de461f5a5b4ef8de"
+    },
+    {
+      "path": "backend/tests_content_core/conftest.py",
+      "bytes": 10954,
+      "sha256": "35f7c8026aa1cf7d3e58ab6c18df5850bee491b22e91a7c68dd2d703259eb48b"
+    },
+    {
+      "path": "backend/tests_content_core/test_boundaries.py",
+      "bytes": 7130,
+      "sha256": "732a3af1eb45919ce3fb02481dd4dbd677f0904c6869effe2a9cb9203f748439"
+    },
+    {
+      "path": "backend/tests_content_core/test_ui.py",
+      "bytes": 4684,
+      "sha256": "e48dc740eb5fc7cc18943acefa787858464caa187135c1a0c563cb3e536f0f08"
+    },
+    {
+      "path": "backend/tests_content_core/test_workflow.py",
+      "bytes": 10259,
+      "sha256": "8ea83abcc2b5387c83efa98dea87e3fd6c2cc92666c773502b9358dd5042aa9c"
+    },
+    {
+      "path": "backend/tests_identity/conftest.py",
+      "bytes": 10944,
+      "sha256": "9968fa7d6b6faddac5896cd39514afe09396c20dbb90ea48bc21475b4fbeb074"
+    },
+    {
+      "path": "backend/tests_identity/test_recovery_review.py",
+      "bytes": 7102,
+      "sha256": "473466206dfd6c1bc807c4531f96ec45391a7199dda847e7dbfa3b9d0901b8cd"
+    },
+    {
+      "path": "docs/M1_PROGRESS.md",
+      "bytes": 8711,
+      "sha256": "f726176a05de927baf7a6612b5070bd65c6af4a2412d5ff31ca3be91cd36ce53"
+    },
+    {
+      "path": "docs/M1_WORKING_WORKFLOW.md",
+      "bytes": 7927,
+      "sha256": "48be4e2642e3d84e380e9deb0c824409947abed6a57ef5e06ac9084114030ddd"
+    },
+    {
+      "path": "docs/evidence/m1/content-core/environment.json",
+      "bytes": 609,
+      "sha256": "ecda53f3c70a5e226b2df30a1c9a1eeb99c38252c849c41ea79334c45eeb220b"
+    },
+    {
+      "path": "docs/evidence/m1/content-core/postgres-tests.log",
+      "bytes": 4574,
+      "sha256": "b3b09a30ee89081c3f6abcb5680ee1952e10be1161be290f49fabe43be7f484a"
+    },
+    {
+      "path": "docs/evidence/m1/content-core/pytest.xml",
+      "bytes": 3292,
+      "sha256": "cfff718e02bb4e4d0533f579c7996b6ace5cc50b19fb6c89a2282f60d41ade6f"
+    },
+    {
+      "path": "docs/evidence/m1/content-core/runtime.openapi.json",
+      "bytes": 163951,
+      "sha256": "7fc10c2881116aeee31ba2e90e823069fc71860d78f713533c0d4ffe7f6b7e8c"
+    },
+    {
+      "path": "docs/evidence/m1/content-core/screenshot.json",
+      "bytes": 369,
+      "sha256": "d77e1106acd888f5415e6ebcf38c964445e6dfbcebee2788c68dce2a421f6fbd"
+    },
+    {
+      "path": "docs/evidence/m1/content-core/source-manifest.json",
+      "bytes": 3638,
+      "sha256": "482803f333098d42bda22d21ebcb4ccce630f6686e4141eb3833850c4d7574dc"
+    },
+    {
+      "path": "docs/evidence/m1/content-core/workflow.json",
+      "bytes": 608,
+      "sha256": "169ca5ff29c7c6634ebea504850ec99718b014d122e860a8587ca5ca2152773e"
+    },
+    {
+      "path": "docs/evidence/m1/foundation/postgres-tests.log",
+      "bytes": 6880,
+      "sha256": "ec446703ebe8caa774b1fc7b87ec288eb9969eaf278655a70a4e638044934973"
+    },
+    {
+      "path": "docs/evidence/m1/foundation/pytest.xml",
+      "bytes": 6356,
+      "sha256": "30f891bf41f5c570fc25a42c039b813b19170ab997e7dd8faec7bce905bab71f"
+    },
+    {
+      "path": "docs/evidence/m1/identity/postgres-tests.log",
+      "bytes": 11823,
+      "sha256": "bf28f6d917d61a2931a8e661ef0ff78eae0fc47c11e19da29cd32018b0984179"
+    },
+    {
+      "path": "docs/evidence/m1/identity/pytest.xml",
+      "bytes": 10202,
+      "sha256": "c97ca783a86df7e1f05152cb57cf82bd02a8947975faaf0b35aa19c2d4603a06"
+    },
+    {
+      "path": "docs/evidence/m1/identity/source-manifest.json",
+      "bytes": 2887,
+      "sha256": "23d2b3df4ed38c04872a54cfacae3148ced4eb7bd92b84e55e12b3f8cd4d9346"
+    },
+    {
+      "path": "docs/evidence/m1/runtime-safety/pytest.xml",
+      "bytes": 8182,
+      "sha256": "cb165bdcee907564e862a41777a2ff44250e3d986e8aef370ffa771123ccacf4"
+    },
+    {
+      "path": "docs/evidence/m1/workflow-checkpoint/content-browser.log",
+      "bytes": 4618,
+      "sha256": "da1af351134753e9bd99ea366b10843edbfd1de8c60f302e33947dcc8683ca49"
+    },
+    {
+      "path": "docs/evidence/m1/workflow-checkpoint/contracts.log",
+      "bytes": 6469,
+      "sha256": "71241bd79cbe3814ecbaef5d39b8aaf29d84a109a8626b7ff553c9f1339fecf3"
+    },
+    {
+      "path": "docs/evidence/m1/workflow-checkpoint/dependencies.log",
+      "bytes": 119,
+      "sha256": "03962e08fdfff896d9f8b6fdd4d3097956a6d1a7a270fb865c9cdbf2f0d5b4b4"
+    },
+    {
+      "path": "docs/evidence/m1/workflow-checkpoint/foundation.log",
+      "bytes": 6929,
+      "sha256": "8415b4a63269f5071a08fa2586396a77965f5e46196e835a937fe4950431a470"
+    },
+    {
+      "path": "docs/evidence/m1/workflow-checkpoint/frontend-build.log",
+      "bytes": 1275,
+      "sha256": "4b35b0d3be91d3df2294cdbccbc41d33ca0ca5dcd4fd1f7585b3e2fa7a6b8d6b"
+    },
+    {
+      "path": "docs/evidence/m1/workflow-checkpoint/identity.log",
+      "bytes": 11870,
+      "sha256": "ebca6fe27b415007997cedb1b51e8f85b44799895b541ec1efba8d2352380460"
+    },
+    {
+      "path": "docs/evidence/m1/workflow-checkpoint/isolation.log",
+      "bytes": 949,
+      "sha256": "82cf9f7c7a84a8f10df26b6e0cf04b7a67afab378fa2616c78becfeddbfd7509"
+    },
+    {
+      "path": "docs/evidence/m1/workflow-checkpoint/runtime.log",
+      "bytes": 8503,
+      "sha256": "55ed2f1041c24be9d5c610494b005a97793bc8c69a6c7877b708490a206fa887"
+    },
+    {
+      "path": "scripts/test_content_core_postgres.py",
+      "bytes": 3551,
+      "sha256": "3b8617088b48b2bc1e5b80a8f36a3393f1cc2192d1a148ddd0597915daa922dd"
+    }
+  ]
+}

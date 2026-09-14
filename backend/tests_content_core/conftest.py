@@ -28,7 +28,7 @@ from secure_api.audit import audit_identity_privileges
 from foundation.privileges import audit_function_privileges
 
 ROOT = Path(__file__).resolve().parents[2]
-EVIDENCE = ROOT / 'docs/evidence/m1/identity'
+EVIDENCE = ROOT / 'docs/evidence/m1/content-core'
 ORIGIN = 'https://app.fixture.invalid'
 ISSUER = 'https://idp.fixture.invalid'
 
@@ -36,7 +36,7 @@ ISSUER = 'https://idp.fixture.invalid'
 def migrate(c):
     config = Config(str(ROOT / 'backend/alembic.ini'))
     config.attributes['connection'] = c
-    command.upgrade(config, '0002_sessions')
+    command.upgrade(config, '0003_content_core')
 
 
 @pytest.fixture(scope='session')
@@ -51,8 +51,8 @@ def db():
     assert 'DATABASE_URL' not in os.environ
     engine = create_engine(url, hide_parameters=True)
     with engine.begin() as c:
-        c.execute(text('CREATE TABLE public.identity_legacy_sentinel(id text PRIMARY KEY,payload text)'))
-        c.execute(text("INSERT INTO public.identity_legacy_sentinel VALUES('legacy/raw','unchanged')"))
+        c.execute(text('CREATE TABLE public.content_legacy_sentinel(id text PRIMARY KEY,payload text)'))
+        c.execute(text("INSERT INTO public.content_legacy_sentinel VALUES('legacy/raw','unchanged')"))
         defaults = c.execute(text('SELECT oid,defaclacl::text FROM pg_default_acl ORDER BY oid')).all()
         migrate(c)
         audit_identity_privileges(c)
@@ -67,7 +67,7 @@ def db():
     with engine.connect() as c:
         server = c.execute(text('SELECT version()')).scalar_one()
         assert 'PostgreSQL 16.2' in server
-        env = {'server': server, 'schema_revision': '0002_sessions', 'real_oidc_proof': False,
+        env = {'server': server, 'schema_revision': '0003_content_core', 'real_oidc_proof': False,
                'identity_source': 'cryptographically signed fake IdP, fixture accounts only',
                'provider_calls': 0, 'database_accounts': 'two service fixture logins, NOT per-user',
                'env_scrubbed': True, 'dsn_logged': False,

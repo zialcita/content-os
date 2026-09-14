@@ -1,3 +1,9 @@
+# Delivery status — tested private-source workflow
+
+Current checkpoint2026-09-14: revision003 and the private text-source browser/API/worker workflow are included in this delivery, based on b63ffbf. Fresh local content/browser tests22 passed; identity71/foundation44/runtime59/contracts43/isolation5 and frontend build passed. Screenshot is delivered separately as a thread image (hash reference under content-core evidence). CI and older root recovery evidence remain excluded. This is development-only, with a signed fixture IdP and a text policy rather than antivirus certification; full M1/R1 remains open. No live provider/spending/publication/merge/deployment was authorized or performed.
+
+## Previous delivery history
+
 # Delivery status — reviewed identity checkpoint; CI still deferred
 
 Current checkpoint2026-09-14: reviewed identity slice based on e5bc4dd is delivered through the enclosing commit on engineering/v6-m0-foundation / draftPR2. Fresh evidence:71 identity,44 foundation,59 runtime,43 contracts,5 isolation tests passed and frontend build passed. OIDC uses signed fixtures, not live accounts. CI and partial uploads are excluded and retained locally. Production/spending/publishing/merge/deployment gates remain closed. Previous delivery history follows.

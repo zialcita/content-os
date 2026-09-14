@@ -24,7 +24,7 @@ class LoginStart(Model):
     @field_validator('return_path')
     @classmethod
     def safe_path(cls, value):
-        if not value.startswith('/') or value.startswith('//') or '\\' in value or any(ord(c) < 32 for c in value) or '%' in value:
+        if not value.startswith('/') or value.startswith('//') or '\\' in value or chr(92) in value or any(ord(c) < 32 for c in value) or '%' in value:
             raise ValueError('Local absolute path required')
         return value
 

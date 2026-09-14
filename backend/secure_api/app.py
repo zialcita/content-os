@@ -11,7 +11,7 @@ import secrets
 
 from cryptography.fernet import Fernet
 from fastapi import FastAPI, Request, Response, APIRouter, Query
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, RedirectResponse
 from sqlalchemy import text
 from sqlalchemy.engine import Engine
 from sqlalchemy.exc import DBAPIError
@@ -71,11 +71,11 @@ def _engine_guard(engine, group):
             raise RuntimeError('Dedicated minimally privileged service role required')
         # Validate EFFECTIVE login privileges too: direct grants must not bypass a
         # correctly configured group role. Parent must review combined feature lists.
-        from .audit import RUNTIME_FUNCTIONS, AUTH_FUNCTIONS, RUNTIME_TABLES
+        from .audit import expected_runtime_functions, AUTH_FUNCTIONS, RUNTIME_TABLES
         functions = set(c.execute(text('''SELECT p.proname||'('||replace(oidvectortypes(p.proargtypes),', ',',')||')'
             FROM pg_proc p JOIN pg_namespace n ON n.oid=p.pronamespace WHERE n.nspname='cos_v6'
             AND has_function_privilege(current_user,p.oid,'EXECUTE')''')).scalars())
-        expected = RUNTIME_FUNCTIONS if group == 'cos_api_runtime' else AUTH_FUNCTIONS
+        expected = expected_runtime_functions(c) if group == 'cos_api_runtime' else AUTH_FUNCTIONS
         tables = c.execute(text('''SELECT c.relname,
             has_any_column_privilege(current_user,c.oid,'SELECT') AS read,
             (has_table_privilege(current_user,c.oid,'INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER')
@@ -107,7 +107,7 @@ def create_app(settings: Settings, runtime_engine: Engine, authentication_engine
     install_errors(app)
     router = APIRouter(prefix=PREFIX, responses={s: {'model': ErrorEnvelope} for s in (401,403,404,409,422,428,429,500,503)})
     anonymous = {PREFIX + '/auth/login', PREFIX + '/auth/callback', PREFIX + '/onboarding/initiate',
-                 PREFIX + '/openapi.json', PREFIX + '/docs', PREFIX + '/docs/oauth2-redirect'}
+                 PREFIX + '/workflow', PREFIX + '/openapi.json', PREFIX + '/docs', PREFIX + '/docs/oauth2-redirect'}
 
     def csrf(token):
         return hmac.new(settings.csrf_key, token.encode(), 'sha256').hexdigest()
@@ -249,6 +249,12 @@ def create_app(settings: Settings, runtime_engine: Engine, authentication_engine
         result['csrf_token'] = csrf(token)
         cookie(response, COOKIE, token, 8*3600)
         response.delete_cookie(LOGIN_COOKIE, secure=True, httponly=True, samesite='lax', path='/')
+        if 'text/html' in request.headers.get('accept', ''):
+            destination = transaction['return_path']
+            M.LoginStart(return_path=destination)  # revalidate before browser navigation
+            redirect = RedirectResponse(destination, status_code=303)
+            redirect.raw_headers.extend((k,v) for k,v in response.raw_headers if k.lower()==b'set-cookie')
+            return redirect
         return result
 
     @router.get('/auth/session', response_model=M.Session, operation_id='getSession')
@@ -394,7 +400,7 @@ def create_app(settings: Settings, runtime_engine: Engine, authentication_engine
         schema.setdefault('components', {}).setdefault('securitySchemes', {})['SessionCookie'] = {
             'type': 'apiKey', 'in': 'cookie', 'name': COOKIE,
             'description': 'Opaque database session, Secure/HttpOnly; not a JWT or legacy workspace key.'}
-        optimistic = {'editBrand', 'editMembership', 'revokeMembership', 'setBrandGrant', 'revokeBrandGrant', 'revokeInvitation'}
+        optimistic = {'editBrand', 'editMembership', 'revokeMembership', 'setBrandGrant', 'revokeBrandGrant', 'revokeInvitation', 'putLocalUploadPart', 'finalizeSource', 'cancelUploadIntent', 'reviseSourceMetadata'}
         for path, methods in schema['paths'].items():
             for method, operation in methods.items():
                 operation['x-implementation-status'] = 'development-implemented'
@@ -406,7 +412,7 @@ def create_app(settings: Settings, runtime_engine: Engine, authentication_engine
                         headers.append(('X-CSRF-Token', 'Session-bound CSRF token from session response.'))
                 if operation.get('operationId') in optimistic:
                     headers.append(('If-Match', 'Strong quoted positive integer aggregate revision; no wildcard. Grants use membership revision.'))
-                if operation.get('operationId') in ('createBrand', 'editBrand'):
+                if operation.get('operationId') in ('createBrand', 'editBrand', 'createUploadIntent', 'finalizeSource', 'reviseSourceMetadata'):
                     headers.append(('Idempotency-Key', 'Actor/workspace/operation-scoped key, maximum 200 characters.'))
                 operation.setdefault('parameters', []).extend({'name': name, 'in': 'header', 'required': True,
                     'description': description, 'schema': {'type': 'string', 'minLength': 1}} for name, description in headers)

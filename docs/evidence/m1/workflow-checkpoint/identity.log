@@ -88,3 +88,6 @@ collecting ... collected 71 items
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
 - generated xml file: /agent/workspace/content-os/docs/evidence/m1/identity/pytest.xml -
 ======================= 71 passed, 2 warnings in 16.26s ========================
+
+
+Disposable identity PostgreSQL tests exit: 0
